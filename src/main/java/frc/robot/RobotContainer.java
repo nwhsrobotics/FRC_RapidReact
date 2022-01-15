@@ -7,8 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunSparkCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.RunSparkSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,6 +25,14 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  private final RunSparkSubsystem m_sparkSubsystem = new RunSparkSubsystem();
+  private final RunSparkCommand m_sparkCommand = new RunSparkCommand(m_sparkSubsystem); 
+  
+  //Controller Stuff
+  private final XboxController m_joy0 = new XboxController(0);
+  private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
+  
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -34,7 +45,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    joy0_a.whenPressed(m_sparkCommand);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
