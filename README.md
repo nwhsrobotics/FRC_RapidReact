@@ -6,12 +6,16 @@
 * Autonomous Functionality
 * Team
   * Matthew
+  * Casey
 
 
 ## 2. *IntakeSubsystem*
 * Controlling (min 1) motor to bring the intake down
 * Running the intake (min 1) motor to bring ball into the robot
 * Autonomous Functionality
+  * Addy
+  * Dylan
+  * Brian
 
 ## 3. *ShooterSubsystem*
 * Controlling (min 1) motor to controll the shooter
@@ -19,12 +23,14 @@
 * Autonomous Functionality
 * Team
   * Conner
+  * Neel
  
 ## 4. *IndexSubsystem*
 * Controlling 1 motor to bring ball to the shooter
 * Autonomous Functionality
 * Team
   * Joey
+  * Taian
 
 ## 5. *ClimbSubsystem*
 * Arm 1
