@@ -15,12 +15,20 @@ public class IndexSubsystem extends SubsystemBase {
   private static final int CAN_ID_INDEX = 10;
   private CANSparkMax m_indexMotor = new CANSparkMax(CAN_ID_INDEX, MotorType.kBrushless);
   
+  private static boolean m_enabled = false;
+
   /** Creates a new IndexSubsystem. */
-  public IndexSubsystem() {}
+  public IndexSubsystem() {
+    if (m_indexMotor != null){
+      m_enabled = true;
+    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  
+    if (!m_enabled) return;
+
+    // regular code goes here
   }
 }
