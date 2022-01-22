@@ -7,11 +7,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  private static final int CAN_ID_ - 1;
-  private CANSparkMax m_rightFront = new CANSparkMax(CAN_ID 2, MotorType.kBrushless);
-  private CANSparkMax m_leftFront = new CANSparkMax(CAN_ID_3, MotorType.kBrushless);
-  private CANSparkMax m_rightBack = new CANSparkMax(CAN_ID_4, MotorType.kBrushless);
-  private CANSparkMax m_leftBack = new CANSparkMax(CAN_ID_5, MotorType.kBrushless);
+  private static final int CAN_ID_LEFT_FRONT = 2;
+  private static final int CAN_ID_LEFT_BACK = 3;
+  private static final int CAN_ID_RIGHT_FRONT = 4;
+  private static final int CAN_ID_RIGHT_FRONT = 5;
+  private CANSparkMax m_leftFront = new CANSparkMax(CAN_ID_LEFT_FRONT, MotorType.kBrushless);
+  private CANSparkMax m_leftBack = new CANSparkMax(CAN_ID_LEFT_BACK, MotorType.kBrushless);
+  private CANSparkMax m_rightFront = new CANSparkMax(CAN_ID_RIGHT_FRONT, MotorType.kBrushless);
+  private CANSparkMax m_rightBack = new CANSparkMax(CAN_ID_RIGHT_BACK, MotorType.kBrushless);
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {}
 
