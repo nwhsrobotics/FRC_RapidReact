@@ -10,15 +10,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ClimbSubsystem extends SubsystemBase{
-private static final int CAN_ID_RIGHTARM= 20;
-private static final int CAN_ID_LEFTARM= 21;
-private static final int CAN_ID_RIGHTSHOULDER= 22;
-private static final int CAN_ID_LEFTSHOULDER= 23;
-  private CANSparkMax m_rightarmMotor= new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax m_leftarmMotor= new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax m_rightshoulderMotor= new CANSparkMax(1, MotorType.kBrushless);
-  private CANSparkMax m_leftshoulderMotor= new CANSparkMax(1, MotorType.kBrushless);
+public class ClimbSubsystem extends SubsystemBase {
+  private static final int CAN_ID_RIGHTARM = 20;
+  private static final int CAN_ID_LEFTARM = 21;
+  private static final int CAN_ID_RIGHTSHOULDER = 22;
+  private static final int CAN_ID_LEFTSHOULDER = 23;
+  private CANSparkMax m_rightarmMotor = new CANSparkMax(CAN_ID_RIGHTARM, MotorType.kBrushless);
+  private CANSparkMax m_leftarmMotor = new CANSparkMax(CAN_ID_LEFTARM, MotorType.kBrushless);
+  private CANSparkMax m_rightshoulderMotor = new CANSparkMax(CAN_ID_RIGHTSHOULDER, MotorType.kBrushless);
+  private CANSparkMax m_leftshoulderMotor = new CANSparkMax(CAN_ID_LEFTSHOULDER, MotorType.kBrushless);
   /** Creates a new ClimbSubsystem. */
   public ClimbSubsystem() {}
 
