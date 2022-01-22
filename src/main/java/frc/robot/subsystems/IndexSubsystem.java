@@ -4,14 +4,23 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
+  
+  //added by Joey - 1/22/22
+  private static final int CAN_ID_INDEX = 10;
+  private CANSparkMax m_indexMotor = new CANSparkMax(CAN_ID_INDEX, MotorType.kBrushless);
+  
   /** Creates a new IndexSubsystem. */
   public IndexSubsystem() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  
   }
 }
