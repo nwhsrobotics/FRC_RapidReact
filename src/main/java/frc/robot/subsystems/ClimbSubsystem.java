@@ -19,11 +19,21 @@ public class ClimbSubsystem extends SubsystemBase {
   private CANSparkMax m_leftarmMotor = new CANSparkMax(CAN_ID_LEFTARM, MotorType.kBrushless);
   private CANSparkMax m_rightshoulderMotor = new CANSparkMax(CAN_ID_RIGHTSHOULDER, MotorType.kBrushless);
   private CANSparkMax m_leftshoulderMotor = new CANSparkMax(CAN_ID_LEFTSHOULDER, MotorType.kBrushless);
+  
+  private static boolean m_enabled = false;
+  
   /** Creates a new ClimbSubsystem. */
-  public ClimbSubsystem() {}
+  public ClimbSubsystem() {
+    if ((m_rightarmMotor != null) && (m_leftarmMotor != null) && (m_rightshoulderMotor != null) && (m_leftshoulderMotor != null)){
+      m_enabled = true;
+    }
+  }
 
   @Override
   public void periodic() {
+    if (!m_enabled){
+      return;
+    }
     // This method will be called once per scheduler run
   }
 }
