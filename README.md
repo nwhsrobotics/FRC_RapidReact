@@ -13,6 +13,7 @@
 * Controlling (min 1) motor to bring the intake down
 * Running the intake (min 1) motor to bring ball into the robot
 * Autonomous Functionality
+* Team
   * Addy
   * Dylan
   * Brian

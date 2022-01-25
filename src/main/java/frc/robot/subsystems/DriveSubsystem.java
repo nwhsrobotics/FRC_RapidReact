@@ -18,12 +18,23 @@ public class DriveSubsystem extends SubsystemBase {
   private CANSparkMax m_leftBack = new CANSparkMax(CAN_ID_LEFT_BACK, MotorType.kBrushless);
   private CANSparkMax m_rightFront = new CANSparkMax(CAN_ID_RIGHT_FRONT, MotorType.kBrushless);
   private CANSparkMax m_rightBack = new CANSparkMax(CAN_ID_RIGHT_BACK, MotorType.kBrushless);
+
+  private static boolean m_enabled = false;
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {}
+  public DriveSubsystem() {
+    if (m_leftFront != null && m_leftBack != null && m_rightFront != null && m_rightBack != null){
+      m_enabled = true;
+    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (!m_enabled){
+      return;
+    }
+
+    
   }
 
   @Override

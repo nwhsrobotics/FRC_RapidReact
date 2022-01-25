@@ -53,7 +53,7 @@ Constants.java is used to store information that is static and does not change t
         private int MOTOR1_ID = Constants.Storage.CANID_STORAGE_MOTOR1;
         ```
     
-## 2. Getting Started with the Xbox Controller
+## 2. Getting Started with the Xbox Controller -- NOT COMPLETE
 **The Controller Workflow**
 1. When you press a button on the controller, it will call a *Command*
 2. The command will call method(s) from a *Subsystem*
@@ -74,7 +74,7 @@ public class RobotContainer {
 
 
 
-## 3. Using the SparkMax Controller
+## 3. Using the SparkMax Controller -- NOT COMPLETE
 **SparkMAX Advantages/Features**
 * Sparks are a great way to control precise motor movement
 * Sparks can operate under a brushless mode making them very powerful — torque!
