@@ -27,8 +27,9 @@ public class IndexSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (!m_enabled) return;
-
+    if (!m_enabled) {
+      return;
+    }
     // regular code goes here
   }
 }
