@@ -31,5 +31,6 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     if (!m_enabled) {
       return;
+    }
   }
 }
