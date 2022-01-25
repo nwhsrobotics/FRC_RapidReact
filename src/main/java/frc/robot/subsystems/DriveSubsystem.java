@@ -22,7 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
   private static boolean m_enabled = false;
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
-    if (m_leftFront != null && m_leftBack != null && m_rightFront != null && m_rightBack != null){
+    if ((m_leftFront != null) && (m_leftBack != null) && (m_rightFront != null) && (m_rightBack != null)){
       m_enabled = true;
     }
   }
@@ -34,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase {
       return;
     }
 
-    
+
   }
 
   @Override
