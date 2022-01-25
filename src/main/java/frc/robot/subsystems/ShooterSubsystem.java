@@ -15,11 +15,21 @@ public class ShooterSubsystem extends SubsystemBase {
   private CANSparkMax m_flywheelMotor = new CANSparkMax(CAN_ID_FLYWHEEL, MotorType.kBrushless);
   private CANSparkMax m_hoodMotor = new CANSparkMax(CAN_ID_HOOD, MotorType.kBrushless);
 
+  private static boolean m_enabled = false;
+
   /** Creates a new ShooterSubsystem. */
-  public ShooterSubsystem() {}
+  public ShooterSubsystem() {
+    if ((m_flywheelMotor != null) && (m_hoodMotor != null)) {
+      m_enabled = true;
+    }
+  }
+
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (!m_enabled) {
+      return;
   }
 }
