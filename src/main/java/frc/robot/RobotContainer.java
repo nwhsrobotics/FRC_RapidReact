@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.UpdateIndexPositionCommand;
+import frc.robot.commands.IndexLoadCommand;
+import frc.robot.commands.IndexShootCommand;
+import frc.robot.commands.IndexUnloadCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -35,13 +38,15 @@ public class RobotContainer {
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
   private final UpdateIndexPositionCommand m_updateIndexPositionCommand = new UpdateIndexPositionCommand(m_indexSubsystem);
+  private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
+  private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem);
+  private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
 
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -55,6 +60,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // assign index*Command
     joy0_a.whenPressed(m_updateIndexPositionCommand);
   }
 

@@ -28,10 +28,9 @@ public class IndexSubsystem extends SubsystemBase {
     if (m_indexMotor != null){
       m_enabled = true;
     }
+
     m_pidController = m_indexMotor.getPIDController();
     m_encoder = m_indexMotor.getEncoder();
-
-
 
     m_encoder.setPosition(0);
     m_indexMotor.setIdleMode(IdleMode.kBrake);
@@ -42,8 +41,6 @@ public class IndexSubsystem extends SubsystemBase {
     m_pidController.setIZone(0);
     m_pidController.setFF(0);
     m_pidController.setOutputRange(-0.2, 0.2);
-
-
   }
 
   @Override
@@ -55,11 +52,13 @@ public class IndexSubsystem extends SubsystemBase {
     // regular code goes here
   }
 
-  public void runPos(int position){
+  public void runToPosition(int position){
     m_pidController.setReference(position, ControlType.kPosition);
   }
 
+  public int getPosition_deg() {
+    return 0;
+  }
 
+  public void setPosition_deg(int nextPosition_deg) {}
 }
-
-

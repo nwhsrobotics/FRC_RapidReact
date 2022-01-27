@@ -7,10 +7,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexSubsystem;
 
-public class UpdateIndexPositionCommand extends CommandBase {
+public class IndexShootCommand extends CommandBase {
   /** Creates a new UpdateIndexPositionMotor_TEST. */
   private IndexSubsystem m_indexSubsystem;
-  public UpdateIndexPositionCommand(IndexSubsystem subsystem) {
+  public IndexShootCommand(IndexSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     m_indexSubsystem = subsystem;
