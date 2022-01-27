@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.UpdateIndexPositionCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
@@ -37,7 +36,6 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
-  private final UpdateIndexPositionCommand m_updateIndexPositionCommand = new UpdateIndexPositionCommand(m_indexSubsystem);
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
@@ -61,7 +59,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // assign index*Command
-    joy0_a.whenPressed(m_updateIndexPositionCommand);
+    // joy0_a.whenPressed(m_updateIndexPositionCommand);
   }
 
   /**
