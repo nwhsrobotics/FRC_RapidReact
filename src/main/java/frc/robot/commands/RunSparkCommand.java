@@ -24,7 +24,7 @@ public class RunSparkCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_sparkSubsystem.runPos(500);
+    m_sparkSubsystem.setVelocity(50);
     System.out.println("Executed the Run Position Command");
   }
 
