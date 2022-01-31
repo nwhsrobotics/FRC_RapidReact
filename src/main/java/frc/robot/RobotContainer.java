@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
+import frc.robot.commands.ToggleShootCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -39,9 +40,11 @@ public class RobotContainer {
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
+  private final ToggleShootCommand m_toggleShootCommand = new ToggleShootCommand(m_shooterSubsystem);
 
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
+  private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   
@@ -60,6 +63,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
+    joy0_b.whenPressed(m_toggleShootCommand);
   }
 
   /**
