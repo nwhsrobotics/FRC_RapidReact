@@ -18,33 +18,40 @@ public class RunSparkSubsystem extends SubsystemBase {
   private CANSparkMax m_motor1 = null;
   private SparkMaxPIDController m_pidController; 
   private RelativeEncoder m_encoder;
-  private double m_position;
+  private double m_velocity = 0;
+  private boolean runTime = false;
 
   public RunSparkSubsystem() {
     m_motor1 = new CANSparkMax(3, MotorType.kBrushless);
     m_pidController = m_motor1.getPIDController();
     m_encoder = m_motor1.getEncoder();
-    m_encoder.setPosition(0);
+    //m_encoder.setPosition(0);
     m_motor1.setIdleMode(IdleMode.kBrake);
-
+    /*
     m_pidController.setP(0.01);
     m_pidController.setI(0);
-    m_pidController.setD(0);
+    m_pidController.setD(0.01);
     m_pidController.setIZone(0);
     m_pidController.setFF(0);
     m_pidController.setOutputRange(-0.2, 0.2);
-
+    m_pidController.setReference(0.0, ControlType.kVelocity);
+    */
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (runTime){
+      m_motor1.set(m_velocity);
+      //m_pidController.setReference(m_velocity, ControlType.kVelocity);
+    }
   }
 
   public void setVelocity(double velocity){
-
-    m_pidController.setReference(velocity, ControlType.kVelocity);
+    runTime = true;
+    m_velocity = velocity;
+    
   }
 
   

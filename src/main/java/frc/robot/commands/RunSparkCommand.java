@@ -10,6 +10,7 @@ import frc.robot.subsystems.RunSparkSubsystem;
 public class RunSparkCommand extends CommandBase {
   /** Creates a new RunSparkCommand. */
   private final RunSparkSubsystem m_sparkSubsystem;
+  private double RUN_VEL = 0;
   
   public RunSparkCommand(RunSparkSubsystem subsystem) {
     m_sparkSubsystem = subsystem;
@@ -24,8 +25,10 @@ public class RunSparkCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_sparkSubsystem.setVelocity(50);
+    
+    m_sparkSubsystem.setVelocity(RUN_VEL);
     System.out.println("Executed the Run Position Command");
+    RUN_VEL = RUN_VEL + 0.05;
   }
 
   // Called once the command ends or is interrupted.
