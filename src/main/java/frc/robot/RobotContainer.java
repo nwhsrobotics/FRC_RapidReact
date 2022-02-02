@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,9 +44,27 @@ public class RobotContainer {
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleShootCommand m_toggleShootCommand = new ToggleShootCommand(m_shooterSubsystem);
 
+  private final ClimbCommand m_climbCommand0 = new ClimbCommand(m_climbSubsystem, 0);
+  private final ClimbCommand m_climbCommand45 = new ClimbCommand(m_climbSubsystem, 45);
+  private final ClimbCommand m_climbCommand90 = new ClimbCommand(m_climbSubsystem, 90);
+  private final ClimbCommand m_climbCommand135 = new ClimbCommand(m_climbSubsystem, 135);
+  private final ClimbCommand m_climbCommand180 = new ClimbCommand(m_climbSubsystem, 180);
+  private final ClimbCommand m_climbCommand225 = new ClimbCommand(m_climbSubsystem, 225);
+  private final ClimbCommand m_climbCommand270 = new ClimbCommand(m_climbSubsystem, 270);
+  private final ClimbCommand m_climbCommand315 = new ClimbCommand(m_climbSubsystem, 315);
+
+
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
   private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
+  private final POVButton m_pov0 = new POVButton(m_joy0, 0);
+  private final POVButton m_pov45 = new POVButton(m_joy0, 45);
+  private final POVButton m_pov90 = new POVButton(m_joy0, 90);
+  private final POVButton m_pov135 = new POVButton(m_joy0, 135);
+  private final POVButton m_pov180 = new POVButton(m_joy0, 180);
+  private final POVButton m_pov225 = new POVButton(m_joy0, 225);
+  private final POVButton m_pov270 = new POVButton(m_joy0, 270);
+  private final POVButton m_pov315 = new POVButton(m_joy0, 315);
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   
@@ -64,6 +84,16 @@ public class RobotContainer {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
     joy0_b.whenPressed(m_toggleShootCommand);
+
+    m_pov0.whenHeld(m_climbCommand0);
+    m_pov45.whenHeld(m_climbCommand45);
+    m_pov90.whenHeld(m_climbCommand90);
+    m_pov135.whenHeld(m_climbCommand135);
+    m_pov180.whenHeld(m_climbCommand180);
+    m_pov225.whenHeld(m_climbCommand225);
+    m_pov270.whenHeld(m_climbCommand270);
+    m_pov315.whenHeld(m_climbCommand315);
+
   }
 
   /**
