@@ -25,10 +25,10 @@ public class ToggleShootCommand extends CommandBase {
   public void execute() {
     
     if (m_shooterSubsystem.getFlywheelStatus()==false){
-      m_shooterSubsystem.setFlywheel(.5); 
+      m_shooterSubsystem.setFlywheel_rpm(.5); 
       
     } else{
-      m_shooterSubsystem.setFlywheel(0);
+      m_shooterSubsystem.setFlywheel_rpm(0);
     }
 
   }
