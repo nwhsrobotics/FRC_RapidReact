@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IndexSubsystem extends SubsystemBase {
   
   //added by Joey - 1/22/22
-  private static final int CAN_ID_INDEX = 3;
+  private static final int CAN_ID_INDEX = 29; //was 3
   private CANSparkMax m_indexMotor = new CANSparkMax(CAN_ID_INDEX, MotorType.kBrushless);
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
