@@ -10,7 +10,7 @@ import frc.robot.subsystems.IndexSubsystem.IndexerState;
 
 public class IndexLoadCommand extends CommandBase {
 
-  private static final double SECONDS_PER_TICK = 1.0 / 50.0;
+  private static final double SECONDS_PER_TICK = 1.0 / 50.0; // TODO move to constants
   // indexer wheel speed in degrees per second
   private static final double INDEX_FORWARD_NORMAL = 30.0;
   /** Creates a new IndexLoadCommand. */
