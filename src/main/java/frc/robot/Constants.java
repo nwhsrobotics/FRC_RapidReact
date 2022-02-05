@@ -32,8 +32,7 @@ public final class Constants {
             public static final int CLIMB_LEFT_ARM = 21;
             public static final int CLIMB_RIGHT_SHOULDER = 22;
             public static final int CLIMB_LEFT_SHOULDER = 23;
-            // please define when ready.
-            // public static final int INTAKE = 999;
+            public static final int INTAKE_BEATER = 7;
         }
         public final class Controls {
             public static final int JOYSTICK = 0;

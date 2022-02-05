@@ -14,6 +14,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
+
+  public enum IndexerState{
+    EMPTY,
+    LOADED_1,
+    LOADED_2,
+    ARMED_1;
+  }
+
+  private IndexerState m_state = IndexerState.EMPTY;
   
   //added by Joey - 1/22/22
   private static final int CAN_ID_INDEX = 29; //was 3
@@ -56,9 +65,17 @@ public class IndexSubsystem extends SubsystemBase {
     m_pidController.setReference(position, ControlType.kPosition);
   }
 
-  public int getPosition_deg() {
-    return 0;
+  public double getPosition_deg() {
+    return 0.0;
   }
 
-  public void setPosition_deg(int nextPosition_deg) {}
+  public void setPosition_deg(double nextPosition_deg) {}
+
+  public IndexerState getState(){
+    return m_state;
+  }
+
+  public void setState(IndexerState state){
+    m_state = state;
+  }
 }

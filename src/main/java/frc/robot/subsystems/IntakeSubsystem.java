@@ -3,6 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import frc.robot.Constants.IDs;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
@@ -28,6 +32,11 @@ public class IntakeSubsystem extends SubsystemBase {
   private double m_currentPosition_deg = UP_POSITION_DEG;
   public static final double COUNTS_PER_DEG = 42.0*200.0/360.0;// 42 counts per motor rev, 200:1 gear ration, 360 deg/rev
  
+  private static final double BEATER_ON_SPEED = 0.2;
+  private static final double BEATER_OFF_SPEED = 0.0;
+  private boolean m_beaterOn = false;
+  private CANSparkMax m_beaterMotor = new CANSparkMax (IDs.CAN.INTAKE_BEATER, MotorType.kBrushless);
+
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     if (m_intakeArmMotor != null){
@@ -52,6 +61,14 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     m_pidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
+ 
+    if (m_beaterOn){
+      m_beaterMotor.set(BEATER_ON_SPEED);
+    }
+    else {
+      m_beaterMotor.set(BEATER_OFF_SPEED);
+    }
+ 
   }
 
   private int toEncoder(double position_deg) {
@@ -77,4 +94,10 @@ public void setPosition_deg(double position) {
   SmartDashboard.putNumber("currentPosition: ", position);
 }
 
+    
+  
+
+  public void setBeaterOn(boolean on) {
+    m_beaterOn = on;
+  }     
 }

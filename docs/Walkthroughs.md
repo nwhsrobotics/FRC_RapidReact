@@ -2,8 +2,9 @@
 
 ## Table of Contents
 1. Using Constants.java
-2. Using the XBox Controller
-3. Using the SparkMax Controller
+2. Using the XBox Controller - Under Construction
+3. Using the SparkMax Controller - Under Construction
+4. Operating Vision Systems with the RaspberryPi - Under Construction
 
 ## 1. Using Constants.java
 **Overview** 
@@ -74,12 +75,14 @@ public class RobotContainer {
 
 
 
-## 3. Using the SparkMax Controller
+## 3. Using the SparkMax Controller 
 **SparkMAX Advantages/Features**
 * Sparks are a great way to control precise motor movement
 * Sparks can operate under a brushless mode making them very powerful — torque!
 
 **How To Code**
 1. Create a new subsystem for your SparkMax
+
+## 4. Operating Vision Systems with the RaspberryPi
 
 
