@@ -10,7 +10,7 @@ import frc.robot.subsystems.RunSparkSubsystem;
 public class RunSparkCommand extends CommandBase {
   /** Creates a new RunSparkCommand. */
   private final RunSparkSubsystem m_sparkSubsystem;
-  private double RUN_VEL = 0;
+  private double RUN_VEL = 70;
   
   public RunSparkCommand(RunSparkSubsystem subsystem) {
     m_sparkSubsystem = subsystem;
@@ -28,7 +28,7 @@ public class RunSparkCommand extends CommandBase {
     
     m_sparkSubsystem.setVelocity(RUN_VEL);
     System.out.println("Executed the Run Position Command");
-    RUN_VEL = RUN_VEL + 0.05;
+    RUN_VEL = RUN_VEL + 20;
   }
 
   // Called once the command ends or is interrupted.
