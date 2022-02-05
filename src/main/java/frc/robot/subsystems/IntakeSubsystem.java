@@ -21,7 +21,7 @@ import frc.robot.Constants;
 public class IntakeSubsystem extends SubsystemBase {
   
 
-  private CANSparkMax m_intakeArmMotor = new CANSparkMax(3, MotorType.kBrushless);
+  private CANSparkMax m_intakeArmMotor = new CANSparkMax(Constants.IDs.CAN.INTAKE_MOTOR_ARM, MotorType.kBrushless);
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
   private static boolean m_enabled = false;

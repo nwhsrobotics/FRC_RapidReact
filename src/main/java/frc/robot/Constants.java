@@ -33,6 +33,7 @@ public final class Constants {
             public static final int CLIMB_RIGHT_SHOULDER = 22;
             public static final int CLIMB_LEFT_SHOULDER = 23;
             public static final int INTAKE_BEATER = 7;
+            public static final int INTAKE_MOTOR_ARM = 30;
         }
         public final class Controls {
             public static final int JOYSTICK = 0;
