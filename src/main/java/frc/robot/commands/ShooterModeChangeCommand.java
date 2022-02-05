@@ -12,7 +12,7 @@ public class ShooterModeChangeCommand extends CommandBase {
   private enum ShooterSpeedLevel {
       OFF, LOW, HIGH 
   }
-  ShooterSpeedLevel currentSpeed = ShooterSpeedLevel.OFF;
+  private ShooterSpeedLevel currentSpeed = ShooterSpeedLevel.OFF;
   public ShooterModeChangeCommand(ShooterSubsystem subsystem) {
     addRequirements(subsystem);
     m_shooterSubsystem = subsystem;
@@ -46,7 +46,7 @@ public class ShooterModeChangeCommand extends CommandBase {
             m_shooterSubsystem.setFlywheel_rpm(120.0);
             break;
     }
-    }
+  }
     // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
