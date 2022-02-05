@@ -12,6 +12,8 @@ import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
+import frc.robot.commands.ToggleIntakeCommand;
+import frc.robot.commands.ToggleShootCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -41,6 +43,8 @@ public class RobotContainer {
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
+  private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
+  private final ToggleShootCommand m_toggleShootCommand = new ToggleShootCommand(m_shooterSubsystem);
 
   //private final DriveBackwardCommand m_driveBackwardCommand = new DriveBackwardCommand(m_driveSubsystem);
 
@@ -69,7 +73,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
-    // joy0_b.whenPressed(m_driveForwardCommand);
+    joy0_a.whenPressed(m_toggleIntakeCommand);
+    joy0_b.whenPressed(m_toggleShootCommand);
   }
 
   /**
