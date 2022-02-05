@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
-  private static final int CAN_ID_FLYWHEEL = 15;
-  private static final int CAN_ID_FLYWHEEL2 = 16;
+  private static final int CAN_ID_FLYWHEEL = 1;
+  private static final int CAN_ID_FLYWHEEL2 = 2;
   private CANSparkMax m_flywheelMotor = new CANSparkMax(CAN_ID_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
@@ -41,7 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_flywheelMotor.setIdleMode(IdleMode.kCoast);
 
     m_flywheelpidController.setP(0.0002);
-    m_flywheelpidController.setI(0);
+    m_flywheelpidController.setI(0.000001);
     m_flywheelpidController.setD(0);
     m_flywheelpidController.setIZone(0);
     m_flywheelpidController.setFF(0.000178);
@@ -74,8 +74,10 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     //Set moters for m_speed_rpm
-    m_flywheelpidController.setReference(m_speed_rpm, ControlType.kVelocity);
-    m_flywheel2pidController.setReference(-m_speed_rpm, ControlType.kVelocity);
+    
+    m_flywheelpidController.setReference(-m_speed_rpm, ControlType.kVelocity);
+    m_flywheel2pidController.setReference(m_speed_rpm, ControlType.kVelocity);
+  
   }
 
   public boolean getFlywheelStatus(){
