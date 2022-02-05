@@ -23,6 +23,7 @@ public class IndexLoadCommand extends CommandBase {
   private final double ARMED_1_DEGREES = 0.0;
   private final double LOAD_DEGREES_PER_TICK = 0.0;
   private double m_speed = 0.0;
+  private boolean m_done = false;
   
   public IndexLoadCommand(IndexSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,6 +34,8 @@ public class IndexLoadCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_done = false;
+
     IndexerState state = m_indexSubsystem.getState();
     m_currentPosition_deg = m_indexSubsystem.getPosition_deg();
     
@@ -76,11 +79,13 @@ public class IndexLoadCommand extends CommandBase {
     if(m_speed > 0.0){
       if (nextPosition_deg > m_endPosition_deg) {
         nextPosition_deg = m_endPosition_deg;
+        m_done = true;
       }
     }
     else{
       if (nextPosition_deg < m_endPosition_deg) {
         nextPosition_deg = m_endPosition_deg;
+        m_done = true;
       }
     }
     
@@ -97,6 +102,6 @@ public class IndexLoadCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_currentPosition_deg >= m_endPosition_deg);
+    return m_done;
   }
 }
