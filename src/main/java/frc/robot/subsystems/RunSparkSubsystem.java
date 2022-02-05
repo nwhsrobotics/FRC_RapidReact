@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -22,6 +24,7 @@ public class RunSparkSubsystem extends SubsystemBase {
   private double m_velocity = 0;
   private boolean runTime = false;
   private static final double INDEX_RAMPRATE = 1.5;
+  BuiltInAccelerometer gyro = new BuiltInAccelerometer();
 
   public RunSparkSubsystem() {
     m_motor1 = new CANSparkMax(3, MotorType.kBrushless);
@@ -40,7 +43,9 @@ public class RunSparkSubsystem extends SubsystemBase {
     m_pidController.setReference(0.0, ControlType.kVelocity);
     
     m_motor1.setClosedLoopRampRate(INDEX_RAMPRATE);
-
+    
+    
+    
   }
 
   @Override
@@ -53,6 +58,8 @@ public class RunSparkSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("Voltage Applied: ", m_motor1.getBusVoltage());
       //m_pidController.setReference(m_velocity, ControlType.kVelocity);
     }
+    SmartDashboard.putNumber("Gyro: ", gyro.getX() );
+
   }
 
   public void setVelocity(double velocity){
