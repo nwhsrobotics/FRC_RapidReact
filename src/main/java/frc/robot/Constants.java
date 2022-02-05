@@ -21,11 +21,11 @@ public final class Constants {
     public final class IDs {
         public final class CAN {
             // CAN ID addresses.
-            public static final int DRIVE_LEFT_FRONT = 2;
-            public static final int DRIVE_RIGHT_FRONT = 3;
-            public static final int DRIVE_LEFT_BACK = 4;
-            public static final int DRIVE_RIGHT_BACK = 5;
-            public static final int INDEX = 10;
+            public static final int DRIVE_LEFT_FRONT = 8;
+            public static final int DRIVE_RIGHT_FRONT = 11;
+            public static final int DRIVE_LEFT_BACK = 9;
+            public static final int DRIVE_RIGHT_BACK = 10;
+            public static final int INDEX = 12;//was 10
             public static final int SHOOTER_FLYWHEEL = 15;
             public static final int SHOOTER_HOOD = 16;
             public static final int CLIMB_RIGHT_ARM = 20;
