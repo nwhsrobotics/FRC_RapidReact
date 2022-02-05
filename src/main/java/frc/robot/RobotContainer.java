@@ -11,7 +11,7 @@ import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
 import frc.robot.commands.ToggleIntakeCommand;
-import frc.robot.commands.ToggleShootCommand;
+import frc.robot.commands.ShooterModeChangeCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -42,7 +42,7 @@ public class RobotContainer {
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
-  private final ToggleShootCommand m_toggleShootCommand = new ToggleShootCommand(m_shooterSubsystem);
+  private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
 
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
@@ -66,8 +66,10 @@ public class RobotContainer {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
     joy0_a.whenPressed(m_toggleIntakeCommand);
-    joy0_b.whenPressed(m_toggleShootCommand);
+    joy0_b.whenPressed(m_shooterModeChangeCommand);
   }
+
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
