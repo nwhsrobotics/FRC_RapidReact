@@ -25,10 +25,13 @@ public class ToggleShootCommand extends CommandBase {
   public void execute() {
     
     if (m_shooterSubsystem.getFlywheelStatus()==false){
-      m_shooterSubsystem.setFlywheel_rpm(.5); 
+      m_shooterSubsystem.setFlywheel_rpm(120.0); 
+      System.out.println("FlywheelOn");
+      
       
     } else{
-      m_shooterSubsystem.setFlywheel_rpm(0);
+      m_shooterSubsystem.setFlywheel_rpm(0.0);
+      System.out.println("FlywheelOff");
     }
 
   }
@@ -40,6 +43,6 @@ public class ToggleShootCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
