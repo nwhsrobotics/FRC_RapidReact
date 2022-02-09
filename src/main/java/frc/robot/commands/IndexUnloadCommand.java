@@ -22,7 +22,6 @@ public class IndexUnloadCommand extends CommandBase {
   private final double UNLOAD_LOAD_1_DEGREES = -0.0;
   private final double UNLOAD_LOAD_2_DEGREES = -0.0;
   private final double UNLOAD_ARMED_1_DEGREES = -0.0;
-  private final double UNLOAD_DEGREES_PER_TICK = 0.0;
   private double m_speed = 0.0;
   private boolean m_done = false;
 

@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
@@ -59,6 +60,31 @@ public class IndexSubsystem extends SubsystemBase {
       return;
     }
     // regular code goes here
+    int numBallsLoaded = (getState().ordinal());
+    switch(numBallsLoaded) {
+      case 0:
+              // Empty
+              break;
+      case 1:
+              // Loaded 1
+              break;
+      case 2:
+              // Loaded 2
+              break;
+      case 3:
+              // Armed 1
+              break;
+      default: //SmartDashboard.putData(key, data);
+              break;
+    }
+    if (numBallsLoaded == 3)
+    {
+      //SmartDashboard.putNumber("Armed", 1.0);
+      SmartDashboard.putNumber("Balls Loaded", 1.0);
+    }
+    else{
+      SmartDashboard.putNumber("Balls Loaded", (double)numBallsLoaded);
+    }
   }
 
   public void runToPosition(int position){
