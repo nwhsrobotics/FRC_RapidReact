@@ -5,23 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IndexSubsystem.IndexerState;
 
 public class IndexUnloadCommand extends CommandBase {
-
-  private static final double SECONDS_PER_TICK = 1.0 / 50.0;
-  // indexer wheel speed in degrees per second
-  private static final double UNLOAD_SPEED = -30.0; // TODO verify speed should be negative
   /** Creates a new IndexLoadCommand. */
   
   private IndexSubsystem m_indexSubsystem;
   private double m_currentPosition_deg = 0.0;
   private double m_endPosition_deg = 0.0;
-  private final double UNLOAD_EMPTY_DEGREES = -0.0; // unload direction is opposite load and shoot
-  private final double UNLOAD_LOAD_1_DEGREES = -0.0;
-  private final double UNLOAD_LOAD_2_DEGREES = -0.0;
-  private final double UNLOAD_ARMED_1_DEGREES = -0.0;
   private double m_speed = 0.0;
   private boolean m_done = false;
 
@@ -41,32 +34,32 @@ public class IndexUnloadCommand extends CommandBase {
     
     switch (state){
       case EMPTY:
-        m_endPosition_deg = m_currentPosition_deg + UNLOAD_EMPTY_DEGREES;
-        m_speed = UNLOAD_SPEED;
+        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.UNLOAD_EMPTY_DEGREES;
+        m_speed = IndexSubsystem.Constants.SPEED_BACKWARD_NORMAL;
 
         // set state
         m_indexSubsystem.setState(IndexerState.EMPTY);
         break; 
 
       case LOADED_1:
-        m_endPosition_deg = m_currentPosition_deg + UNLOAD_LOAD_1_DEGREES;
-        m_speed = UNLOAD_SPEED;
+        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.UNLOAD_LOAD_1_DEGREES;
+        m_speed = IndexSubsystem.Constants.SPEED_BACKWARD_NORMAL;
         
         // set state
         m_indexSubsystem.setState(IndexerState.EMPTY);
         break;
 
       case LOADED_2:
-        m_endPosition_deg = m_currentPosition_deg + UNLOAD_LOAD_2_DEGREES;
-        m_speed = UNLOAD_SPEED;
+        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.UNLOAD_LOAD_2_DEGREES;
+        m_speed = IndexSubsystem.Constants.SPEED_BACKWARD_NORMAL;
 
         // set state
         m_indexSubsystem.setState(IndexerState.LOADED_1);
         break;
 
       case ARMED_1:
-        m_endPosition_deg = m_currentPosition_deg + UNLOAD_ARMED_1_DEGREES;
-        m_speed = UNLOAD_SPEED;
+        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.UNLOAD_ARMED_1_DEGREES;
+        m_speed = IndexSubsystem.Constants.SPEED_BACKWARD_NORMAL;
 
         // set state
         m_indexSubsystem.setState(IndexerState.EMPTY);
@@ -77,7 +70,7 @@ public class IndexUnloadCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double nextPosition_deg = m_currentPosition_deg + (m_speed * SECONDS_PER_TICK);
+    double nextPosition_deg = m_currentPosition_deg + (m_speed * Constants.SECONDS_PER_TICK);
     if(m_speed > 0.0){
       if (nextPosition_deg > m_endPosition_deg) {
         nextPosition_deg = m_endPosition_deg;
