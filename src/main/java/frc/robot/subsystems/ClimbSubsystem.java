@@ -38,12 +38,15 @@ public class ClimbSubsystem extends SubsystemBase {
 
   
   private static boolean m_enabled = false;
-  private double m_upDownPosition = 0.0;
-  private double m_backForwardPosition = 0.0;
-  private static final double SPEED_UP_DOWN = 1.0;
-  private static final double SPEED_BACK_FORWARD = 1.0;
+  private double m_upDown_m = 0.0;
+  private double m_backForward_m = 0.0;
+  private static final double SPEED_UP_DOWN_mps = 0.5;
+  private static final double SPEED_BACK_FORWARD_mps = 0.5;
+  private static final double TICKS_PER_SECOND = 50.0;
 // TO DO LIST: FIX REAL SPEED(THE 1.0 VALUES!)
-  
+  private static final double UP_DOWN_COUNTS_PER_METER = 0.01; //TO DO LIST: FIGURE OUT REAL VALUE
+  private static final double BACK_FORWARD_COUNTS_PER_METER = 0.01;
+
   /** Creates a new ClimbSubsystem. 
    * @param IdleMode 
    * @param ControlType */
@@ -111,20 +114,31 @@ public class ClimbSubsystem extends SubsystemBase {
     if (!m_enabled){
       return;
     }
+    // Covert the meters to the count
+    double upDown_counts = m_upDown_m*UP_DOWN_COUNTS_PER_METER;
     // This method will be called once per scheduler run
+    double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
+    m_leftarmPID.setReference(-upDown_counts, ControlType.kPosition);
+    m_rightarmPID.setReference(upDown_counts, ControlType.kPosition);
+    m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
+    m_rightshoulderPID.setReference(backForward_counts, ControlType.kPosition);
   }
 
   public void moveUp() {
-    m_upDownPosition += SPEED_UP_DOWN;
+    m_upDown_m += SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
   }
 
   public void moveForward() {
+    m_backForward_m += SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
+
   }
 
   public void moveDown() {
+    m_upDown_m -= SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
   }
 
   public void moveBack() {
+    m_backForward_m -= SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
   }
   
 
