@@ -78,7 +78,7 @@ public class ShooterSubsystem extends SubsystemBase {
     if (!m_enabled) {
       return;
     }
-    //m_speed_rpm = SmartDashboard.getNumber("flywheelSpeed (rpm)", 0.0);
+    m_speed_rpm = SmartDashboard.getNumber("flywheelSpeed (rpm)", 0.0);
     
     
 

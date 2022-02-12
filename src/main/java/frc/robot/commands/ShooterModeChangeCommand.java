@@ -10,7 +10,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShooterModeChangeCommand extends CommandBase {
   private ShooterSubsystem m_shooterSubsystem;
   private enum ShooterSpeedLevel {
-      OFF, LOW, HIGH 
+      OFF, LOW, MEDIUM, HIGH
   }
   private ShooterSpeedLevel currentSpeed = ShooterSpeedLevel.OFF;
   public ShooterModeChangeCommand(ShooterSubsystem subsystem) {
@@ -30,7 +30,10 @@ public class ShooterModeChangeCommand extends CommandBase {
         currentSpeed = ShooterSpeedLevel.LOW;
     }
     else if(currentSpeed == ShooterSpeedLevel.LOW) {
-        currentSpeed = ShooterSpeedLevel.HIGH;
+        currentSpeed = ShooterSpeedLevel.MEDIUM;
+    }
+    else if(currentSpeed == ShooterSpeedLevel.MEDIUM) {
+      currentSpeed = ShooterSpeedLevel.HIGH;
     }
     else if(currentSpeed == ShooterSpeedLevel.HIGH) {
         currentSpeed = ShooterSpeedLevel.OFF;
@@ -42,11 +45,15 @@ public class ShooterModeChangeCommand extends CommandBase {
             break;
         case LOW:
             System.out.println("setting speed low");
-            m_shooterSubsystem.setFlywheel_rpm(60.0);
+            m_shooterSubsystem.setFlywheel_rpm(2500.0);
+            break;
+        case MEDIUM:
+            System.out.println("setting speed medium");
+            m_shooterSubsystem.setFlywheel_rpm(3500.0);
             break;
         case HIGH:
             System.out.println("setting speed high");
-            m_shooterSubsystem.setFlywheel_rpm(120.0);
+            m_shooterSubsystem.setFlywheel_rpm(4500.0);
             break;
     }
   }
