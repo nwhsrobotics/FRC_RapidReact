@@ -10,10 +10,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  private static final int CAN_ID_LEFT_FRONT = 2;
-  private static final int CAN_ID_LEFT_BACK = 6; //was 3
-  private static final int CAN_ID_RIGHT_FRONT = 4;
-  private static final int CAN_ID_RIGHT_BACK = 5;
+  // ToDo: use values from constants.java
+  private static final int CAN_ID_LEFT_FRONT = 8;
+  private static final int CAN_ID_LEFT_BACK = 9; //was 3
+  private static final int CAN_ID_RIGHT_FRONT = 10;
+  private static final int CAN_ID_RIGHT_BACK = 11;
   private CANSparkMax m_leftFront = new CANSparkMax(CAN_ID_LEFT_FRONT, MotorType.kBrushless);
   private CANSparkMax m_leftBack = new CANSparkMax(CAN_ID_LEFT_BACK, MotorType.kBrushless);
   private CANSparkMax m_rightFront = new CANSparkMax(CAN_ID_RIGHT_FRONT, MotorType.kBrushless);

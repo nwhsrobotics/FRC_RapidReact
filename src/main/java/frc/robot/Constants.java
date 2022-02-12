@@ -21,10 +21,10 @@ public final class Constants {
     public final class IDs {
         public final class CAN {
             // CAN ID addresses.
-            public static final int DRIVE_LEFT_FRONT = 2;
-            public static final int DRIVE_RIGHT_FRONT = 3;
-            public static final int DRIVE_LEFT_BACK = 4;
-            public static final int DRIVE_RIGHT_BACK = 5;
+            public static final int DRIVE_LEFT_FRONT = 8;
+            public static final int DRIVE_RIGHT_FRONT = 10;
+            public static final int DRIVE_LEFT_BACK = 9;//was 4
+            public static final int DRIVE_RIGHT_BACK = 11;
             public static final int INDEX = 10;
             public static final int SHOOTER_FLYWHEEL = 15;
             public static final int SHOOTER_HOOD = 16;
@@ -33,7 +33,7 @@ public final class Constants {
             public static final int CLIMB_RIGHT_SHOULDER = 22;
             public static final int CLIMB_LEFT_SHOULDER = 23;
             public static final int INTAKE_BEATER = 7;
-            public static final int INTAKE_MOTOR_ARM = 30;
+            public static final int INTAKE_MOTOR_ARM = 4;
         }
         public final class Controls {
             public static final int JOYSTICK = 0;

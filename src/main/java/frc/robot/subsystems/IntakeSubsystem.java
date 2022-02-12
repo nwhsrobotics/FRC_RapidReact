@@ -46,6 +46,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_pidController = m_intakeArmMotor.getPIDController();
     m_encoder = m_intakeArmMotor.getEncoder();
 
+
     m_encoder.setPosition(0);
     m_intakeArmMotor.setIdleMode(IdleMode.kBrake);
 
@@ -54,7 +55,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_pidController.setD(0);
     m_pidController.setIZone(0);
     m_pidController.setFF(0);
-    m_pidController.setOutputRange(-0.2, 0.2);
+    m_pidController.setOutputRange(-0.5, 0.5);
   }
 
   @Override

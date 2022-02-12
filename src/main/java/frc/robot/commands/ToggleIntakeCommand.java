@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ToggleIntakeCommand extends CommandBase {
  
-  private static final double SPEED_DEG_PER_TICK = 2.0;
+  private static final double SPEED_DEG_PER_TICK = 90.0/150.0;//90 degs / 50 ticks per second (3 seconds)
   private IntakeSubsystem m_intake;
   private double m_endPosition;
   private double m_speed;
