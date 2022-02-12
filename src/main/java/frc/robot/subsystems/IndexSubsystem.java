@@ -11,11 +11,29 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
+  public final class Constants {
+    // indexer wheel speed in degrees per second
+    public static final double SPEED_FORWARD_NORMAL = 30.0;
+    public static final double SPEED_BACKWARD_NORMAL = -30.0; // TODO verify speed should be negative
+    // unload direction is opposite load and shoot
+    public final static double LOAD_1_DEGREES = 0.0;
+    public final static double LOAD_2_DEGREES = 0.0;
+    public final static double ARMED_1_DEGREES = -0.0;
+    public final static double UNLOAD_EMPTY_DEGREES = -0.0;
+    public final static double UNLOAD_LOAD_1_DEGREES = -LOAD_1_DEGREES;
+    public final static double UNLOAD_LOAD_2_DEGREES = -LOAD_2_DEGREES;
+    public final static double UNLOAD_ARMED_1_DEGREES = -0.0;
+    public final static double SHOOT_EMPTY_DEGREES = 0.0;
+    public final static double SHOOT_LOADED_1_DEGREES = 0.0;
+    public final static double SHOOT_LOADED_2_DEGREES = 0.0;
+    public final static double SHOOT_ARMED_1_DEGREES = 0.0;
+  }
 
-  public enum IndexerState{
+  public enum IndexerState {
     EMPTY,
     LOADED_1,
     LOADED_2,
@@ -23,18 +41,18 @@ public class IndexSubsystem extends SubsystemBase {
   }
 
   private IndexerState m_state = IndexerState.EMPTY;
-  
-  //added by Joey - 1/22/22
-  private static final int CAN_ID_INDEX = 29; //was 3
+
+  // added by Joey - 1/22/22
+  private static final int CAN_ID_INDEX = 29; // was 3
   private CANSparkMax m_indexMotor = new CANSparkMax(CAN_ID_INDEX, MotorType.kBrushless);
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
-  
+
   private static boolean m_enabled = false;
 
   /** Creates a new IndexSubsystem. */
   public IndexSubsystem() {
-    if (m_indexMotor != null){
+    if (m_indexMotor != null) {
       m_enabled = true;
     }
 
@@ -59,9 +77,32 @@ public class IndexSubsystem extends SubsystemBase {
       return;
     }
     // regular code goes here
+    int numBallsLoaded = (getState().ordinal());
+    switch (numBallsLoaded) {
+      case 0:
+        // Empty
+        break;
+      case 1:
+        // Loaded 1
+        break;
+      case 2:
+        // Loaded 2
+        break;
+      case 3:
+        // Armed 1
+        break;
+      default: // SmartDashboard.putData(key, data);
+        break;
+    }
+    if (numBallsLoaded == 3) {
+      // SmartDashboard.putNumber("Armed", 1.0);
+      SmartDashboard.putNumber("Balls Loaded", 1.0);
+    } else {
+      SmartDashboard.putNumber("Balls Loaded", (double) numBallsLoaded);
+    }
   }
 
-  public void runToPosition(int position){
+  public void runToPosition(int position) {
     m_pidController.setReference(position, ControlType.kPosition);
   }
 
@@ -69,13 +110,14 @@ public class IndexSubsystem extends SubsystemBase {
     return 0.0;
   }
 
-  public void setPosition_deg(double nextPosition_deg) {}
+  public void setPosition_deg(double nextPosition_deg) {
+  }
 
-  public IndexerState getState(){
+  public IndexerState getState() {
     return m_state;
   }
 
-  public void setState(IndexerState state){
+  public void setState(IndexerState state) {
     m_state = state;
   }
 }

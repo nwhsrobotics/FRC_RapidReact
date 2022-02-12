@@ -5,14 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShootCommand extends CommandBase {
-  private ShooterSubsystem m_shooterSubsystem;
-  /** Creates a new ToggleShootCommand. */
-  public ToggleShootCommand(ShooterSubsystem subsystem) {
-    addRequirements(subsystem);
-    m_shooterSubsystem = subsystem;
+public class DriveBackwardCommand extends CommandBase {
+  /** Creates a new DriveBackwardCommand. */
+  public DriveBackwardCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,19 +18,7 @@ public class ToggleShootCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-    if (m_shooterSubsystem.getFlywheelStatus()==false){
-      m_shooterSubsystem.setFlywheel_rpm(120.0); 
-      System.out.println("FlywheelOn");
-      
-      
-    } else{
-      m_shooterSubsystem.setFlywheel_rpm(0.0);
-      System.out.println("FlywheelOff");
-    }
-
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -43,6 +27,6 @@ public class ToggleShootCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
