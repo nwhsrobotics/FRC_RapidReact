@@ -111,14 +111,14 @@ public class RobotContainer {
     joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
 
 
-    m_pov0.whenHeld(m_climbCommand0);
-    m_pov45.whenHeld(m_climbCommand45);
-    m_pov90.whenHeld(m_climbCommand90);
-    m_pov135.whenHeld(m_climbCommand135);
-    m_pov180.whenHeld(m_climbCommand180);
-    m_pov225.whenHeld(m_climbCommand225);
-    m_pov270.whenHeld(m_climbCommand270);
-    m_pov315.whenHeld(m_climbCommand315);
+    m_pov0.whileHeld(m_climbCommand0);
+    m_pov45.whileHeld(m_climbCommand45);
+    m_pov90.whileHeld(m_climbCommand90);
+    m_pov135.whileHeld(m_climbCommand135);
+    m_pov180.whileHeld(m_climbCommand180);
+    m_pov225.whileHeld(m_climbCommand225);
+    m_pov270.whileHeld(m_climbCommand270);
+    m_pov315.whileHeld(m_climbCommand315);
 
 
   }
