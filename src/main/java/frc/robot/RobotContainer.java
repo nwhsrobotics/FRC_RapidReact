@@ -15,6 +15,8 @@ import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
 import frc.robot.commands.ShooterModeChangeCommand;
+import frc.robot.commands.ShooterSetAutoCommand;
+import frc.robot.commands.ShooterSpeedAdjustCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -34,19 +36,24 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); //matthew did this :))) i like hotdogs 
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
-  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(m_visionSubsystem);
+  
   
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem, m_shooterSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
+  private final ShooterSetAutoCommand m_shooterSetAutoFalseCommand = new ShooterSetAutoCommand(m_shooterSubsystem, false);
+  private final ShooterSetAutoCommand m_shooterSetAutoTrueCommand = new ShooterSetAutoCommand(m_shooterSubsystem, true);
+  private final ShooterSpeedAdjustCommand m_shooterSpeedIncreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, 50);
+  private final ShooterSpeedAdjustCommand m_shooterSpeedDecreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, -50);
 
 
   //private final DriveBackwardCommand m_driveBackwardCommand = new DriveBackwardCommand(m_driveSubsystem);
@@ -64,6 +71,10 @@ public class RobotContainer {
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
   private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
+  private final JoystickButton joy0_y = new JoystickButton(m_joy0, 4);
+  private final JoystickButton joy0_LeftBumper = new JoystickButton(m_joy0, 5);
+  private final JoystickButton joy0_RightBumper = new JoystickButton(m_joy0, 6);
+
   private final POVButton m_pov0 = new POVButton(m_joy0, 0);
   private final POVButton m_pov45 = new POVButton(m_joy0, 45);
   private final POVButton m_pov90 = new POVButton(m_joy0, 90);
@@ -95,8 +106,9 @@ public class RobotContainer {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
 
-    joy0_a.whenPressed(m_toggleIntakeCommand);
+    joy0_a.whenPressed(m_shooterSetAutoTrueCommand);
     joy0_b.whenPressed(m_shooterModeChangeCommand);
+    joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
 
 
     m_pov0.whenHeld(m_climbCommand0);
