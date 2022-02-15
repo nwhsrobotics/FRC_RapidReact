@@ -16,13 +16,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
-  private static final int CAN_ID_FLYWHEEL = 1;
-  private static final int CAN_ID_FLYWHEEL2 = 2;
   private static final double RAMP_RATE_SEC = 1.0;
-  private CANSparkMax m_flywheelMotor = new CANSparkMax(CAN_ID_FLYWHEEL, MotorType.kBrushless);
+  private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
-  private CANSparkMax m_flywheel2Motor = new CANSparkMax(CAN_ID_FLYWHEEL2, MotorType.kBrushless);
+  private CANSparkMax m_flywheel2Motor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheel2pidController;
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
