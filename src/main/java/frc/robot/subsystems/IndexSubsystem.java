@@ -43,8 +43,7 @@ public class IndexSubsystem extends SubsystemBase {
   private IndexerState m_state = IndexerState.EMPTY;
 
   // added by Joey - 1/22/22
-  private static final int CAN_ID_INDEX = 29; // was 3
-  private CANSparkMax m_indexMotor = new CANSparkMax(CAN_ID_INDEX, MotorType.kBrushless);
+  private CANSparkMax m_indexMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.INDEXER, MotorType.kBrushless);
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
 

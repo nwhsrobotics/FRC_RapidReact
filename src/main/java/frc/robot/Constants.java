@@ -32,7 +32,7 @@ public final class Constants {
             public static final int DRIVE_RIGHT_FRONT = 11;
             public static final int DRIVE_LEFT_BACK = 9;
             public static final int DRIVE_RIGHT_BACK = 10;
-            public static final int INDEX = 12;// was 10
+            public static final int INDEXER = 12; // was 10
             public static final int SHOOTER_FLYWHEEL = 15;
             public static final int SHOOTER_HOOD = 16;
             public static final int CLIMB_RIGHT_ARM = 20;
