@@ -74,6 +74,7 @@ public class RobotContainer {
   private final JoystickButton joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton joy0_LeftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton joy0_RightBumper = new JoystickButton(m_joy0, 6);
+  private final JoystickButton joy0_menu = new JoystickButton(m_joy0, 8);
 
   private final POVButton m_pov0 = new POVButton(m_joy0, 0);
   private final POVButton m_pov45 = new POVButton(m_joy0, 45);
@@ -109,7 +110,9 @@ public class RobotContainer {
     joy0_a.whenPressed(m_shooterSetAutoTrueCommand);
     joy0_b.whenPressed(m_shooterModeChangeCommand);
     joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
-
+    joy0_RightBumper.whenPressed(m_indexLoadCommand);
+    joy0_LeftBumper.whenPressed(m_indexShootCommand);
+    joy0_menu.whenPressed(m_indexUnloadCommand);
 
     m_pov0.whileHeld(m_climbCommand0);
     m_pov45.whileHeld(m_climbCommand45);
