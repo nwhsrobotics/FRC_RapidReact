@@ -82,7 +82,6 @@ public class IndexSubsystem extends SubsystemBase {
 
     double revs = m_pos_deg * REVS_PER_DEG;
     m_pidController.setReference(revs, ControlType.kPosition);
-
   }
 
   public void runToPosition(int position) {
@@ -103,5 +102,34 @@ public class IndexSubsystem extends SubsystemBase {
 
   public void setState(IndexerState state) {
     m_state = state;
+
+    // Display number of balls loaded for operator using SmartDashboard
+    int numBallsLoaded = m_state.ordinal();
+    switch (numBallsLoaded) 
+    {
+      case 0:   // Empty
+                // SmartDashboard.putData(key, data);
+                break;
+      case 1:   // Loaded 1
+                // SmartDashboard.putData(key, data);
+                break;
+      case 2:   // Loaded 2
+                // SmartDashboard.putData(key, data);
+                break;
+      case 3:   // Armed 1
+                // SmartDashboard.putData(key, data);
+                break;
+      default:  // SmartDashboard.putData(key, data);
+                break;
+    }
+    if (numBallsLoaded == 3) 
+    {
+      // SmartDashboard.putNumber("Armed", 1.0);
+      SmartDashboard.putNumber("Balls Loaded", 1.0);
+    } 
+    else 
+    {
+      SmartDashboard.putNumber("Balls Loaded", (double) numBallsLoaded);
+    }
   }
 }
