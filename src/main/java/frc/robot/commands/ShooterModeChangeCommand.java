@@ -38,6 +38,8 @@ public class ShooterModeChangeCommand extends CommandBase {
     else if(currentSpeed == ShooterSpeedLevel.HIGH) {
         currentSpeed = ShooterSpeedLevel.OFF;
     }
+
+    
     switch(currentSpeed) {
         case OFF:
             System.out.println("setting speed off");

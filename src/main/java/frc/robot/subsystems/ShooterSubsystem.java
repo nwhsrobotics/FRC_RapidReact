@@ -16,23 +16,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
-  private static final int CAN_ID_FLYWHEEL = 1;
-  private static final int CAN_ID_FLYWHEEL2 = 2;
   private static final double RAMP_RATE_SEC = 1.0;
-  private CANSparkMax m_flywheelMotor = new CANSparkMax(CAN_ID_FLYWHEEL, MotorType.kBrushless);
+  private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
-  private CANSparkMax m_flywheel2Motor = new CANSparkMax(CAN_ID_FLYWHEEL2, MotorType.kBrushless);
+  private CANSparkMax m_flywheel2Motor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheel2pidController;
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
-  private String[] stringArray = {"Test 1", "Test 2"};
+  private boolean m_autoMode = true;
+  private double m_manual_speed_rpm = 0.0;
 
 
   private static boolean m_enabled = false;
 
   /** Creates a new ShooterSubsystem. */
-  public ShooterSubsystem() {
+  public ShooterSubsystem(VisionSubsystem m_visionSubsystem) {
     if ((m_flywheelMotor != null) && (m_flywheel2Motor != null)) {
       m_enabled = true;
     }
@@ -78,7 +77,16 @@ public class ShooterSubsystem extends SubsystemBase {
     if (!m_enabled) {
       return;
     }
-    m_speed_rpm = SmartDashboard.getNumber("flywheelSpeed (rpm)", 0.0);
+    //m_speed_rpm = SmartDashboard.getNumber("flywheelSpeed (rpm)", 0.0);
+
+    if (m_autoMode == true) {
+      m_speed_rpm = getAutoFlywheelSpeed();
+    } else {
+      m_speed_rpm = m_manual_speed_rpm;
+    }
+
+    SmartDashboard.putNumber("Flywheel Desired Speed:", m_speed_rpm);
+    SmartDashboard.putNumber("Flywheel Actual Speed:", ((m_flywheel2encoder.getVelocity()+m_flywheelencoder.getVelocity())/2));
     
     
 
@@ -100,11 +108,29 @@ public class ShooterSubsystem extends SubsystemBase {
     } else {
       m_flywheelStatus = true;
     }
-    m_speed_rpm = speed_rpm;
+    m_manual_speed_rpm = speed_rpm;
     SmartDashboard.putNumber("flywheelSpeed (rpm)", speed_rpm);
 
     //TODO: Implement the setReference method here to move the motor to the desired speed
   }
+
+  public double getAutoFlywheelSpeed() {
+    return 0.0;
+    //TODO: Calculate flywheel speed
+  }
+
+
+
+  public void setAutoMode(boolean autoMode) {
+    m_autoMode = autoMode;
+  }
+
+
+
+  public double getSpeed() {
+    return m_speed_rpm;
+  }
+
 
   
   
