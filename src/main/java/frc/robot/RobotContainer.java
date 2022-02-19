@@ -11,6 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
+import frc.robot.commands.IndexSpeedTestCommand;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
@@ -48,6 +49,7 @@ public class RobotContainer {
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem, m_shooterSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
+  private final IndexSpeedTestCommand m_indexSpeedTestCommand = new IndexSpeedTestCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
   private final ShooterSetAutoCommand m_shooterSetAutoFalseCommand = new ShooterSetAutoCommand(m_shooterSubsystem, false);
@@ -71,6 +73,7 @@ public class RobotContainer {
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
   private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
+  private final JoystickButton joy0_x = new JoystickButton(m_joy0, 3)
   private final JoystickButton joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton joy0_LeftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton joy0_RightBumper = new JoystickButton(m_joy0, 6);
@@ -110,6 +113,7 @@ public class RobotContainer {
     joy0_a.whenPressed(m_shooterSetAutoTrueCommand);
     joy0_b.whenPressed(m_shooterModeChangeCommand);
     joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
+    joy0_x.whenPressed(m_indexSpeedTestCommand);
     joy0_RightBumper.whenPressed(m_indexLoadCommand);
     joy0_LeftBumper.whenPressed(m_indexShootCommand);
     joy0_menu.whenPressed(m_indexUnloadCommand);
