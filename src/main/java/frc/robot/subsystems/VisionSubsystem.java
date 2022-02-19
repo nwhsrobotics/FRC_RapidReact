@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
 
-  private double m_closestBallDist_in = -1;
+
   private NetworkTableInstance fmsNetworkInstance;
   private NetworkTable fmsNetworkTable;
   private NetworkTableEntry allianceStatus;
@@ -29,7 +29,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   private double m_ball_centerX;
   private double m_ball_centerY;
-  private double m_ball_dist;
+  private double m_closestBallDist_in = -1;
 
 
 
@@ -123,6 +123,18 @@ public class VisionSubsystem extends SubsystemBase {
       return -1;
     } else {
       return m_ball_centerY;
+    }
+
+  }
+
+  //@return a value between 0 and 1. If 0 item is on the top, if 1, item is on the bottom
+  public double getGreenDist_in(){
+    m_green_dist = SmartDashboard.getNumber("Green Distance", -1);
+
+    if (m_green_dist < 0){
+      return -1;
+    } else {
+      return m_green_dist;
     }
 
   }
