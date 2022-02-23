@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
   private static final double RAMP_RATE_SEC = 1.0;
-  private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
+  private CANSparkMax m_flywheelMotor; // = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
-  private CANSparkMax m_flywheel2Motor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
+  private CANSparkMax m_flywheel2Motor; // = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheel2pidController;
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
@@ -28,13 +28,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_manual_speed_rpm = 0.0;
 
 
-  private static boolean m_enabled = false;
+  private boolean m_enabled = false;
 
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem(VisionSubsystem m_visionSubsystem) {
-    if ((m_flywheelMotor != null) && (m_flywheel2Motor != null)) {
-      m_enabled = true;
+    if ((m_flywheelMotor == null) || (m_flywheel2Motor == null)) {
+      return;
     }
+
+    m_enabled = true;
+
     m_flywheelpidController = m_flywheelMotor.getPIDController();
     m_flywheelencoder = m_flywheelMotor.getEncoder();
 

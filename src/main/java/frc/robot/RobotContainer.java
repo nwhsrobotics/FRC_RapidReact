@@ -73,7 +73,7 @@ public class RobotContainer {
   private final XboxController m_joy0 = new XboxController(0);
   private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
   private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
-  private final JoystickButton joy0_x = new JoystickButton(m_joy0, 3)
+  private final JoystickButton joy0_x = new JoystickButton(m_joy0, 3);
   private final JoystickButton joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton joy0_LeftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton joy0_RightBumper = new JoystickButton(m_joy0, 6);
