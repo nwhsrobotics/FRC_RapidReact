@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
   private static final double RAMP_RATE_SEC = 1.0;
-  private CANSparkMax m_flywheelMotor; // = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
+  private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
-  private CANSparkMax m_flywheel2Motor; // = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
+  private CANSparkMax m_flywheel2Motor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL2, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheel2pidController;
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
@@ -72,8 +72,6 @@ public class ShooterSubsystem extends SubsystemBase {
     
   }
 
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -91,8 +89,6 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Desired Speed:", m_speed_rpm);
     SmartDashboard.putNumber("Flywheel Actual Speed:", ((m_flywheel2encoder.getVelocity()+m_flywheelencoder.getVelocity())/2));
     
-    
-
     //Set moters for m_speed_rpm
     
     m_flywheelpidController.setReference(m_speed_rpm, ControlType.kVelocity);

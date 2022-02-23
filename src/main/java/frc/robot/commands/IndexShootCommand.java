@@ -38,10 +38,7 @@ public class IndexShootCommand extends CommandBase {
     IndexerState state = m_indexSubsystem.getState();
     m_currentPosition_m = m_indexSubsystem.getPosition_m();
 
-    // disabled for testing.
-    // if (!m_shooterSubsystem.getFlywheelStatus()) {
-    if (false) {
-
+    if (!m_shooterSubsystem.getFlywheelStatus()) {
       /*
        * IF THE SHOOTER IS NOT RUNNING, DON'T TRY TO SHOOT
        */
