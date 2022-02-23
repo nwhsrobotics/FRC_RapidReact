@@ -11,14 +11,15 @@ import frc.robot.subsystems.IndexSubsystem.IndexerState;
 
 public class IndexShootCommand extends CommandBase {
   private static final double SECONDS_PER_TICK = 1.0 / 50.0;
-  // indexer wheel speed in degrees per second
-  private static final double SHOOT_SPEED = 30.0;
+  // indexer ball speed in meters per second
+  // TODO: 
+  private static final double SHOOT_SPEED = 4.0;
   /** Creates a new IndexShootCommand. */
 
   private IndexSubsystem m_indexSubsystem;
   private ShooterSubsystem m_shooterSubsystem;
-  private double m_currentPosition_deg = 0.0;
-  private double m_endPosition_deg = 0.0;
+  private double m_currentPosition_m = 0.0;
+  private double m_endPosition_m = 0.0;
   private double m_speed = 0.0;
   private boolean m_done = false;
 
@@ -35,73 +36,51 @@ public class IndexShootCommand extends CommandBase {
 
     m_done = false;
     IndexerState state = m_indexSubsystem.getState();
-    m_currentPosition_deg = m_indexSubsystem.getPosition_deg();
+    m_currentPosition_m = m_indexSubsystem.getPosition_m();
 
     if (!m_shooterSubsystem.getFlywheelStatus()) {
-
       /*
        * IF THE SHOOTER IS NOT RUNNING, DON'T TRY TO SHOOT
        */
 
-      m_endPosition_deg = m_currentPosition_deg;
+      m_endPosition_m = m_currentPosition_m;
       m_speed = 0.0;
 
     } else {
-      switch (state) {
+      switch(state) {
         case EMPTY:
-          m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.SHOOT_EMPTY_DEGREES;
-          m_speed = SHOOT_SPEED;
-
-          // set state
-          m_indexSubsystem.setState(IndexerState.EMPTY);
+          m_endPosition_m = m_currentPosition_m + IndexSubsystem.Constants.SHOOT_EMPTY_M;
           break;
 
-        case LOADED_1:
-          m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.SHOOT_LOADED_1_DEGREES;
-          m_speed = SHOOT_SPEED;
-
-          // set state
-          m_indexSubsystem.setState(IndexerState.EMPTY);
-          break;
-
-        case LOADED_2:
-          m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.SHOOT_LOADED_2_DEGREES;
-          m_speed = SHOOT_SPEED;
-
-          // set state
-          m_indexSubsystem.setState(IndexerState.ARMED_1);
-          break;
-
-        case ARMED_1:
-          m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.SHOOT_ARMED_1_DEGREES;
-          m_speed = SHOOT_SPEED;
-
-          // set state
-          m_indexSubsystem.setState(IndexerState.EMPTY);
+        case ARMED:
+          m_endPosition_m = m_currentPosition_m + IndexSubsystem.Constants.SHOOT_ARMED_M;
           break;
       }
-    }
+      m_speed = SHOOT_SPEED;
 
+      // set state
+      m_indexSubsystem.setState(IndexerState.EMPTY);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double nextPosition_deg = m_currentPosition_deg + (m_speed * SECONDS_PER_TICK);
+    double nextPosition_m = m_currentPosition_m + (m_speed * SECONDS_PER_TICK);
     if (m_speed > 0.0) {
-      if (nextPosition_deg > m_endPosition_deg) {
-        nextPosition_deg = m_endPosition_deg;
+      if (nextPosition_m >= m_endPosition_m) {
+        nextPosition_m = m_endPosition_m;
         m_done = true;
       }
     } else {
-      if (nextPosition_deg < m_endPosition_deg) {
-        nextPosition_deg = m_endPosition_deg;
+      if (nextPosition_m <= m_endPosition_m) {
+        nextPosition_m = m_endPosition_m;
         m_done = true;
       }
     }
 
-    m_indexSubsystem.setPosition_deg(nextPosition_deg);
-    m_currentPosition_deg = nextPosition_deg;
+    m_indexSubsystem.setPosition_m(nextPosition_m);
+    m_currentPosition_m = nextPosition_m;
   }
 
   // Called once the command ends or is interrupted.

@@ -28,13 +28,16 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_manual_speed_rpm = 0.0;
 
 
-  private static boolean m_enabled = false;
+  private boolean m_enabled = false;
 
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem(VisionSubsystem m_visionSubsystem) {
-    if ((m_flywheelMotor != null) && (m_flywheel2Motor != null)) {
-      m_enabled = true;
+    if ((m_flywheelMotor == null) || (m_flywheel2Motor == null)) {
+      return;
     }
+
+    m_enabled = true;
+
     m_flywheelpidController = m_flywheelMotor.getPIDController();
     m_flywheelencoder = m_flywheelMotor.getEncoder();
 
@@ -69,8 +72,6 @@ public class ShooterSubsystem extends SubsystemBase {
     
   }
 
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -88,8 +89,6 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Flywheel Desired Speed:", m_speed_rpm);
     SmartDashboard.putNumber("Flywheel Actual Speed:", ((m_flywheel2encoder.getVelocity()+m_flywheelencoder.getVelocity())/2));
     
-    
-
     //Set moters for m_speed_rpm
     
     m_flywheelpidController.setReference(m_speed_rpm, ControlType.kVelocity);

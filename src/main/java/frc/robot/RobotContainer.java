@@ -11,7 +11,6 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
-import frc.robot.commands.IndexSpeedTestCommand;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
@@ -49,7 +48,6 @@ public class RobotContainer {
   private final IndexLoadCommand m_indexLoadCommand = new IndexLoadCommand(m_indexSubsystem);
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem, m_shooterSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
-  private final IndexSpeedTestCommand m_indexSpeedTestCommand = new IndexSpeedTestCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
   private final ShooterSetAutoCommand m_shooterSetAutoFalseCommand = new ShooterSetAutoCommand(m_shooterSubsystem, false);
@@ -113,7 +111,6 @@ public class RobotContainer {
     joy0_a.whenPressed(m_shooterSetAutoTrueCommand);
     joy0_b.whenPressed(m_shooterModeChangeCommand);
     joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
-    joy0_x.whenPressed(m_indexSpeedTestCommand);
     joy0_RightBumper.whenPressed(m_indexLoadCommand);
     joy0_LeftBumper.whenPressed(m_indexShootCommand);
     joy0_menu.whenPressed(m_indexUnloadCommand);

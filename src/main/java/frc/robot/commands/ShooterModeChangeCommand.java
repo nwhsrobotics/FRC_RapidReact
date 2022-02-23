@@ -47,15 +47,15 @@ public class ShooterModeChangeCommand extends CommandBase {
             break;
         case LOW:
             System.out.println("setting speed low");
-            m_shooterSubsystem.setFlywheel_rpm(2500.0);
+            m_shooterSubsystem.setFlywheel_rpm(1000.0);
             break;
         case MEDIUM:
             System.out.println("setting speed medium");
-            m_shooterSubsystem.setFlywheel_rpm(3500.0);
+            m_shooterSubsystem.setFlywheel_rpm(2000.0);
             break;
         case HIGH:
             System.out.println("setting speed high");
-            m_shooterSubsystem.setFlywheel_rpm(4500.0);
+            m_shooterSubsystem.setFlywheel_rpm(3000.0);
             break;
     }
   }
