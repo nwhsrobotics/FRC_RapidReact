@@ -59,7 +59,8 @@ public class IndexLoadCommand extends CommandBase {
         nextPosition_m = m_endPosition_m;
         m_done = true;
       }
-    } else {
+    }
+    else {
       if (nextPosition_m <= m_endPosition_m) {
         nextPosition_m = m_endPosition_m;
         m_done = true;
