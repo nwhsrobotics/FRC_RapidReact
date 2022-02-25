@@ -29,7 +29,7 @@ public class ShooterSpeedAdjustCommand extends CommandBase {
   @Override
   public void execute() {
     currentSpeed = m_shooterSubsystem.getSpeed();
-    m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment); 
+    m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment, 589); 
     //TODO: implement smart logic to change cases
   }
 
