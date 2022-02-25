@@ -29,7 +29,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private boolean m_autoMode = true;
   private double m_manual_speed_rpm = 0.0;
   private VisionSubsystem m_visionSubsystem;
-  private final double m_flywheelAutoSpeedMultiplier = 4000;
+  private final double m_flywheelAutoSpeedMultiplier = 5;
 
   private boolean m_enabled = false;
   private double m_manual_offset_rpm = 0.0;
@@ -93,9 +93,11 @@ public class ShooterSubsystem extends SubsystemBase {
       m_speed_rpm = m_manual_speed_rpm;
       m_offset_rpm = m_manual_offset_rpm;
     }
+    SmartDashboard.putBoolean("Flywheel Auto:", m_autoMode);
 
     SmartDashboard.putNumber("Flywheel Desired Speed:", m_speed_rpm);
     SmartDashboard.putNumber("Flywheel Actual Speed:", ((m_flywheel2encoder.getVelocity()+m_flywheelencoder.getVelocity())/2));
+    SmartDashboard.putNumber("Motor Velocity", m_speed_rpm);
     
     //Set moters for m_speed_rpm
     
@@ -128,7 +130,14 @@ public class ShooterSubsystem extends SubsystemBase {
     if (greenCenterY <= 0) {
       return 0;
     }
-    return Math.pow(greenCenterY, -1) * m_flywheelAutoSpeedMultiplier;
+    double autoSpeed =  Math.pow(greenCenterY, -1) * m_flywheelAutoSpeedMultiplier * m_visionSubsystem.getGreenDist_in();
+
+    if (autoSpeed > 3000){
+      return 3000;
+    } else {
+      return autoSpeed;
+    }
+    
   }
 
   public void setAutoMode(boolean autoMode) {
