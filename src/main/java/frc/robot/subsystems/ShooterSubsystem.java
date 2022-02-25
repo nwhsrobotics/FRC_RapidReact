@@ -26,17 +26,20 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_speed_rpm = 0.0;
   private boolean m_autoMode = true;
   private double m_manual_speed_rpm = 0.0;
-
+  private VisionSubsystem m_visionSubsystem;
+  private final double m_flywheelAutoSpeedMultiplier = 4000;
 
   private boolean m_enabled = false;
 
   /** Creates a new ShooterSubsystem. */
-  public ShooterSubsystem(VisionSubsystem m_visionSubsystem) {
+  public ShooterSubsystem(VisionSubsystem visionSubsystem) {
     if ((m_flywheelMotor == null) || (m_flywheel2Motor == null)) {
       return;
     }
 
     m_enabled = true;
+
+    m_visionSubsystem = visionSubsystem;
 
     m_flywheelpidController = m_flywheelMotor.getPIDController();
     m_flywheelencoder = m_flywheelMotor.getEncoder();
@@ -114,24 +117,20 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getAutoFlywheelSpeed() {
-    return 0.0;
-    //TODO: Calculate flywheel speed
+    double greenCenterY = m_visionSubsystem.getGreenCenterY();
+    if (greenCenterY <= 0) {
+      return 0;
+    }
+    return Math.pow(greenCenterY, -1) * m_flywheelAutoSpeedMultiplier;
   }
-
-
 
   public void setAutoMode(boolean autoMode) {
     m_autoMode = autoMode;
   }
 
-
-
   public double getSpeed() {
     return m_speed_rpm;
   }
-
-
-  
   
   /*
   public boolean getFlywheelControl() {
