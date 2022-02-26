@@ -15,6 +15,9 @@ import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
 import frc.robot.commands.ShooterModeChangeCommand;
+import frc.robot.commands.ShooterHighModeCommand;
+import frc.robot.commands.ShooterLowModeCommand;
+import frc.robot.commands.ShooterOffCommand;
 import frc.robot.commands.ShooterSetAutoCommand;
 import frc.robot.commands.ShooterSpeedAdjustCommand;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -25,6 +28,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
@@ -50,6 +54,9 @@ public class RobotContainer {
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
+  private final ShooterHighModeCommand m_shooterHighModeCommand = new ShooterHighModeCommand(m_shooterSubsystem);
+  private final ShooterLowModeCommand m_shooterLowModeCommand = new ShooterLowModeCommand(m_shooterSubsystem);
+  private final ShooterOffCommand m_shooterOffCommand = new ShooterOffCommand(m_shooterSubsystem);
   private final ShooterSetAutoCommand m_shooterSetAutoFalseCommand = new ShooterSetAutoCommand(m_shooterSubsystem, false);
   private final ShooterSetAutoCommand m_shooterSetAutoTrueCommand = new ShooterSetAutoCommand(m_shooterSubsystem, true);
   private final ShooterSpeedAdjustCommand m_shooterSpeedIncreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, 50);
@@ -69,22 +76,34 @@ public class RobotContainer {
 
 
   private final XboxController m_joy0 = new XboxController(0);
-  private final JoystickButton joy0_a = new JoystickButton(m_joy0, 1);
-  private final JoystickButton joy0_b = new JoystickButton(m_joy0, 2);
-  private final JoystickButton joy0_x = new JoystickButton(m_joy0, 3);
-  private final JoystickButton joy0_y = new JoystickButton(m_joy0, 4);
-  private final JoystickButton joy0_LeftBumper = new JoystickButton(m_joy0, 5);
-  private final JoystickButton joy0_RightBumper = new JoystickButton(m_joy0, 6);
-  private final JoystickButton joy0_menu = new JoystickButton(m_joy0, 8);
+  private final XboxController m_joy1 = new XboxController(0);
 
-  private final POVButton m_pov0 = new POVButton(m_joy0, 0);
-  private final POVButton m_pov45 = new POVButton(m_joy0, 45);
-  private final POVButton m_pov90 = new POVButton(m_joy0, 90);
-  private final POVButton m_pov135 = new POVButton(m_joy0, 135);
-  private final POVButton m_pov180 = new POVButton(m_joy0, 180);
-  private final POVButton m_pov225 = new POVButton(m_joy0, 225);
-  private final POVButton m_pov270 = new POVButton(m_joy0, 270);
-  private final POVButton m_pov315 = new POVButton(m_joy0, 315);
+  private final JoystickButton m_joy1_a = new JoystickButton(m_joy1, 1);
+  private final JoystickButton m_joy1_b = new JoystickButton(m_joy1, 2);
+  private final JoystickButton m_joy1_x = new JoystickButton(m_joy1, 3);
+  private final JoystickButton m_joy1_y = new JoystickButton(m_joy1, 4);
+  private final JoystickButton m_joy1_LeftBumper = new JoystickButton(m_joy1, 5);
+  private final JoystickButton m_joy1_RightBumper = new JoystickButton(m_joy1, 6);
+  private final JoystickButton m_joy1_back = new JoystickButton(m_joy1, 7);
+  private final JoystickButton m_joy1_menu = new JoystickButton(m_joy1, 8);
+
+  private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
+  private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
+  private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
+
+  private final POVButton m_joy1_pov0 = new POVButton(m_joy1, 0);
+  private final POVButton m_joy1_pov90 = new POVButton(m_joy1, 90);
+  private final POVButton m_joy1_pov180 = new POVButton(m_joy1, 180);
+  private final POVButton m_joy1_pov270 = new POVButton(m_joy1, 270);
+
+  private final POVButton m_joy0_pov0 = new POVButton(m_joy0, 0);
+  private final POVButton m_joy0_pov45 = new POVButton(m_joy0, 45);
+  private final POVButton m_joy0_pov90 = new POVButton(m_joy0, 90);
+  private final POVButton m_joy0_pov135 = new POVButton(m_joy0, 135);
+  private final POVButton m_joy0_pov180 = new POVButton(m_joy0, 180);
+  private final POVButton m_joy0_pov225 = new POVButton(m_joy0, 225);
+  private final POVButton m_joy0_pov270 = new POVButton(m_joy0, 270);
+  private final POVButton m_joy0_pov315 = new POVButton(m_joy0, 315);
 
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -108,21 +127,28 @@ public class RobotContainer {
     // assign index*Command
     // joy0_a.whenPressed(m_updateIndexPositionCommand);
 
-    joy0_a.whenPressed(m_shooterSetAutoTrueCommand);
-    joy0_b.whenPressed(m_shooterModeChangeCommand);
-    joy0_y.whenPressed(m_shooterSetAutoFalseCommand);
-    joy0_RightBumper.whenPressed(m_indexLoadCommand);
-    joy0_LeftBumper.whenPressed(m_indexShootCommand);
-    joy0_menu.whenPressed(m_indexUnloadCommand);
+    m_joy1_a.whenPressed(m_shooterOffCommand);
+    m_joy1_b.whenPressed(m_shooterLowModeCommand);
+    m_joy1_y.whenPressed(m_shooterHighModeCommand);
+    m_joy1_x.whenPressed(m_indexLoadCommand);
+    m_joy1_RightBumper.whenPressed(m_indexShootCommand);
+    m_joy1_LeftBumper.whenPressed(m_indexUnloadCommand);
+    m_joy1_back.whenPressed(m_shooterSetAutoFalseCommand);
+    m_joy1_menu.whenPressed(m_shooterSetAutoTrueCommand);
 
-    m_pov0.whileHeld(m_climbCommand0);
-    m_pov45.whileHeld(m_climbCommand45);
-    m_pov90.whileHeld(m_climbCommand90);
-    m_pov135.whileHeld(m_climbCommand135);
-    m_pov180.whileHeld(m_climbCommand180);
-    m_pov225.whileHeld(m_climbCommand225);
-    m_pov270.whileHeld(m_climbCommand270);
-    m_pov315.whileHeld(m_climbCommand315);
+    m_joy1_pov0.whenPressed(m_shooterSpeedIncreaseCommand);
+    m_joy1_pov180.whenPressed(m_shooterSpeedDecreaseCommand);
+
+    m_joy0_a.whenPressed(m_toggleIntakeCommand);
+
+    m_joy0_pov0.whileHeld(m_climbCommand0);
+    m_joy0_pov45.whileHeld(m_climbCommand45);
+    m_joy0_pov90.whileHeld(m_climbCommand90);
+    m_joy0_pov135.whileHeld(m_climbCommand135);
+    m_joy0_pov180.whileHeld(m_climbCommand180);
+    m_joy0_pov225.whileHeld(m_climbCommand225);
+    m_joy0_pov270.whileHeld(m_climbCommand270);
+    m_joy0_pov315.whileHeld(m_climbCommand315);
 
 
   }
