@@ -14,6 +14,8 @@ import frc.robot.commands.IndexUnloadCommand;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
+import frc.robot.commands.IntakeRaiseCommand;
+import frc.robot.commands.IntakeLowerCommand;
 import frc.robot.commands.ShooterModeChangeCommand;
 import frc.robot.commands.ShooterHighModeCommand;
 import frc.robot.commands.ShooterLowModeCommand;
@@ -53,6 +55,8 @@ public class RobotContainer {
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem, m_shooterSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
+  private final IntakeRaiseCommand m_intakeRaiseCommand = new IntakeRaiseCommand(m_intakeSubsystem);
+  private final IntakeLowerCommand m_intakeLowerCommand = new IntakeLowerCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
   private final ShooterHighModeCommand m_shooterHighModeCommand = new ShooterHighModeCommand(m_shooterSubsystem);
   private final ShooterLowModeCommand m_shooterLowModeCommand = new ShooterLowModeCommand(m_shooterSubsystem);
@@ -88,6 +92,7 @@ public class RobotContainer {
   private final JoystickButton m_joy1_menu = new JoystickButton(m_joy1, 8);
 
   private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
+  private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
 
@@ -139,7 +144,8 @@ public class RobotContainer {
     m_joy1_pov0.whenPressed(m_shooterSpeedIncreaseCommand);
     m_joy1_pov180.whenPressed(m_shooterSpeedDecreaseCommand);
 
-    m_joy0_a.whenPressed(m_toggleIntakeCommand);
+    m_joy0_a.whenPressed(m_intakeLowerCommand);
+    m_joy0_y.whenPressed(m_intakeRaiseCommand);
 
     m_joy0_pov0.whileHeld(m_climbCommand0);
     m_joy0_pov45.whileHeld(m_climbCommand45);
