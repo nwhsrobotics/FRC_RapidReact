@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
   private static final double RAMP_RATE_SEC = 1.0;
+  private static final double kOFFSET_RPM = 589.0; //Based on 4in flywheel and 4mps ball speed
   private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
@@ -24,17 +25,25 @@ public class ShooterSubsystem extends SubsystemBase {
   private SparkMaxPIDController m_flywheel2pidController;
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
+  private double m_offset_rpm = 0.0;
   private boolean m_autoMode = true;
   private double m_manual_speed_rpm = 0.0;
+  private VisionSubsystem m_visionSubsystem;
+  private final double m_flywheelAutoSpeedMultiplier = 5;
 
-
-  private static boolean m_enabled = false;
+  private boolean m_enabled = false;
+  private double m_manual_offset_rpm = 0.0;
 
   /** Creates a new ShooterSubsystem. */
-  public ShooterSubsystem(VisionSubsystem m_visionSubsystem) {
-    if ((m_flywheelMotor != null) && (m_flywheel2Motor != null)) {
-      m_enabled = true;
+  public ShooterSubsystem(VisionSubsystem visionSubsystem) {
+    if ((m_flywheelMotor == null) || (m_flywheel2Motor == null)) {
+      return;
     }
+
+    m_enabled = true;
+
+    m_visionSubsystem = visionSubsystem;
+
     m_flywheelpidController = m_flywheelMotor.getPIDController();
     m_flywheelencoder = m_flywheelMotor.getEncoder();
 
@@ -69,8 +78,6 @@ public class ShooterSubsystem extends SubsystemBase {
     
   }
 
-
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -81,19 +88,21 @@ public class ShooterSubsystem extends SubsystemBase {
 
     if (m_autoMode == true) {
       m_speed_rpm = getAutoFlywheelSpeed();
+      m_offset_rpm = kOFFSET_RPM;
     } else {
       m_speed_rpm = m_manual_speed_rpm;
+      m_offset_rpm = m_manual_offset_rpm;
     }
+    SmartDashboard.putBoolean("Flywheel Auto:", m_autoMode);
 
     SmartDashboard.putNumber("Flywheel Desired Speed:", m_speed_rpm);
     SmartDashboard.putNumber("Flywheel Actual Speed:", ((m_flywheel2encoder.getVelocity()+m_flywheelencoder.getVelocity())/2));
+    SmartDashboard.putNumber("Motor Velocity", m_speed_rpm);
     
-    
-
     //Set moters for m_speed_rpm
     
-    m_flywheelpidController.setReference(m_speed_rpm, ControlType.kVelocity);
-    m_flywheel2pidController.setReference(-m_speed_rpm, ControlType.kVelocity);
+    m_flywheelpidController.setReference(m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
+    m_flywheel2pidController.setReference(-m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
   
   }
 
@@ -102,7 +111,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   } 
 
-  public void setFlywheel_rpm(double speed_rpm) {
+  public void setFlywheel_rpm(double speed_rpm, double offset_rpm) {
     if (speed_rpm == 0.0){
       m_flywheelStatus = false;
     } else {
@@ -110,29 +119,34 @@ public class ShooterSubsystem extends SubsystemBase {
     }
     m_manual_speed_rpm = speed_rpm;
     SmartDashboard.putNumber("flywheelSpeed (rpm)", speed_rpm);
+    m_manual_offset_rpm = offset_rpm;
+    SmartDashboard.putNumber("flywheeloffset (rpm)", offset_rpm);
 
     //TODO: Implement the setReference method here to move the motor to the desired speed
   }
 
   public double getAutoFlywheelSpeed() {
-    return 0.0;
-    //TODO: Calculate flywheel speed
+    double greenCenterY = m_visionSubsystem.getGreenCenterY();
+    if (greenCenterY <= 0) {
+      return 0;
+    }
+    double autoSpeed =  Math.pow(greenCenterY, -1) * m_flywheelAutoSpeedMultiplier * m_visionSubsystem.getGreenDist_in();
+
+    if (autoSpeed > 3000){
+      return 3000;
+    } else {
+      return autoSpeed;
+    }
+    
   }
-
-
 
   public void setAutoMode(boolean autoMode) {
     m_autoMode = autoMode;
   }
 
-
-
   public double getSpeed() {
     return m_speed_rpm;
   }
-
-
-  
   
   /*
   public boolean getFlywheelControl() {

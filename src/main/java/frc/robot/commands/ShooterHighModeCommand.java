@@ -7,13 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ToggleShootCommand extends CommandBase {
+public class ShooterHighModeCommand extends CommandBase {
   private ShooterSubsystem m_shooterSubsystem;
-  /** Creates a new ToggleShootCommand. */
-  public ToggleShootCommand(ShooterSubsystem subsystem) {
+
+  
+  /** Creates a new ShooterHighModeCommand. */
+  public ShooterHighModeCommand() {
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public ShooterHighModeCommand(ShooterSubsystem subsystem) {
     addRequirements(subsystem);
     m_shooterSubsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -23,18 +28,10 @@ public class ToggleShootCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if (m_shooterSubsystem.getFlywheelStatus()==false){
-      m_shooterSubsystem.setFlywheel_rpm(120.0); 
-      System.out.println("FlywheelOn");
-      
-      
-    } else{
-      m_shooterSubsystem.setFlywheel_rpm(0.0);
-      System.out.println("FlywheelOff");
+    System.out.println("Setting speed high");
+    m_shooterSubsystem.setFlywheel_rpm(3000.0, 589.0);
     }
-
-  }
+  
 
   // Called once the command ends or is interrupted.
   @Override

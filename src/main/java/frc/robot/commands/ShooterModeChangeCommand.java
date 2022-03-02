@@ -1,7 +1,6 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.package frc.robot.commands;
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -43,19 +42,19 @@ public class ShooterModeChangeCommand extends CommandBase {
     switch(currentSpeed) {
         case OFF:
             System.out.println("setting speed off");
-            m_shooterSubsystem.setFlywheel_rpm(0.0); 
+            m_shooterSubsystem.setFlywheel_rpm(0.0, 0.0); 
             break;
         case LOW:
             System.out.println("setting speed low");
-            m_shooterSubsystem.setFlywheel_rpm(2500.0);
+            m_shooterSubsystem.setFlywheel_rpm(750.0, 589.0);
             break;
         case MEDIUM:
             System.out.println("setting speed medium");
-            m_shooterSubsystem.setFlywheel_rpm(3500.0);
+            m_shooterSubsystem.setFlywheel_rpm(1500.0, 589.0);
             break;
         case HIGH:
             System.out.println("setting speed high");
-            m_shooterSubsystem.setFlywheel_rpm(4500.0);
+            m_shooterSubsystem.setFlywheel_rpm(3000.0, 589.0);
             break;
     }
   }

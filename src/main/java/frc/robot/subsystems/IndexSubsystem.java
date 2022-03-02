@@ -16,29 +16,40 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
   public final class Constants {
-    // indexer wheel speed in degrees per second
-    public static final double SPEED_FORWARD_NORMAL = 30.0;
-    public static final double SPEED_BACKWARD_NORMAL = -30.0; // TODO verify speed should be negative
+    // indexer ball speed in meters per second
+    public static final double SPEED_FORWARD_TEST_MPS = 4.0;
+    public static final double SPEED_FORWARD_NORMAL_MPS = 1.0;
+    public static final double SPEED_BACKWARD_NORMAL_MPS = -SPEED_FORWARD_NORMAL_MPS; // TODO verify speed should be negative
     // unload direction is opposite load and shoot
-    public final static double LOAD_1_DEGREES = 0.0;
-    public final static double LOAD_2_DEGREES = 0.0;
-    public final static double ARMED_1_DEGREES = -0.0;
-    public final static double UNLOAD_EMPTY_DEGREES = -0.0;
-    public final static double UNLOAD_LOAD_1_DEGREES = -LOAD_1_DEGREES;
-    public final static double UNLOAD_LOAD_2_DEGREES = -LOAD_2_DEGREES;
-    public final static double UNLOAD_ARMED_1_DEGREES = -0.0;
-    public final static double SHOOT_EMPTY_DEGREES = 0.0;
-    public final static double SHOOT_LOADED_1_DEGREES = 0.0;
-    public final static double SHOOT_LOADED_2_DEGREES = 0.0;
-    public final static double SHOOT_ARMED_1_DEGREES = 0.0;
+    public final static double LOAD_1_M = 0.2;
+    public final static double SHOOT_ARMED_M = 0.5;
+    public final static double SHOOT_EMPTY_M = SHOOT_ARMED_M + LOAD_1_M;
+    public final static double UNLOAD_EMPTY_M = -0.75;
+    public final static double UNLOAD_LOAD_1_M = -LOAD_1_M;
+
+    /*
+    public final static double LOAD_2_M = 0.1;
+    public final static double ARMED_1_M = -LOAD_2_M;
+
+    public final static double UNLOAD_LOAD_2_M = -LOAD_2_M;
+    public final static double UNLOAD_ARMED_1_M = -1.2;
+    
+    
+    public final static double SHOOT_LOADED_2_M = 0.75;
+    public final static double SHOOT_ARMED_1_M = 0.75;
+    */
   }
 
   public enum IndexerState {
     EMPTY,
-    LOADED_1,
-    LOADED_2,
-    ARMED_1;
+    ARMED,
+    OBSOLETE_1,
+    OBSOLETE_2;
   }
+
+  private static final double GEAR_RATIO = 7.0;
+  private static final double WHEEL_RADIUS_M = 2.0 * 0.0254; // 2 inches.
+  private static final double METERS_PER_REV = Math.PI * WHEEL_RADIUS_M / GEAR_RATIO;
 
   private IndexerState m_state = IndexerState.EMPTY;
 
@@ -47,7 +58,9 @@ public class IndexSubsystem extends SubsystemBase {
   private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
 
-  private static boolean m_enabled = false;
+  private boolean m_enabled = false;
+
+  private double m_pos_m = 0.0;
 
   /** Creates a new IndexSubsystem. */
   public IndexSubsystem() {
@@ -55,6 +68,7 @@ public class IndexSubsystem extends SubsystemBase {
       m_enabled = true;
     }
 
+    System.out.println("Index configuring motor");
     m_pidController = m_indexMotor.getPIDController();
     m_encoder = m_indexMotor.getEncoder();
 
@@ -66,50 +80,32 @@ public class IndexSubsystem extends SubsystemBase {
     m_pidController.setD(0);
     m_pidController.setIZone(0);
     m_pidController.setFF(0);
-    m_pidController.setOutputRange(-0.2, 0.2);
+    m_pidController.setOutputRange(-1.0, 1.0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     if (!m_enabled) {
+      System.out.println("index disabled");
       return;
     }
-    // regular code goes here
-    int numBallsLoaded = (getState().ordinal());
-    switch (numBallsLoaded) {
-      case 0:
-        // Empty
-        break;
-      case 1:
-        // Loaded 1
-        break;
-      case 2:
-        // Loaded 2
-        break;
-      case 3:
-        // Armed 1
-        break;
-      default: // SmartDashboard.putData(key, data);
-        break;
-    }
-    if (numBallsLoaded == 3) {
-      // SmartDashboard.putNumber("Armed", 1.0);
-      SmartDashboard.putNumber("Balls Loaded", 1.0);
-    } else {
-      SmartDashboard.putNumber("Balls Loaded", (double) numBallsLoaded);
-    }
+
+    double revs = m_pos_m / METERS_PER_REV;
+    System.out.printf("Index revs = %f (m_pos_m = %f)\n", revs, m_pos_m);
+    m_pidController.setReference(revs, ControlType.kPosition);
   }
 
   public void runToPosition(int position) {
     m_pidController.setReference(position, ControlType.kPosition);
   }
 
-  public double getPosition_deg() {
-    return 0.0;
+  public double getPosition_m() {
+    return m_pos_m;
   }
 
-  public void setPosition_deg(double nextPosition_deg) {
+  public void setPosition_m(double nextPosition_m) {
+    m_pos_m = nextPosition_m;
   }
 
   public IndexerState getState() {
@@ -118,5 +114,34 @@ public class IndexSubsystem extends SubsystemBase {
 
   public void setState(IndexerState state) {
     m_state = state;
+
+    // Display number of balls loaded for operator using SmartDashboard
+    int numBallsLoaded = m_state.ordinal();
+    switch (numBallsLoaded) 
+    {
+      case 0:   // Empty
+                // SmartDashboard.putData(key, data);
+                break;
+      case 1:   // Loaded 1
+                // SmartDashboard.putData(key, data);
+                break;
+      case 2:   // Loaded 2
+                // SmartDashboard.putData(key, data);
+                break;
+      case 3:   // Armed 1
+                // SmartDashboard.putData(key, data);
+                break;
+      default:  // SmartDashboard.putData(key, data);
+                break;
+    }
+    if (numBallsLoaded == 3) 
+    {
+      // SmartDashboard.putNumber("Armed", 1.0);
+      SmartDashboard.putNumber("Balls Loaded", 1.0);
+    } 
+    else 
+    {
+      SmartDashboard.putNumber("Balls Loaded", (double) numBallsLoaded);
+    }
   }
 }

@@ -60,14 +60,14 @@ public final class Constants {
             public static final int DRIVE_RIGHT_FRONT = 11;
             public static final int DRIVE_LEFT_BACK = 9;
             public static final int DRIVE_RIGHT_BACK = 10;
-            public static final int INDEXER = 12; // was 10
-            public static final int SHOOTER_FLYWHEEL = 15;
-            public static final int SHOOTER_FLYWHEEL2 = 16;
+            public static final int INDEXER = 7; // was 10
+            public static final int SHOOTER_FLYWHEEL = 1;
+            public static final int SHOOTER_FLYWHEEL2 = 2;
             public static final int CLIMB_RIGHT_ARM = 20;
             public static final int CLIMB_LEFT_ARM = 21;
             public static final int CLIMB_RIGHT_SHOULDER = 22;
             public static final int CLIMB_LEFT_SHOULDER = 23;
-            public static final int INTAKE_BEATER = 7;
+            public static final int INTAKE_BEATER = 12;
             public static final int INTAKE_MOTOR_ARM = 4;
         }
 

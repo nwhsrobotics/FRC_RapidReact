@@ -13,8 +13,8 @@ public class IndexLoadCommand extends CommandBase {
   /** Creates a new IndexLoadCommand. */
 
   private IndexSubsystem m_indexSubsystem;
-  private double m_currentPosition_deg = 0.0;
-  private double m_endPosition_deg = 0.0;
+  private double m_currentPosition_m = 0.0;
+  private double m_endPosition_m = 0.0;
   private double m_speed = 0.0;
   private boolean m_done = false;
 
@@ -27,40 +27,25 @@ public class IndexLoadCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("load command");
     m_done = false;
 
     IndexerState state = m_indexSubsystem.getState();
-    m_currentPosition_deg = m_indexSubsystem.getPosition_deg();
+    m_currentPosition_m = m_indexSubsystem.getPosition_m();
 
     switch (state) {
       case EMPTY:
-        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.LOAD_1_DEGREES;
-        m_speed = IndexSubsystem.Constants.SPEED_FORWARD_NORMAL;
+        m_endPosition_m = m_currentPosition_m + IndexSubsystem.Constants.LOAD_1_M;
+        m_speed = IndexSubsystem.Constants.SPEED_FORWARD_NORMAL_MPS;
 
         // set state
-        m_indexSubsystem.setState(IndexerState.LOADED_1);
+        m_indexSubsystem.setState(IndexerState.ARMED);
         break;
 
-      case LOADED_1:
-        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.LOAD_2_DEGREES;
-        m_speed = IndexSubsystem.Constants.SPEED_FORWARD_NORMAL;
-
-        // set state
-        m_indexSubsystem.setState(IndexerState.LOADED_2);
-        break;
-
-      case LOADED_2:
+      case ARMED:
         // does "nothing"
-        m_endPosition_deg = m_currentPosition_deg;
+        m_endPosition_m = m_currentPosition_m;
         m_speed = 0.0;
-        break;
-
-      case ARMED_1:
-        m_endPosition_deg = m_currentPosition_deg + IndexSubsystem.Constants.ARMED_1_DEGREES;
-        m_speed = IndexSubsystem.Constants.SPEED_BACKWARD_NORMAL;
-
-        // set state. can be expanded to issue another load command later.
-        m_indexSubsystem.setState(IndexerState.LOADED_1);
         break;
     }
   }
@@ -68,21 +53,22 @@ public class IndexLoadCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double nextPosition_deg = m_currentPosition_deg + (m_speed * Constants.SECONDS_PER_TICK);
+    double nextPosition_m = m_currentPosition_m + (m_speed * Constants.SECONDS_PER_TICK);
     if (m_speed > 0.0) {
-      if (nextPosition_deg > m_endPosition_deg) {
-        nextPosition_deg = m_endPosition_deg;
+      if (nextPosition_m >= m_endPosition_m) {
+        nextPosition_m = m_endPosition_m;
         m_done = true;
       }
-    } else {
-      if (nextPosition_deg < m_endPosition_deg) {
-        nextPosition_deg = m_endPosition_deg;
+    }
+    else {
+      if (nextPosition_m <= m_endPosition_m) {
+        nextPosition_m = m_endPosition_m;
         m_done = true;
       }
     }
 
-    m_indexSubsystem.setPosition_deg(nextPosition_deg);
-    m_currentPosition_deg = nextPosition_deg;
+    m_indexSubsystem.setPosition_m(nextPosition_m);
+    m_currentPosition_m = nextPosition_m;
   }
 
   // Called once the command ends or is interrupted.
@@ -94,6 +80,9 @@ public class IndexLoadCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(m_done){
+      System.out.println("load done");
+    }
     return m_done;
   }
 }
