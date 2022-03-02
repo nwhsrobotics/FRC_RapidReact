@@ -4,13 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.DriveAutoCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
+import frc.robot.commands.RobotAutoCommand;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
@@ -86,11 +89,15 @@ public class RobotContainer {
 
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final DriveAutoCommand m_driveAutoCommand;
+  private final RobotAutoCommand m_sequentialAutoCommand;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer(Trajectory traj_1) {
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);
-    // Configure the button bindings
+    m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);
+    m_sequentialAutoCommand = new RobotAutoCommand(m_driveSubsystem, traj_1);
+    // Configure the button btindings
     configureButtonBindings();
   }
   public DriveForwardCommand getM_DriveForwardCommand(){
@@ -119,12 +126,7 @@ public class RobotContainer {
     m_pov225.whileHeld(m_climbCommand225);
     m_pov270.whileHeld(m_climbCommand270);
     m_pov315.whileHeld(m_climbCommand315);
-
-
   }
-
-
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -132,6 +134,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_sequentialAutoCommand;
   }
 }

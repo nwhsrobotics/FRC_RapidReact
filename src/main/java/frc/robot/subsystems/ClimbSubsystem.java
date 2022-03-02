@@ -114,7 +114,7 @@ public class ClimbSubsystem extends SubsystemBase {
     }
     // Covert the meters to the count
     double upDown_counts = m_upDown_m*UP_DOWN_COUNTS_PER_METER;
-    System.out.printf("upDown_counts = %f\n", upDown_counts);
+    //System.out.printf("upDown_counts = %f\n", upDown_counts);
     // This method will be called once per scheduler run
     double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
     //m_leftarmPID.setReference(-upDown_counts, ControlType.kPosition);

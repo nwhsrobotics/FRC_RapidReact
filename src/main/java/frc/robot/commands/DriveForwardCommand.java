@@ -32,6 +32,7 @@ public class DriveForwardCommand extends CommandBase {
   @Override
   public void execute() {
     m_DriveSubsystem.setDrivePower(-m_joy.getRawAxis(DRIVE_THROTTLE_AXIS), m_joy.getRawAxis(DRIVE_TURN_AXIS));
+    
     /**currentState = m_DriveSubsystem.getCurrentState();
     if(currentState == true){
       currentState = false;
