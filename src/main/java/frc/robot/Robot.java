@@ -44,6 +44,9 @@ public class Robot extends TimedRobot {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
+
+    // TODO:: do we need some failure logic if the trajectory fails to open before creating the robotContainer??
+
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(m_trajectory);
@@ -77,6 +80,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    // TODO:: do we need failure logic to handle not getting hung up in autonomous mode if traj fails
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     DriveSubsystem.isTeleop(false);
     isTeleop = false;
