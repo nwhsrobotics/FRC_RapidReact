@@ -16,7 +16,7 @@ public class AlignDriveAutoCommand extends CommandBase {
   private VisionSubsystem m_visionSubsystem;
   private double ball_center_x;
   private boolean m_done;
-  private final double VISION_AUTO_THRESHOLD = 0.01; //this is the vision constant for when the drive should finish. If higher than quit earlier
+  private final double VISION_AUTO_THRESHOLD = 0.05; //this is the vision constant for when the drive should finish. If higher than quit earlier
 
   public AlignDriveAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,25 +38,16 @@ public class AlignDriveAutoCommand extends CommandBase {
   public void execute() {
     ball_center_x = m_visionSubsystem.getBallCenterX();
     /* only run this if the vision is giving us output that exists */
-    /*
-    if (ball_center_x >= 0){
-      if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
-        m_driveSubsystem.arcadeDrive(0.0, -0.1);
-      } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
-        m_driveSubsystem.arcadeDrive(0.0, 0.1);
-      } else {
-        m_done = true;
-      }
-    } else {
-      System.out.println("Ball has not been detected");
-      m_driveSubsystem.arcadeDrive(0.0, 0.1);
-    }
-    */
+    
     
     m_driveSubsystem.centerDrive();
+   
+  }
+    
+    
+    
     
   
-  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -65,7 +56,13 @@ public class AlignDriveAutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    SmartDashboard.putBoolean("Align", false);
-    return false;
+    if (m_driveSubsystem.isDriveCentered()){
+      SmartDashboard.putBoolean("Align", true);
+      return true;
+    } else {
+      SmartDashboard.putBoolean("Align", false);
+      return false;
+    }
+
   }
 }

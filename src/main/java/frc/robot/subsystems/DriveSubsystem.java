@@ -153,7 +153,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private static final double POWER_FACTOR = 0.8;
   private static final double TURN_FACTOR = 0.65;
-  private static final double VISION_AUTO_THRESHOLD = 0.01;
+  private static final double VISION_AUTO_THRESHOLD = 0.1;
 
 // The gyro sensor
 private final AHRS m_gyro = new AHRS(SerialPort.Port.kUSB);
@@ -166,10 +166,10 @@ private double m_turn;
 private int runtime = 0;
   public DriveSubsystem(VisionSubsystem visionSubsystem) {
     m_visionSubsystem = visionSubsystem;
-    m_leftFront.setIdleMode(IdleMode.kBrake);
-    m_rightFront.setIdleMode(IdleMode.kBrake);
-    m_leftBack.setIdleMode(IdleMode.kBrake);
-    m_rightBack.setIdleMode(IdleMode.kBrake);
+    m_leftFront.setIdleMode(IdleMode.kCoast);
+    m_rightFront.setIdleMode(IdleMode.kCoast);
+    m_leftBack.setIdleMode(IdleMode.kCoast);
+    m_rightBack.setIdleMode(IdleMode.kCoast);
     m_leftFront.setInverted(false);
     m_leftBack.setInverted(false);
     m_rightFront.setInverted(true);
@@ -275,7 +275,7 @@ private int runtime = 0;
    * THIS IS USED TO CONTROL THE DRIVE GLOBALLY FROM THE COMMANDS
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_robotDrive.arcadeDrive(fwd * POWER_FACTOR, rot * TURN_FACTOR);
+    m_robotDrive.arcadeDrive(fwd, rot, false);
   }
 
   
@@ -369,24 +369,36 @@ private int runtime = 0;
 
   public void centerDrive() {
     runtime += 1;
-    m_isTeleop = true;
+
     double ball_center_x = m_visionSubsystem.getBallCenterX();
-    if (ball_center_x >= 0){
+    if (ball_center_x >= 0 ){
       if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
-        m_robotDrive.arcadeDrive(0.0, -0.3);
+
+          this.arcadeDrive(0.0, 0.1);
+
         SmartDashboard.putBoolean("Align", false);
       } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
-        m_robotDrive.arcadeDrive(0.0, 0.3);
+        
+          this.arcadeDrive(0.0, -0.1);
+   
         SmartDashboard.putBoolean("Align", false);
-      } else {
-        SmartDashboard.putBoolean("Align", true);
-      }
+
+      } 
     } else {
       
-      m_robotDrive.arcadeDrive(0.0, 0.3);
+      this.arcadeDrive(0.0, -0.1);
     }
-    SmartDashboard.putNumber("Runtime", runtime);
-   
+  }
+
+  public boolean isDriveCentered(){
+    double ball_center_x = m_visionSubsystem.getBallCenterX();
+    
+    if (Math.abs(ball_center_x - 0.5) <= 0.1){
+      this.arcadeDrive(0.0, 0.0);
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
