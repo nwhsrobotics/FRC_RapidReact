@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
 
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -152,15 +153,19 @@ public class DriveSubsystem extends SubsystemBase {
 
   private static final double POWER_FACTOR = 0.8;
   private static final double TURN_FACTOR = 0.65;
+  private static final double VISION_AUTO_THRESHOLD = 0.01;
 
 // The gyro sensor
 private final AHRS m_gyro = new AHRS(SerialPort.Port.kUSB);
 
 // Odometry class for tracking robot pose
 private final DifferentialDriveOdometry m_odometry;
+private VisionSubsystem m_visionSubsystem;
 private double m_power;
 private double m_turn;
-  public DriveSubsystem() {
+private int runtime = 0;
+  public DriveSubsystem(VisionSubsystem visionSubsystem) {
+    m_visionSubsystem = visionSubsystem;
     m_leftFront.setIdleMode(IdleMode.kBrake);
     m_rightFront.setIdleMode(IdleMode.kBrake);
     m_leftBack.setIdleMode(IdleMode.kBrake);
@@ -173,7 +178,7 @@ private double m_turn;
     m_left  = new MotorControllerGroup(m_leftFront, m_leftBack);
     m_right = new MotorControllerGroup(m_rightFront, m_rightBack);
     m_robotDrive = new DifferentialDrive(m_left, m_right);
-    m_robotDrive.setDeadband(0.15);
+    m_robotDrive.setDeadband(0.05);
     m_robotDrive.setSafetyEnabled(false);
     m_rightFrontEncoder = m_rightFront.getEncoder();
     m_rightBackEncoder = m_rightBack.getEncoder();
@@ -267,10 +272,13 @@ private double m_turn;
    *
    * @param fwd the commanded forward movement
    * @param rot the commanded rotation
+   * THIS IS USED TO CONTROL THE DRIVE GLOBALLY FROM THE COMMANDS
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_robotDrive.arcadeDrive(fwd, rot);
+    m_robotDrive.arcadeDrive(fwd * POWER_FACTOR, rot * TURN_FACTOR);
   }
+
+  
 
   public void setDrivePower(double power, double turn){
     if (m_leftFront != null || m_leftBack != null || m_rightFront != null || m_rightBack != null){
@@ -357,6 +365,28 @@ private double m_turn;
 
   public static void isTeleop(boolean b) {
     m_isTeleop = b;
+  }
+
+  public void centerDrive() {
+    runtime += 1;
+    m_isTeleop = true;
+    double ball_center_x = m_visionSubsystem.getBallCenterX();
+    if (ball_center_x >= 0){
+      if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
+        m_robotDrive.arcadeDrive(0.0, -0.3);
+        SmartDashboard.putBoolean("Align", false);
+      } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
+        m_robotDrive.arcadeDrive(0.0, 0.3);
+        SmartDashboard.putBoolean("Align", false);
+      } else {
+        SmartDashboard.putBoolean("Align", true);
+      }
+    } else {
+      
+      m_robotDrive.arcadeDrive(0.0, 0.3);
+    }
+    SmartDashboard.putNumber("Runtime", runtime);
+   
   }
 
 }

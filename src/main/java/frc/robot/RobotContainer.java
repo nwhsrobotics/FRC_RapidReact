@@ -47,7 +47,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); //matthew did this :))) i like hotdogs 
+  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_visionSubsystem); //matthew did this :))) i like hotdogs 
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
@@ -122,7 +122,7 @@ public class RobotContainer {
   public RobotContainer(Trajectory traj_1) {
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);
-    m_sequentialAutoCommand = new RobotAutoCommand(m_driveSubsystem, traj_1);
+    m_sequentialAutoCommand = new RobotAutoCommand(m_driveSubsystem, m_visionSubsystem, traj_1);
     // Configure the button btindings
     configureButtonBindings();
   }
