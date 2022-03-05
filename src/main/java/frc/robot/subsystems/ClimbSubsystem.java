@@ -66,6 +66,7 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void moveUp() {
+<<<<<<< Updated upstream
     m_upDownPosition += SPEED_UP_DOWN;
   }
 
@@ -73,6 +74,27 @@ public class ClimbSubsystem extends SubsystemBase {
   }
 
   public void moveDown() {
+=======
+    m_upDown_m += SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
+    if (m_upDown_m> MAX_UP_DOWN_m){
+      m_upDown_m = MAX_UP_DOWN_m;
+    }
+  }
+
+  public void moveForward() {
+    m_backForward_m += SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
+    if (m_backForward_m> MAX_BACK_FORWARD_m){
+      m_backFroward_m = MAX_BACK_FORWARD
+    }
+
+  }
+
+  public void moveDown() {
+    m_upDown_m -= SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
+    if (m_upDown_m< 0.0){
+      m_upDown_m = 0.0;
+    }
+>>>>>>> Stashed changes
   }
 
   public void moveBack() {
