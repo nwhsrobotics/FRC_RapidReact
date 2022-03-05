@@ -132,14 +132,14 @@ public class RobotContainer {
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1) {
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
 
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, traj_1);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, traj_1, traj_2);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
 
