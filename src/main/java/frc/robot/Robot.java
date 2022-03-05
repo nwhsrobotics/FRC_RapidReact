@@ -37,10 +37,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     String trajectoryJSON = "paths/FullCircle3.wpilib.json";
     m_trajectory = new Trajectory();
+
     
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);                        // select trajectory 1 2 3 based on input - following into RobotContainer
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
