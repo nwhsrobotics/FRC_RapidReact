@@ -44,19 +44,19 @@ public class AlignDriveAutoCommand extends CommandBase {
     if (ball_center_x >= 0 ){
       if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
 
-          m_driveSubsystem.arcadeDrive(0.0, 0.1);
+          m_driveSubsystem.arcadeDrive(0.0, 0.09);
 
         SmartDashboard.putBoolean("Align", false);
       } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
         
-          m_driveSubsystem.arcadeDrive(0.0, -0.1);
+          m_driveSubsystem.arcadeDrive(0.0, -0.09);
    
         SmartDashboard.putBoolean("Align", false);
 
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, -0.1);
+      m_driveSubsystem.arcadeDrive(0.0, -0.08);
     }
    
   }
@@ -74,8 +74,9 @@ public class AlignDriveAutoCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     
-    if (Math.abs(ball_center_x - 0.5) <= 0.1){
+    if (Math.abs(ball_center_x - 0.5) <= 0.05){
       m_driveSubsystem.arcadeDrive(0.0, 0.0);
+      SmartDashboard.putBoolean("Align", true);
       return true;
     } else {
       return false;
