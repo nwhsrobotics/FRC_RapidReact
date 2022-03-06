@@ -25,7 +25,9 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Trajectory m_trajectory; 
+  private Trajectory m_trajectory;
+  private Trajectory m_trajectory_confident_PT1;
+  private Trajectory m_trajectory_confident_PT2; 
   private static boolean isTeleop = false;
 
 
@@ -37,10 +39,23 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     String trajectoryJSON = "paths/FullCircle3.wpilib.json";
     m_trajectory = new Trajectory();
+
+    String trajectory_confident_PT1_JSON = "paths/ConfidentTwoPoint_PT1.wpilib.json";
+    m_trajectory_confident_PT1 = new Trajectory();
+    String trajectory_confident_PT2_JSON = "paths/ConfidentTwoPoint_PT2.wpilib.json";
+    m_trajectory_confident_PT2 = new Trajectory();
+
+
     
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      Path trajectoryConfidentPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT1_JSON);
+      Path trajectoryConfidentPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT2_JSON);
+      
+
+      m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);                       // select trajectory 1 2 3 based on input - following into RobotContainer
+      m_trajectory_confident_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT1);
+      m_trajectory_confident_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT2);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
@@ -49,7 +64,7 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer(m_trajectory);
+    m_robotContainer = new RobotContainer( m_trajectory_confident_PT1, m_trajectory_confident_PT2);
   }
  
   /**

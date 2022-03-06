@@ -7,13 +7,17 @@ package frc.robot;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DriveAutoCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
-import frc.robot.commands.RobotAutoCommand;
+import frc.robot.commands.RobotAutoCommandGroupA;
+import frc.robot.commands.RobotAutoCommandGroupB;
+import frc.robot.commands.RobotAutoCommandGroupC;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
@@ -33,6 +37,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -44,10 +49,16 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  
+  private SendableChooser <SequentialCommandGroup> autoChooser;
+  private SequentialCommandGroup m_autoChooser;
+  
+  
+  
   // The robot's subsystems and commands are defined here...
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); //matthew did this :))) i like hotdogs 
+  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_visionSubsystem); //matthew did this :))) i like hotdogs 
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
@@ -120,13 +131,30 @@ public class RobotContainer {
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveAutoCommand m_driveAutoCommand;
-  private final RobotAutoCommand m_sequentialAutoCommand;
+  private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
+  private final RobotAutoCommandGroupB m_sequentialAutoCommandB;
+  private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1) {
-    m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);
-    m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);
-    m_sequentialAutoCommand = new RobotAutoCommand(m_driveSubsystem, traj_1);
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2) {
+    
+    
+    //autoChooser.addDefault("Auto Mode A", m_autoCommand);
+
+    m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
+    m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, traj_1, traj_2);
+    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
+
+    
+    
+    autoChooser = new SendableChooser<SequentialCommandGroup>();
+    autoChooser.setDefaultOption("Auto Mode 1", m_sequentialAutoCommandA);
+    SmartDashboard.putData("Auto Mode", autoChooser);
+    
+    
+
     // Configure the button btindings
     configureButtonBindings();
   }
@@ -175,7 +203,17 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    
+     // return new InfiniteRechargeAutoCommandGroup(m_intakeSubsystem, m_driveSubsystem, m_visionSubsystem, m_indexSubsystem, m_shooterSubsystem);
+      //return new GalacticChallengeCommandGroup(m_intakeSubsystem, m_driveSubsystem, m_visionSubsystem, m_storageSubsystem);
+      //return new RapidReactgetAutoCommandGroup(m_intakeSubsystem, m_driveSubsystem, m_visionSubsystem, m_indexSubsystem, m_shooterSubsystem);
+  
+      /*
+      m_autoChooser = autoChooser.getSelected();
+      // An ExampleCommand will run in autonomous
+      return m_autoChooser;
+      */
     // An ExampleCommand will run in autonomous
-    return m_sequentialAutoCommand;
+    return m_sequentialAutoCommandA;
   }
 }

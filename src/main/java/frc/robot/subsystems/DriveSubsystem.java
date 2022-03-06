@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
 
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -152,19 +153,23 @@ public class DriveSubsystem extends SubsystemBase {
 
   private static final double POWER_FACTOR = 0.8;
   private static final double TURN_FACTOR = 0.65;
+  private static final double VISION_AUTO_THRESHOLD = 0.1;
 
 // The gyro sensor
 private final AHRS m_gyro = new AHRS(SerialPort.Port.kUSB);
 
 // Odometry class for tracking robot pose
 private final DifferentialDriveOdometry m_odometry;
+private VisionSubsystem m_visionSubsystem;
 private double m_power;
 private double m_turn;
-  public DriveSubsystem() {
-    m_leftFront.setIdleMode(IdleMode.kBrake);
-    m_rightFront.setIdleMode(IdleMode.kBrake);
-    m_leftBack.setIdleMode(IdleMode.kBrake);
-    m_rightBack.setIdleMode(IdleMode.kBrake);
+private int runtime = 0;
+  public DriveSubsystem(VisionSubsystem visionSubsystem) {
+    m_visionSubsystem = visionSubsystem;
+    m_leftFront.setIdleMode(IdleMode.kCoast);
+    m_rightFront.setIdleMode(IdleMode.kCoast);
+    m_leftBack.setIdleMode(IdleMode.kCoast);
+    m_rightBack.setIdleMode(IdleMode.kCoast);
     m_leftFront.setInverted(false);
     m_leftBack.setInverted(false);
     m_rightFront.setInverted(true);
@@ -173,7 +178,7 @@ private double m_turn;
     m_left  = new MotorControllerGroup(m_leftFront, m_leftBack);
     m_right = new MotorControllerGroup(m_rightFront, m_rightBack);
     m_robotDrive = new DifferentialDrive(m_left, m_right);
-    m_robotDrive.setDeadband(0.15);
+    m_robotDrive.setDeadband(0.05);
     m_robotDrive.setSafetyEnabled(false);
     m_rightFrontEncoder = m_rightFront.getEncoder();
     m_rightBackEncoder = m_rightBack.getEncoder();
@@ -267,10 +272,13 @@ private double m_turn;
    *
    * @param fwd the commanded forward movement
    * @param rot the commanded rotation
+   * THIS IS USED TO CONTROL THE DRIVE GLOBALLY FROM THE COMMANDS
    */
   public void arcadeDrive(double fwd, double rot) {
-    m_robotDrive.arcadeDrive(fwd, rot);
+    m_robotDrive.arcadeDrive(fwd, rot, false);
   }
+
+  
 
   public void setDrivePower(double power, double turn){
     if (m_leftFront != null || m_leftBack != null || m_rightFront != null || m_rightBack != null){
@@ -357,6 +365,40 @@ private double m_turn;
 
   public static void isTeleop(boolean b) {
     m_isTeleop = b;
+  }
+
+  public void centerDrive() {
+    runtime += 1;
+
+    double ball_center_x = m_visionSubsystem.getBallCenterX();
+    if (ball_center_x >= 0 ){
+      if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
+
+          this.arcadeDrive(0.0, 0.1);
+
+        SmartDashboard.putBoolean("Align", false);
+      } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
+        
+          this.arcadeDrive(0.0, -0.1);
+   
+        SmartDashboard.putBoolean("Align", false);
+
+      } 
+    } else {
+      
+      this.arcadeDrive(0.0, -0.1);
+    }
+  }
+
+  public boolean isDriveCentered(){
+    double ball_center_x = m_visionSubsystem.getBallCenterX();
+    
+    if (Math.abs(ball_center_x - 0.5) <= 0.1){
+      this.arcadeDrive(0.0, 0.0);
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
