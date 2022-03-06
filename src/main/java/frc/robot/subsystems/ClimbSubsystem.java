@@ -37,9 +37,12 @@ public class ClimbSubsystem extends SubsystemBase {
   private static boolean m_enabled = false;
   private double m_upDown_m = 0.0;
   private double m_backForward_m = 0.0;
+  private static final double MAX_UP_DOWN_m = 28.0*0.0254; //28 inches converted to meters
+  private static final double MAX_BACK_FORWARD_m = 12.0*0.0254; //12 inches converted to meters
   private static final double SPEED_UP_DOWN_mps = 0.5;
+  private static final double TICKS_PER_SECOND = 50;
   private static final double SPEED_BACK_FORWARD_mps = 0.5;
-  private static final double TICKS_PER_SECOND = 50.0;
+
 // TO DO LIST: FIX REAL SPEED(THE 1.0 VALUES!)
   private static final double UP_DOWN_COUNTS_PER_METER = 131; //TO DO LIST: FIGURE OUT REAL VALUE
   private static final double BACK_FORWARD_COUNTS_PER_METER = 131;
@@ -129,15 +132,24 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void moveForward() {
     m_backForward_m += SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
+    if (m_backForward_m> MAX_BACK_FORWARD_m){
+      m_backForward_m = MAX_BACK_FORWARD_m;
+    }
 
   }
 
   public void moveDown() {
     m_upDown_m -= SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
+    if (m_upDown_m< 0.0){
+      m_upDown_m = 0.0;
+    }
   }
 
   public void moveBack() {
     m_backForward_m -= SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
+    if (m_backForward_m < 0.0){
+      m_backForward_m = 0.0;
+    }
   }
   
 

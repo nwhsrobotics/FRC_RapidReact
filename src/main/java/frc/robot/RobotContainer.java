@@ -94,7 +94,21 @@ public class RobotContainer {
 
 
   private final XboxController m_joy0 = new XboxController(0);
-  private final XboxController m_joy1 = new XboxController(0);
+  private final XboxController m_joy1 = new XboxController(1);
+
+  private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
+  private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
+  private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
+  private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
+
+  private final POVButton m_joy0_pov0 = new POVButton(m_joy0, 0);
+  private final POVButton m_joy0_pov45 = new POVButton(m_joy0, 45);
+  private final POVButton m_joy0_pov90 = new POVButton(m_joy0, 90);
+  private final POVButton m_joy0_pov135 = new POVButton(m_joy0, 135);
+  private final POVButton m_joy0_pov180 = new POVButton(m_joy0, 180);
+  private final POVButton m_joy0_pov225 = new POVButton(m_joy0, 225);
+  private final POVButton m_joy0_pov270 = new POVButton(m_joy0, 270);
+  private final POVButton m_joy0_pov315 = new POVButton(m_joy0, 315);
 
   private final JoystickButton m_joy1_a = new JoystickButton(m_joy1, 1);
   private final JoystickButton m_joy1_b = new JoystickButton(m_joy1, 2);
@@ -105,24 +119,14 @@ public class RobotContainer {
   private final JoystickButton m_joy1_back = new JoystickButton(m_joy1, 7);
   private final JoystickButton m_joy1_menu = new JoystickButton(m_joy1, 8);
 
-  private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
-  private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
-  private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
-  private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
+  
 
   private final POVButton m_joy1_pov0 = new POVButton(m_joy1, 0);
   private final POVButton m_joy1_pov90 = new POVButton(m_joy1, 90);
   private final POVButton m_joy1_pov180 = new POVButton(m_joy1, 180);
   private final POVButton m_joy1_pov270 = new POVButton(m_joy1, 270);
 
-  private final POVButton m_joy0_pov0 = new POVButton(m_joy0, 0);
-  private final POVButton m_joy0_pov45 = new POVButton(m_joy0, 45);
-  private final POVButton m_joy0_pov90 = new POVButton(m_joy0, 90);
-  private final POVButton m_joy0_pov135 = new POVButton(m_joy0, 135);
-  private final POVButton m_joy0_pov180 = new POVButton(m_joy0, 180);
-  private final POVButton m_joy0_pov225 = new POVButton(m_joy0, 225);
-  private final POVButton m_joy0_pov270 = new POVButton(m_joy0, 270);
-  private final POVButton m_joy0_pov315 = new POVButton(m_joy0, 315);
+  
 
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
