@@ -29,7 +29,10 @@ public class ShooterSubsystem extends SubsystemBase {
   private boolean m_autoMode = true;
   private double m_manual_speed_rpm = 0.0;
   private VisionSubsystem m_visionSubsystem;
+  
   private final double m_flywheelAutoSpeedMultiplier = 5;
+  private double m_greenDist = -1;
+  private final double AUTO_SPEED_CONSTANT = 30;
 
   private boolean m_enabled = false;
   private double m_manual_offset_rpm = 0.0;
@@ -126,6 +129,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getAutoFlywheelSpeed() {
+    //TODO: Need to calibrate this flywheel speed. 
     double greenCenterY = m_visionSubsystem.getGreenCenterY();
     if (greenCenterY <= 0) {
       return 0;
