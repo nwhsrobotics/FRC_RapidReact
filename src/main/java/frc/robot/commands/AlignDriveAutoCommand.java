@@ -40,7 +40,24 @@ public class AlignDriveAutoCommand extends CommandBase {
     /* only run this if the vision is giving us output that exists */
     
     
-    m_driveSubsystem.centerDrive();
+    double ball_center_x = m_visionSubsystem.getBallCenterX();
+    if (ball_center_x >= 0 ){
+      if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
+
+          m_driveSubsystem.arcadeDrive(0.0, 0.1);
+
+        SmartDashboard.putBoolean("Align", false);
+      } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
+        
+          m_driveSubsystem.arcadeDrive(0.0, -0.1);
+   
+        SmartDashboard.putBoolean("Align", false);
+
+      } 
+    } else {
+      
+      m_driveSubsystem.arcadeDrive(0.0, -0.1);
+    }
    
   }
     
@@ -56,11 +73,11 @@ public class AlignDriveAutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_driveSubsystem.isDriveCentered()){
-      SmartDashboard.putBoolean("Align", true);
+    
+    if (Math.abs(ball_center_x - 0.5) <= 0.1){
+      m_driveSubsystem.arcadeDrive(0.0, 0.0);
       return true;
     } else {
-      SmartDashboard.putBoolean("Align", false);
       return false;
     }
 
