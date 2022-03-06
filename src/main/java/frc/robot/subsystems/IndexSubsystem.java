@@ -92,7 +92,7 @@ public class IndexSubsystem extends SubsystemBase {
     }
 
     double revs = m_pos_m / METERS_PER_REV;
-    System.out.printf("Index revs = %f (m_pos_m = %f)\n", revs, m_pos_m);
+    //System.out.printf("Index revs = %f (m_pos_m = %f)\n", revs, m_pos_m);
     m_pidController.setReference(revs, ControlType.kPosition);
   }
 

@@ -151,6 +151,8 @@ public class RobotContainer {
     
     autoChooser = new SendableChooser<SequentialCommandGroup>();
     autoChooser.setDefaultOption("Auto Mode 1", m_sequentialAutoCommandA);
+    autoChooser.addOption("Auto Mode 2", m_sequentialAutoCommandB);
+    autoChooser.addOption("Auto Mode 3", m_sequentialAutoCommandC);
     SmartDashboard.putData("Auto Mode", autoChooser);
     
     
@@ -214,6 +216,6 @@ public class RobotContainer {
       return m_autoChooser;
       */
     // An ExampleCommand will run in autonomous
-    return m_sequentialAutoCommandA;
+    return autoChooser.getSelected();
   }
 }
