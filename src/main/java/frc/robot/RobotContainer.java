@@ -19,6 +19,7 @@ import frc.robot.commands.RobotAutoCommandGroupA;
 import frc.robot.commands.RobotAutoCommandGroupB;
 import frc.robot.commands.RobotAutoCommandGroupC;
 import frc.robot.commands.DriveBackwardCommand;
+import frc.robot.commands.DriveForwardBallAutoCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.ToggleIntakeCommand;
 import frc.robot.commands.IntakeRaiseCommand;
@@ -79,7 +80,7 @@ public class RobotContainer {
   private final ShooterSetAutoCommand m_shooterSetAutoTrueCommand = new ShooterSetAutoCommand(m_shooterSubsystem, true);
   private final ShooterSpeedAdjustCommand m_shooterSpeedIncreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, 50);
   private final ShooterSpeedAdjustCommand m_shooterSpeedDecreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, -50);
-
+  
 
   //private final DriveBackwardCommand m_driveBackwardCommand = new DriveBackwardCommand(m_driveSubsystem);
 
@@ -134,18 +135,20 @@ public class RobotContainer {
   private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
   private final RobotAutoCommandGroupB m_sequentialAutoCommandB;
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
+  private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer(Trajectory traj_1, Trajectory traj_2) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
-
+    //this is where all of the Drive Commands are created and set
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
     m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, traj_1, traj_2);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
+    m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
 
     
     

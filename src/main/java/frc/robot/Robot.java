@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 
     String trajectory_confident_PT1_JSON = "paths/ConfidentTwoPoint_PT1.wpilib.json";
     m_trajectory_confident_PT1 = new Trajectory();
-    String trajectory_confident_PT2_JSON = "paths/ConfidentTwoPoint_PT2.wpilib.json";
+    String trajectory_confident_PT2_JSON = "paths/ConfidentTwoPoint_PT2_REVSPLINE.wpilib.json";
     m_trajectory_confident_PT2 = new Trajectory();
 
 
