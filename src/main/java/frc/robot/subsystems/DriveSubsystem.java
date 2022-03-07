@@ -166,10 +166,10 @@ private double m_turn;
 private int runtime = 0;
   public DriveSubsystem(VisionSubsystem visionSubsystem) {
     m_visionSubsystem = visionSubsystem;
-    m_leftFront.setIdleMode(IdleMode.kCoast);
-    m_rightFront.setIdleMode(IdleMode.kCoast);
-    m_leftBack.setIdleMode(IdleMode.kCoast);
-    m_rightBack.setIdleMode(IdleMode.kCoast);
+    m_leftFront.setIdleMode(IdleMode.kBrake);
+    m_rightFront.setIdleMode(IdleMode.kBrake);
+    m_leftBack.setIdleMode(IdleMode.kBrake);
+    m_rightBack.setIdleMode(IdleMode.kBrake);
     m_leftFront.setInverted(false);
     m_leftBack.setInverted(false);
     m_rightFront.setInverted(true);

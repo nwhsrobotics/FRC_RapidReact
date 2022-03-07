@@ -18,8 +18,7 @@ public class RobotAutoCommandGroupA extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new DriveAutoCommand(driveSubsystem, dTraj_1).getRamseteCommand(),
-    new AlignDriveAutoCommand(driveSubsystem, visionSubsystem),
-    new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand()
+    new AlignDriveAutoCommand(driveSubsystem, visionSubsystem)
 
     );
   }
