@@ -26,7 +26,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private RelativeEncoder m_flywheel2encoder;
   private double m_speed_rpm = 0.0;
   private double m_offset_rpm = 0.0;
-  private boolean m_autoMode = true;
+  private boolean m_autoMode = false;
   private double m_manual_speed_rpm = 0.0;
   private VisionSubsystem m_visionSubsystem;
   

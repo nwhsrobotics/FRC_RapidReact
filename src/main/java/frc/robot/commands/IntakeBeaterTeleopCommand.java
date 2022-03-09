@@ -15,6 +15,7 @@ public class IntakeBeaterTeleopCommand extends CommandBase {
   private XboxController m_joy;
   public IntakeBeaterTeleopCommand(IntakeSubsystem intakeSubsystem, XboxController joy) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSubsystem);
     m_intakeSubsystem = intakeSubsystem;
     m_joy = joy;
     
