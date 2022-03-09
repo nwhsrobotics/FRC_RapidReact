@@ -30,6 +30,7 @@ public class VisionSubsystem extends SubsystemBase {
   private double m_ball_centerX;
   private double m_ball_centerY;
   private double m_closestBallDist_in = -1;
+  private boolean m_isReversed = false;
 
 
 
@@ -52,6 +53,7 @@ public class VisionSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("isReversed", m_isReversed);
     
     // This method will be called once per scheduler run
     //gets the distance to the closest ball 
@@ -138,6 +140,10 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
   }
+
+public void setReversed(boolean b) {
+  m_isReversed = b;
+}
   
 
   

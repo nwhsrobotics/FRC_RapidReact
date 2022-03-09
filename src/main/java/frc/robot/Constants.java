@@ -30,7 +30,7 @@ public final class Constants {
     public static final int kRightMotor1Port = 8;
     public static final int kRightMotor2Port = 9;
     
-    public static final double kTicksPerMeter = 14.62; //(1/3544.85)*0.02.5
+    public static final double kTicksPerMeter = 11;  //14.62 //(1/3544.85)*0.02.
     public static final double kEncoderDistancePerPulse = 1.0 / kTicksPerMeter; //((1/20)*0.1524*Math.PI)/4096.0
     //public static final double kEncoderDistancePerPulse = 20;
     

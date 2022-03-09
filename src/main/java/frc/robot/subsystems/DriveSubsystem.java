@@ -164,6 +164,7 @@ private VisionSubsystem m_visionSubsystem;
 private double m_power;
 private double m_turn;
 private int runtime = 0;
+private boolean m_isReversed = false;
   public DriveSubsystem(VisionSubsystem visionSubsystem) {
     m_visionSubsystem = visionSubsystem;
     m_leftFront.setIdleMode(IdleMode.kBrake);
@@ -400,6 +401,14 @@ private int runtime = 0;
       return false;
     }
   }
+
+public boolean isReversed() {
+    return m_isReversed;
+}
+
+public void setReversed(boolean b) {
+  m_isReversed = b;
+}
 
 }
 

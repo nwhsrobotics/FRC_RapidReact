@@ -8,16 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class DriveForwardBallAutoCommand extends CommandBase {
-  /** Creates a new DriveForwardBallAutoCommand. */
-  private VisionSubsystem m_visionSubsystem;
-  private DriveSubsystem m_driveSubsystem;
-
-  public DriveForwardBallAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
+public class DriveSwitchCommand extends CommandBase {
+  /** Creates a new DriveSwitchCommand. */
+  private DriveSubsystem m_DriveSubsystem;
+  private VisionSubsystem m_VisionSubsystem;
+  public DriveSwitchCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
+    addRequirements(driveSubsystem); 
+    m_DriveSubsystem = driveSubsystem;
+    m_VisionSubsystem = visionSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(visionSubsystem, driveSubsystem);
-    m_visionSubsystem = visionSubsystem;
-    m_driveSubsystem = driveSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -27,11 +26,8 @@ public class DriveForwardBallAutoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_visionSubsystem.getBallDist_in() >= 50){
-      m_driveSubsystem.arcadeDrive(0.1, 0.0);
-    } else {
-      m_driveSubsystem.arcadeDrive(0.0, 0.0);
-    }
+    m_DriveSubsystem.setReversed(!m_DriveSubsystem.isReversed());
+    m_VisionSubsystem.setReversed(m_DriveSubsystem.isReversed());
   }
 
   // Called once the command ends or is interrupted.
@@ -41,17 +37,6 @@ public class DriveForwardBallAutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_visionSubsystem.getBallDist_in() >= 0) {
-
-    
-      if (m_visionSubsystem.getBallDist_in() < 50){
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-    
+    return true;
   }
 }

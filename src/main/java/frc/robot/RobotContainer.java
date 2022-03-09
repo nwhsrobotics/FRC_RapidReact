@@ -21,6 +21,7 @@ import frc.robot.commands.RobotAutoCommandGroupC;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardBallAutoCommand;
 import frc.robot.commands.DriveForwardCommand;
+import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.commands.ToggleIntakeCommand;
 import frc.robot.commands.IntakeRaiseCommand;
 import frc.robot.commands.IntakeLowerCommand;
@@ -80,7 +81,7 @@ public class RobotContainer {
   private final ShooterSetAutoCommand m_shooterSetAutoTrueCommand = new ShooterSetAutoCommand(m_shooterSubsystem, true);
   private final ShooterSpeedAdjustCommand m_shooterSpeedIncreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, 50);
   private final ShooterSpeedAdjustCommand m_shooterSpeedDecreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, -50);
-  
+  private final DriveSwitchCommand m_DriveSwitchCommand = new DriveSwitchCommand(m_driveSubsystem, m_visionSubsystem);
 
   //private final DriveBackwardCommand m_driveBackwardCommand = new DriveBackwardCommand(m_driveSubsystem);
 
@@ -101,6 +102,7 @@ public class RobotContainer {
   private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
+  private final JoystickButton m_joy0_menu = new JoystickButton(m_joy0, 8);
 
   private final POVButton m_joy0_pov0 = new POVButton(m_joy0, 0);
   private final POVButton m_joy0_pov45 = new POVButton(m_joy0, 45);
@@ -199,7 +201,8 @@ public class RobotContainer {
     m_joy0_pov225.whileHeld(m_climbCommand225);
     m_joy0_pov270.whileHeld(m_climbCommand270);
     m_joy0_pov315.whileHeld(m_climbCommand315);
-
+    
+    m_joy0_menu.whenPressed(m_DriveSwitchCommand);
 
   }
   /**
