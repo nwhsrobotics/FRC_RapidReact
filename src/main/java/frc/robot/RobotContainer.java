@@ -15,6 +15,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IndexLoadCommand;
 import frc.robot.commands.IndexShootCommand;
 import frc.robot.commands.IndexUnloadCommand;
+import frc.robot.commands.IntakeBeaterTeleopCommand;
 import frc.robot.commands.RobotAutoCommandGroupA;
 import frc.robot.commands.RobotAutoCommandGroupB;
 import frc.robot.commands.RobotAutoCommandGroupC;
@@ -25,6 +26,7 @@ import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.commands.ToggleIntakeCommand;
 import frc.robot.commands.IntakeRaiseCommand;
 import frc.robot.commands.IntakeLowerCommand;
+import frc.robot.commands.IntakeOnCommand;
 import frc.robot.commands.ShooterModeChangeCommand;
 import frc.robot.commands.ShooterHighModeCommand;
 import frc.robot.commands.ShooterLowModeCommand;
@@ -71,6 +73,8 @@ public class RobotContainer {
   private final IndexShootCommand m_indexShootCommand = new IndexShootCommand(m_indexSubsystem, m_shooterSubsystem);
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
+
+  
   private final IntakeRaiseCommand m_intakeRaiseCommand = new IntakeRaiseCommand(m_intakeSubsystem);
   private final IntakeLowerCommand m_intakeLowerCommand = new IntakeLowerCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
@@ -132,6 +136,7 @@ public class RobotContainer {
   
 
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
+  private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final DriveAutoCommand m_driveAutoCommand;
   private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
@@ -146,6 +151,7 @@ public class RobotContainer {
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
     //this is where all of the Drive Commands are created and set
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
+    m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
     m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1, traj_2);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
