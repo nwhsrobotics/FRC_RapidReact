@@ -147,7 +147,7 @@ public class RobotContainer {
     //this is where all of the Drive Commands are created and set
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, traj_1, traj_2);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1, traj_2);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);

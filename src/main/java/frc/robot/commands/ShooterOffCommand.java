@@ -11,10 +11,7 @@ public class ShooterOffCommand extends CommandBase {
   private ShooterSubsystem m_shooterSubsystem;
 
   
-  /** Creates a new ShooterHighModeCommand. */
-  public ShooterOffCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+  
 
   public ShooterOffCommand(ShooterSubsystem subsystem) {
     addRequirements(subsystem);
