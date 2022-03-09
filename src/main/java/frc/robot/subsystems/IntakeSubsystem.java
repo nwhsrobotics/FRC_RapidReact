@@ -37,6 +37,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private static final double BEATER_OFF_SPEED = 0.0;
   private boolean m_beaterOn = false;
   private CANSparkMax m_beaterMotor = new CANSparkMax(Constants.IDs.CAN.INTAKE_BEATER, MotorType.kBrushless);
+  private boolean m_forward;
+  
 
 
   private static boolean m_enabled = false;
@@ -68,7 +70,11 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeArmPidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
  
     if (m_beaterOn){
-      m_beaterMotor.set(BEATER_ON_SPEED);
+      if (m_forward){
+        m_beaterMotor.set(BEATER_ON_SPEED);
+      } else {
+        m_beaterMotor.set(-BEATER_ON_SPEED);
+      }
     }
     else {
       m_beaterMotor.set(BEATER_OFF_SPEED);
@@ -106,5 +112,9 @@ public void setPosition_deg(double position) {
 
   public void setBeaterOn(boolean on) {
     m_beaterOn = on;
+  }
+
+  public void setBeaterForward(boolean forward) {
+    m_forward = forward;
   }     
 }
