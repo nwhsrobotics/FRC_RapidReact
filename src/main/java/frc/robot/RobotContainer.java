@@ -145,7 +145,7 @@ public class RobotContainer {
   private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1, Trajectory traj_2) {
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
@@ -153,9 +153,9 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1, traj_2);
-    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
-    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1);
+    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_3);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
 
     
