@@ -26,10 +26,10 @@ public class IntakeSubsystem extends SubsystemBase {
   private RelativeEncoder m_intakeArmEncoder;
 
   public static final double DOWN_POSITION_DEG = 0.0;
-  public static final double UP_POSITION_DEG = 90.0;
+  public static final double UP_POSITION_DEG = 115.0;
   boolean m_isUp = true;
   private double m_currentPosition_deg = UP_POSITION_DEG;
-  public static final double COUNTS_PER_DEG = 42.0*200.0/360.0;// 42 counts per motor rev, 200:1 gear ration, 360 deg/rev
+  public static final double COUNTS_PER_DEG = 20.0/360.0;// 20:1 gear ratio, 360 deg/rev
   
 
   // beater motor
@@ -66,9 +66,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    m_intakeArmPidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
- 
+    // This method will be called once per scheduler run\
+    if (m_currentPosition_deg <= DOWN_POSITION_DEG){
+      //power off when down
+      m_intakeArmPidController.setReference(0.0, ControlType.kVoltage);
+    } else {
+      //regular pid control when not down
+      m_intakeArmPidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
+    }
+
     if (m_beaterOn){
       if (m_forward){
         m_beaterMotor.set(BEATER_ON_SPEED);
