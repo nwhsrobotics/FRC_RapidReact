@@ -27,12 +27,13 @@ public class RobotAutoCommandGroupB extends SequentialCommandGroup {
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem),
     new IntakeLowerCommand(intakeSubsystem),
-    new IntakeOnCommand(intakeSubsystem, true),
+    new IntakeOnCommand(intakeSubsystem, false),
     new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand(),
     new IntakeOnCommand(intakeSubsystem, false),
     new IndexLoadCommand(indexSubsystem),
     new DriveAutoCommand(driveSubsystem, dTraj_3).getRamseteCommand(),
     new ShooterHighModeCommand(shooterSubsystem),
+    new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem)
     // end of Ideal Path
