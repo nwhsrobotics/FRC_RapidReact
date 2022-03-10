@@ -63,7 +63,7 @@ public final class Constants {
             public static final int INDEXER = 15; // was 10 (most recent: was 7 )
             public static final int SHOOTER_FLYWHEEL = 1;
             public static final int SHOOTER_FLYWHEEL2 = 2;
-            public static final int CLIMB_RIGHT_ARM = 20;
+            public static final int CLIMB_RIGHT_ARM = 3; //was 20
             public static final int CLIMB_LEFT_ARM = 21;
             public static final int CLIMB_RIGHT_SHOULDER = 22;
             public static final int CLIMB_LEFT_SHOULDER = 23;
