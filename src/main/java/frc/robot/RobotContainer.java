@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ClimbCommand;
@@ -144,6 +145,9 @@ public class RobotContainer {
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
   private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
   
+  private Trajectory m_traj_1;
+  private Trajectory m_traj_2;
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3) {
     
@@ -165,6 +169,8 @@ public class RobotContainer {
     autoChooser.addOption("Auto Mode 2", m_sequentialAutoCommandB);
     autoChooser.addOption("Auto Mode 3", m_sequentialAutoCommandC);
     SmartDashboard.putData("Auto Mode", autoChooser);
+    m_traj_1 = traj_1;
+    m_traj_2 = traj_2;
     
     
 
@@ -228,6 +234,14 @@ public class RobotContainer {
       return m_autoChooser;
       */
     // An ExampleCommand will run in autonomous
+    if (autoChooser.getSelected().equals(m_sequentialAutoCommandB)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode B");
+      m_driveSubsystem.resetOdometry(m_traj_2.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode A");
+      m_driveSubsystem.resetOdometry(m_traj_1.getInitialPose());
+    }
+    
     return autoChooser.getSelected();
   }
 }

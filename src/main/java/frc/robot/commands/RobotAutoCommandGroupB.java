@@ -27,7 +27,7 @@ public class RobotAutoCommandGroupB extends SequentialCommandGroup {
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem),
     new IntakeLowerCommand(intakeSubsystem),
-    new IntakeOnCommand(intakeSubsystem, false),
+    new IntakeOnCommand(intakeSubsystem, true),
     new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand(),
     new IntakeOnCommand(intakeSubsystem, false),
     new IndexLoadCommand(indexSubsystem),
