@@ -55,7 +55,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  */
 public class RobotContainer {
   
-  private SendableChooser<ExampleCommand> autoChooser;
+  private SendableChooser<SequentialCommandGroup> autoChooser;
   private SequentialCommandGroup m_autoChooser;
   
   
@@ -63,7 +63,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  //private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_visionSubsystem); //matthew did this :))) i like hotdogs 
+  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_visionSubsystem); //matthew did this :))) i like hotdogs 
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
@@ -86,7 +86,7 @@ public class RobotContainer {
   private final ShooterSetAutoCommand m_shooterSetAutoTrueCommand = new ShooterSetAutoCommand(m_shooterSubsystem, true);
   private final ShooterSpeedAdjustCommand m_shooterSpeedIncreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, 50);
   private final ShooterSpeedAdjustCommand m_shooterSpeedDecreaseCommand = new ShooterSpeedAdjustCommand(m_shooterSubsystem, -50);
-  //private final DriveSwitchCommand m_DriveSwitchCommand = new DriveSwitchCommand(m_driveSubsystem, m_visionSubsystem);
+  private final DriveSwitchCommand m_DriveSwitchCommand = new DriveSwitchCommand(m_driveSubsystem, m_visionSubsystem);
 
   //private final DriveBackwardCommand m_driveBackwardCommand = new DriveBackwardCommand(m_driveSubsystem);
 
@@ -136,7 +136,7 @@ public class RobotContainer {
 
   
 
-  //private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
+  private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
   private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -159,7 +159,7 @@ public class RobotContainer {
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
     //this is where all of the Drive Commands are created and set
-    //m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
+    m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
 
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
@@ -170,13 +170,13 @@ public class RobotContainer {
 
     
     
-    autoChooser = new SendableChooser<ExampleCommand>();
+    autoChooser = new SendableChooser<SequentialCommandGroup>();
     
-    autoChooser.setDefaultOption("Auto Mode 1", m_autoCommand);
-    /*
+    autoChooser.setDefaultOption("Auto Mode 1", m_sequentialAutoCommandA);
+    
     autoChooser.addOption("Auto Mode 2", m_sequentialAutoCommandB);
     autoChooser.addOption("Auto Mode 3", m_sequentialAutoCommandC);
-    */
+    
     SmartDashboard.putData("Auto Mode", autoChooser);
     m_traj_1 = traj_1;
     m_traj_2 = traj_2;
@@ -223,7 +223,7 @@ public class RobotContainer {
     m_joy0_pov270.whileHeld(m_climbCommand270);
     m_joy0_pov315.whileHeld(m_climbCommand315);
     
-    //m_joy0_menu.whenPressed(m_DriveSwitchCommand);
+    m_joy0_menu.whenPressed(m_DriveSwitchCommand);
 
   }
   /**
