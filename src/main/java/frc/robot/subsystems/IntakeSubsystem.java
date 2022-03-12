@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public static final double UP_POSITION_DEG = 115.0;
   boolean m_isUp = true;
   private double m_currentPosition_deg = UP_POSITION_DEG;
-  public static final double COUNTS_PER_DEG = 20.0/360.0;// 20:1 gear ratio, 360 deg/rev
+  public static final double COUNTS_PER_DEG = 100.0/360.0;// 100:1 gear ratio, 360 deg/rev
   
 
   // beater motor
