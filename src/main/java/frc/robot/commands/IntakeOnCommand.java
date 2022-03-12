@@ -34,6 +34,7 @@ public class IntakeOnCommand extends CommandBase {
   public void execute() {
     
     m_intake.setBeaterOn(m_isOn);
+    m_intake.setBeaterForward(true);
     //m_intake.setBeaterSpeed(m_speed);
   }
 

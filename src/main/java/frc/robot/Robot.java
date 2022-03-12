@@ -7,6 +7,9 @@ package frc.robot;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -32,13 +35,16 @@ public class Robot extends TimedRobot {
   private static boolean isTeleop = false;
 
 
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-   
+    CameraServer.startAutomaticCapture(0);
+    CameraServer.startAutomaticCapture(1);
+
 
     String trajectory_confident_PT1_JSON = "paths/ConfidentTwoPoint_PT1.wpilib.json";
     m_trajectory_confident_PT1 = new Trajectory();
@@ -69,6 +75,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2);
+
+    
   }
  
   /**
