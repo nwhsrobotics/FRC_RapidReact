@@ -211,8 +211,8 @@ public class RobotContainer {
     m_joy1_pov0.whenPressed(m_shooterSpeedIncreaseCommand);
     m_joy1_pov180.whenPressed(m_shooterSpeedDecreaseCommand);
 
-    m_joy0_a.whenPressed(m_intakeLowerCommand);
-    m_joy0_y.whenPressed(m_intakeRaiseCommand);
+    m_joy0_LeftBumper.whenPressed(m_intakeLowerCommand);
+    m_joy0_RightBumper.whenPressed(m_intakeRaiseCommand);
 
     m_joy0_pov0.whileHeld(m_climbCommand0);
     m_joy0_pov45.whileHeld(m_climbCommand45);
