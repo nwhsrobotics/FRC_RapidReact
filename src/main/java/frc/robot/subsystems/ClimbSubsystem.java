@@ -88,12 +88,12 @@ public class ClimbSubsystem extends SubsystemBase {
     
     m_leftarmEncoder.setPosition(0);
     m_leftarmMotor.setIdleMode(IdleMode.kBrake);
-    m_leftarmPID.setP(0.05);
+    m_leftarmPID.setP(1.0);
     m_leftarmPID.setI(0.0);
     m_leftarmPID.setD(0.0);
     m_leftarmPID.setIZone(0.0);
     m_leftarmPID.setFF(0.0);
-    m_leftarmPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
+    m_leftarmPID.setOutputRange(-1.0, 1.0); //TODO - enable full power
     m_leftarmPID.setReference(0.0, ControlType.kPosition); 
     /*
     m_rightshoulderEncoder.setPosition(0);
@@ -127,7 +127,7 @@ public class ClimbSubsystem extends SubsystemBase {
     // System.out.printf("upDown_counts = %f\n", upDown_counts);
     // This method will be called once per scheduler run
     double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
-    m_leftarmPID.setReference(-upDown_counts, ControlType.kPosition);
+    m_leftarmPID.setReference(upDown_counts, ControlType.kPosition);
     m_rightarmPID.setReference(upDown_counts, ControlType.kPosition);
     //m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
     //m_rightshoulderPID.setReference(backForward_counts, ControlType.kPosition);

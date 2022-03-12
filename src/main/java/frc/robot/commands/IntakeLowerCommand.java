@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 
 public class IntakeLowerCommand extends CommandBase {
-  private static final double SPEED_DEG_PER_TICK = 90.0/150.0;//90 degs / 50 ticks per second (3 seconds)
+  private static final double SPEED_DEG_PER_TICK = 10.0/50.0;//90 degs / 50 ticks per second (3 seconds)
   private IntakeSubsystem m_intake;
   private double m_endPosition;
   private double m_speed;

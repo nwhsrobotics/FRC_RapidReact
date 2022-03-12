@@ -137,7 +137,7 @@ public class RobotContainer {
   
 
   private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
-  private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy0);
+  private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy1);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 

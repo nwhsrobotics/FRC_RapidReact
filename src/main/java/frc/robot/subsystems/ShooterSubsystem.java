@@ -104,8 +104,8 @@ public class ShooterSubsystem extends SubsystemBase {
     
     //Set moters for m_speed_rpm
     
-    m_flywheelpidController.setReference(m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
-    m_flywheel2pidController.setReference(-m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
+    m_flywheelpidController.setReference(-m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
+    m_flywheel2pidController.setReference(m_speed_rpm+m_offset_rpm, ControlType.kVelocity);
   
   }
 

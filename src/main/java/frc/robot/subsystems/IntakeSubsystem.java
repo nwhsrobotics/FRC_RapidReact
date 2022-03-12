@@ -33,7 +33,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
 
   // beater motor
-  private static final double BEATER_ON_SPEED = 0.2;
+  private static final double BEATER_ON_SPEED = 0.5;
   private static final double BEATER_OFF_SPEED = 0.0;
   private boolean m_beaterOn = false;
   private CANSparkMax m_beaterMotor = new CANSparkMax(Constants.IDs.CAN.INTAKE_BEATER, MotorType.kBrushless);
@@ -74,12 +74,13 @@ public class IntakeSubsystem extends SubsystemBase {
       //regular pid control when not down
       m_intakeArmPidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
     }
+    SmartDashboard.putNumber("Intake Position", m_intakeArmEncoder.getPosition());
 
     if (m_beaterOn){
       if (m_forward){
-        m_beaterMotor.set(BEATER_ON_SPEED);
-      } else {
         m_beaterMotor.set(-BEATER_ON_SPEED);
+      } else {
+        m_beaterMotor.set(BEATER_ON_SPEED);
       }
     }
     else {

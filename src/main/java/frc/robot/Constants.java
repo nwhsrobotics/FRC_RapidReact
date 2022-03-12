@@ -25,8 +25,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * variable (i.e. Constants.IDs.CAN.DRIVE_LEFT_FRONT).
  */
 public final class Constants {
-    public static final int kLeftMotor1Port = 8; //was 10
-    public static final int kLeftMotor2Port = 9; //was 11
+    public static final int kLeftMotor1Port = 8; 
+    public static final int kLeftMotor2Port = 30; //was 9
     public static final int kRightMotor1Port = 10;
     public static final int kRightMotor2Port = 11;
     
@@ -56,10 +56,11 @@ public final class Constants {
     public final class IDs {
         public final class CAN {
             // CAN ID addresses.
-            public static final int DRIVE_LEFT_FRONT = 8;   // NOTE: these drive CAN ID's are not used
+            /*public static final int DRIVE_LEFT_FRONT = 8;   // NOTE: these drive CAN ID's are not used
             public static final int DRIVE_RIGHT_FRONT = 11; // see : kLeftMotor1Port above
             public static final int DRIVE_LEFT_BACK = 9;    //
             public static final int DRIVE_RIGHT_BACK = 10;  //
+            */
             public static final int INDEXER = 14; // was 10 (most recent: was 7 )
             public static final int SHOOTER_FLYWHEEL = 12;
             public static final int SHOOTER_FLYWHEEL2 = 13;

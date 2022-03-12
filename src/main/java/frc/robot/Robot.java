@@ -38,8 +38,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    String trajectoryJSON = "paths/FullCircle3.wpilib.json";
-    m_trajectory = new Trajectory();
+   
 
     String trajectory_confident_PT1_JSON = "paths/ConfidentTwoPoint_PT1.wpilib.json";
     m_trajectory_confident_PT1 = new Trajectory();
@@ -51,18 +50,18 @@ public class Robot extends TimedRobot {
 
     
     try {
-      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+
       Path trajectoryConfidentPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT1_JSON);
       Path trajectoryConfidentPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT2_JSON);
       Path trajectoryRealistic = Filesystem.getDeployDirectory().toPath().resolve(trajectory_realisticPathOutOfTarmac_JSON);
       
 
-      m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);                       // select trajectory 1 2 3 based on input - following into RobotContainer
+                    // select trajectory 1 2 3 based on input - following into RobotContainer
       m_trajectory_confident_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT1);
       m_trajectory_confident_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT2);
       m_trajectory_realisticPathOutOfTarmac = TrajectoryUtil.fromPathweaverJson(trajectoryRealistic);
     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory: " + trajectory_confident_PT1_JSON, ex.getStackTrace());
     }
 
     // TODO:: do we need some failure logic if the trajectory fails to open before creating the robotContainer??
