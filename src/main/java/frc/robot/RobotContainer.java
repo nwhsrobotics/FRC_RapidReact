@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ClimbCommand;
@@ -139,26 +140,33 @@ public class RobotContainer {
   private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy0);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  /*
+
   private final DriveAutoCommand m_driveAutoCommand;
   private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
   private final RobotAutoCommandGroupB m_sequentialAutoCommandB;
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
   private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
-  */
+
+
+  
+  private Trajectory m_traj_1;
+  private Trajectory m_traj_2;
+  
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1, Trajectory traj_2) {
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
     //this is where all of the Drive Commands are created and set
     //m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
     m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
-    //m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    //m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1, traj_2);
-    //m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, traj_1);
-    //m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_1);
-    //m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
+
+    m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1);
+    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, traj_2);
+    m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
 
     
     
@@ -170,6 +178,8 @@ public class RobotContainer {
     autoChooser.addOption("Auto Mode 3", m_sequentialAutoCommandC);
     */
     SmartDashboard.putData("Auto Mode", autoChooser);
+    m_traj_1 = traj_1;
+    m_traj_2 = traj_2;
     
     
 
@@ -233,6 +243,14 @@ public class RobotContainer {
       return m_autoChooser;
       */
     // An ExampleCommand will run in autonomous
+    if (autoChooser.getSelected().equals(m_sequentialAutoCommandB)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode B");
+      m_driveSubsystem.resetOdometry(m_traj_2.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode A");
+      m_driveSubsystem.resetOdometry(m_traj_1.getInitialPose());
+    }
+    
     return autoChooser.getSelected();
   }
 }

@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   private Trajectory m_trajectory;
   private Trajectory m_trajectory_confident_PT1;
   private Trajectory m_trajectory_confident_PT2; 
+  private Trajectory m_trajectory_realisticPathOutOfTarmac;
   private static boolean isTeleop = false;
 
 
@@ -44,6 +45,8 @@ public class Robot extends TimedRobot {
     m_trajectory_confident_PT1 = new Trajectory();
     String trajectory_confident_PT2_JSON = "paths/ConfidentTwoPoint_PT2_REVSPLINE.wpilib.json";
     m_trajectory_confident_PT2 = new Trajectory();
+    String trajectory_realisticPathOutOfTarmac_JSON = "paths/RealisticPathOutOfTarmac.wpilib.json";
+    m_trajectory_realisticPathOutOfTarmac = new Trajectory();
 
 
     
@@ -51,11 +54,13 @@ public class Robot extends TimedRobot {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
       Path trajectoryConfidentPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT1_JSON);
       Path trajectoryConfidentPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT2_JSON);
+      Path trajectoryRealistic = Filesystem.getDeployDirectory().toPath().resolve(trajectory_realisticPathOutOfTarmac_JSON);
       
 
       m_trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);                       // select trajectory 1 2 3 based on input - following into RobotContainer
       m_trajectory_confident_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT1);
       m_trajectory_confident_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT2);
+      m_trajectory_realisticPathOutOfTarmac = TrajectoryUtil.fromPathweaverJson(trajectoryRealistic);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
@@ -64,7 +69,7 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer( m_trajectory_confident_PT1, m_trajectory_confident_PT2);
+    m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2);
   }
  
   /**
