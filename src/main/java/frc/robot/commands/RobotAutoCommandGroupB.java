@@ -22,7 +22,7 @@ public class RobotAutoCommandGroupB extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new ShooterHighModeCommand(shooterSubsystem),
+    new ShooterLowModeCommand(shooterSubsystem),
     new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem),
@@ -32,7 +32,7 @@ public class RobotAutoCommandGroupB extends SequentialCommandGroup {
     new IntakeOnCommand(intakeSubsystem, false),
     new IndexLoadCommand(indexSubsystem),
     new DriveAutoCommand(driveSubsystem, dTraj_3).getRamseteCommand(),
-    new ShooterHighModeCommand(shooterSubsystem),
+    new ShooterLowModeCommand(shooterSubsystem),
     new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem)

@@ -46,11 +46,11 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture(1);
 
 
-    String trajectory_confident_PT1_JSON = "paths/ConfidentTwoPoint_PT1.wpilib.json";
+    String trajectory_confident_PT1_JSON = "paths/RR_R_PT1.wpilib.json";
     m_trajectory_confident_PT1 = new Trajectory();
-    String trajectory_confident_PT2_JSON = "paths/ConfidentTwoPoint_PT2_REVSPLINE.wpilib.json";
+    String trajectory_confident_PT2_JSON = "paths/RR_R_PT2.wpilib.json";
     m_trajectory_confident_PT2 = new Trajectory();
-    String trajectory_realisticPathOutOfTarmac_JSON = "paths/RealisticPathOutOfTarmac.wpilib.json";
+    String trajectory_realisticPathOutOfTarmac_JSON = "paths/RealisticV3.wpilib.json";
     m_trajectory_realisticPathOutOfTarmac = new Trajectory();
 
 

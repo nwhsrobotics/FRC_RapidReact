@@ -27,7 +27,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 public final class Constants {
     public static final int kLeftMotor1Port = 8; 
     public static final int kLeftMotor2Port = 30; //was 9
-    public static final int kRightMotor1Port = 10;
+    public static final int kRightMotor1Port = 15;
     public static final int kRightMotor2Port = 11;
     
     public static final double kTicksPerMeter = 14.62;  //14.62 //(1/3544.85)*0.02.
