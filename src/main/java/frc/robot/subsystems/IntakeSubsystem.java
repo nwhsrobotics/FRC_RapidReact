@@ -70,9 +70,13 @@ public class IntakeSubsystem extends SubsystemBase {
     if (m_currentPosition_deg <= DOWN_POSITION_DEG){
       //power off when down
       m_intakeArmPidController.setReference(0.0, ControlType.kVoltage);
+      System.out.printf("Intake Voltage: %f \n", 0.0);
+      SmartDashboard.putNumber("Encoder Reference", -1.0);
     } else {
       //regular pid control when not down
       m_intakeArmPidController.setReference(toEncoder(m_currentPosition_deg), ControlType.kPosition);//todo: resume here
+      SmartDashboard.putNumber("Encoder Reference", toEncoder(m_currentPosition_deg));
+      System.out.printf("Intake arm : %f, %d \n",m_currentPosition_deg, toEncoder(m_currentPosition_deg));
     }
     SmartDashboard.putNumber("Intake Position", m_intakeArmEncoder.getPosition());
 
@@ -91,11 +95,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
   private int toEncoder(double position_deg) {
-    double value = (position_deg - UP_POSITION_DEG)*COUNTS_PER_DEG;
+    double value = -(position_deg - UP_POSITION_DEG)*COUNTS_PER_DEG;
     return (int)value;
   }
 
-
+  
   public boolean isUp() {
     return m_isUp;
   }
@@ -104,6 +108,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setIsUp(boolean isUp){
     m_isUp = isUp;
   }
+  
 
   public double getPosition_deg() {
     return m_currentPosition_deg;

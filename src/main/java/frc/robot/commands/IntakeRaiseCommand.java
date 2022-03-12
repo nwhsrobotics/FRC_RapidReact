@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 
 public class IntakeRaiseCommand extends CommandBase {
-  private static final double SPEED_DEG_PER_TICK = 10.0/50.0;//90 degs / 50 ticks per second (3 seconds)
+  private static final double SPEED_DEG_PER_TICK = 50.0/50.0;//90 degs / 50 ticks per second (3 seconds)
   private IntakeSubsystem m_intake;
   private double m_endPosition;
   private double m_speed;
@@ -24,6 +24,7 @@ public class IntakeRaiseCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_currentPosition = m_intake.getPosition_deg();
     m_endPosition = IntakeSubsystem.UP_POSITION_DEG;
       m_speed = SPEED_DEG_PER_TICK;
   }
