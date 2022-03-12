@@ -11,7 +11,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -37,48 +38,54 @@ public class ClimbSubsystem extends SubsystemBase {
   private static boolean m_enabled = false;
   private double m_upDown_m = 0.0;
   private double m_backForward_m = 0.0;
-  private static final double MAX_UP_DOWN_m = 28.0*0.0254; //28 inches converted to meters
+  private static final double MAX_UP_DOWN_m = 20.0*0.0254; //20 inches converted to meters
   private static final double MAX_BACK_FORWARD_m = 12.0*0.0254; //12 inches converted to meters
-  private static final double SPEED_UP_DOWN_mps = 0.5;
+  private static final double SPEED_UP_DOWN_mps = 0.22;
   private static final double TICKS_PER_SECOND = 50;
-  private static final double SPEED_BACK_FORWARD_mps = 0.5;
+  private static final double SPEED_BACK_FORWARD_mps = 0.11;
+  private static final double GEAR_RATIO_UP_DOWN = -5.0;
+  private static final double LEAD_DISTANCE_m = (0.5 *0.0254); // (inches * m/in) half an inch to meters
+  private static final double GEAR_RATIO_BACK_FORWARD = 5.0;
+
+
 
 // TO DO LIST: FIX REAL SPEED(THE 1.0 VALUES!)
-  private static final double UP_DOWN_COUNTS_PER_METER = 131; //TO DO LIST: FIGURE OUT REAL VALUE
-  private static final double BACK_FORWARD_COUNTS_PER_METER = 131;
+  private static final double UP_DOWN_COUNTS_PER_METER = (GEAR_RATIO_UP_DOWN/LEAD_DISTANCE_m); //TO DO LIST: FIGURE OUT REAL VALUE
+  private static final double BACK_FORWARD_COUNTS_PER_METER = (GEAR_RATIO_BACK_FORWARD/LEAD_DISTANCE_m);
+  private static final double METERS_TO_INCHES = 39.37;
 
   /** Creates a new ClimbSubsystem. 
    * @param IdleMode 
    * @param ControlType */
   public ClimbSubsystem() {
-    if ((m_rightarmMotor != null) /*&& (m_leftarmMotor != null) */&& (m_rightshoulderMotor != null) /*&& (m_leftshoulderMotor != null)*/){
+    if ((m_rightarmMotor != null)/* && (m_leftarmMotor != null) && (m_rightshoulderMotor != null) /*&& (m_leftshoulderMotor != null)*/){
       m_enabled = true;
     }
     if(!m_enabled){
       return;
     }
     m_rightarmEncoder = m_rightarmMotor.getEncoder();
-  // m_leftarmEncoder = m_leftarmMotor.getEncoder();
-    m_rightshoulderEncoder = m_rightshoulderMotor.getEncoder();
+    m_leftarmEncoder = m_leftarmMotor.getEncoder();
+    //m_rightshoulderEncoder = m_rightshoulderMotor.getEncoder();
     //m_leftshoulderEncoder = m_leftshoulderMotor.getEncoder();
   
   
     m_rightarmPID = m_rightarmMotor.getPIDController();
-    //m_leftarmPID = m_leftarmMotor.getPIDController();
-    m_rightshoulderPID = m_rightshoulderMotor.getPIDController();
+    m_leftarmPID = m_leftarmMotor.getPIDController();
+    //m_rightshoulderPID = m_rightshoulderMotor.getPIDController();
     //m_leftshoulderPID = m_leftshoulderMotor.getPIDController();
 
     m_rightarmEncoder.setPosition(0);
     m_rightarmMotor.setIdleMode(IdleMode.kBrake);
-    m_rightarmPID.setP(0.05);
+    m_rightarmPID.setP(1.0);
     m_rightarmPID.setI(0.0);
     m_rightarmPID.setD(0.0);
     m_rightarmPID.setIZone(0.0);
     m_rightarmPID.setFF(0.0);
-    m_rightarmPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
+    m_rightarmPID.setOutputRange(-1.0, 1.0); //TODO - enable full power
     m_rightarmPID.setReference(0.0, ControlType.kPosition);
 
-    /*
+    
     m_leftarmEncoder.setPosition(0);
     m_leftarmMotor.setIdleMode(IdleMode.kBrake);
     m_leftarmPID.setP(0.05);
@@ -87,8 +94,8 @@ public class ClimbSubsystem extends SubsystemBase {
     m_leftarmPID.setIZone(0.0);
     m_leftarmPID.setFF(0.0);
     m_leftarmPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
-    m_leftarmPID.setReference(0.0, ControlType.kPosition); */
-
+    m_leftarmPID.setReference(0.0, ControlType.kPosition); 
+    /*
     m_rightshoulderEncoder.setPosition(0);
     m_rightshoulderMotor.setIdleMode(IdleMode.kBrake);
     m_rightshoulderPID.setP(0.05);
@@ -98,7 +105,7 @@ public class ClimbSubsystem extends SubsystemBase {
     m_rightshoulderPID.setFF(0.0);
     m_rightshoulderPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
     m_rightshoulderPID.setReference(0.0, ControlType.kPosition);
-/*
+
     m_leftshoulderEncoder.setPosition(0);
     m_leftshoulderMotor.setIdleMode(IdleMode.kBrake);
     m_leftshoulderPID.setP(0.05);
@@ -120,14 +127,19 @@ public class ClimbSubsystem extends SubsystemBase {
     // System.out.printf("upDown_counts = %f\n", upDown_counts);
     // This method will be called once per scheduler run
     double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
-    //m_leftarmPID.setReference(-upDown_counts, ControlType.kPosition);
+    m_leftarmPID.setReference(-upDown_counts, ControlType.kPosition);
     m_rightarmPID.setReference(upDown_counts, ControlType.kPosition);
     //m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
-    m_rightshoulderPID.setReference(backForward_counts, ControlType.kPosition);
+    //m_rightshoulderPID.setReference(backForward_counts, ControlType.kPosition);
+    SmartDashboard.putNumber("Climb Arm UP DOWN Pos", (m_upDown_m*METERS_TO_INCHES));
   }
 
   public void moveUp() {
     m_upDown_m += SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
+    if (m_upDown_m > MAX_UP_DOWN_m){
+      m_upDown_m = MAX_UP_DOWN_m;
+    }
+    
   }
 
   public void moveForward() {
