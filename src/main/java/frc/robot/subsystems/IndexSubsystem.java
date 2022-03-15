@@ -19,12 +19,12 @@ public class IndexSubsystem extends SubsystemBase {
     // indexer ball speed in meters per second
     public static final double SPEED_FORWARD_TEST_MPS = 4.0;
     public static final double SPEED_FORWARD_NORMAL_MPS = 1.0;
-    public static final double SPEED_BACKWARD_NORMAL_MPS = -SPEED_FORWARD_NORMAL_MPS; // TODO verify speed should be negative
+    public static final double SPEED_BACKWARD_NORMAL_MPS = -SPEED_FORWARD_NORMAL_MPS;
     // unload direction is opposite load and shoot
     public final static double LOAD_1_M = 0.2;
-    public final static double SHOOT_ARMED_M = 0.5;
+    public final static double SHOOT_ARMED_M = 1.0;
     public final static double SHOOT_EMPTY_M = SHOOT_ARMED_M + LOAD_1_M;
-    public final static double UNLOAD_EMPTY_M = -0.75;
+    public final static double UNLOAD_EMPTY_M = -1.0;
     public final static double UNLOAD_LOAD_1_M = -LOAD_1_M;
 
     /*
@@ -45,9 +45,7 @@ public class IndexSubsystem extends SubsystemBase {
     ARMED;
   }
 
-  private static final double GEAR_RATIO = 7.0;
-  private static final double WHEEL_RADIUS_M = 2.0 * 0.0254; // 2 inches.
-  private static final double METERS_PER_REV = Math.PI * WHEEL_RADIUS_M / GEAR_RATIO;
+  private static final double METERS_PER_REV = 0.36 / 5.0;  // measured 36 cm for 5 revs
 
   private IndexerState m_state = IndexerState.EMPTY;
 
