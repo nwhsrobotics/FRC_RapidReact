@@ -33,7 +33,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
 
   // beater motor
-  private static final double BEATER_ON_SPEED = 0.5;
+  private static final double BEATER_ON_SPEED = 0.75; // was 0.5
   private static final double BEATER_OFF_SPEED = 0.0;
   private boolean m_beaterOn = false;
   private CANSparkMax m_beaterMotor = new CANSparkMax(Constants.IDs.CAN.INTAKE_BEATER, MotorType.kBrushless);

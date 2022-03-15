@@ -22,6 +22,7 @@ public class RobotAutoCommandGroupB extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+    new IndexLoadCommand(indexSubsystem),
     new ShooterLowModeCommand(shooterSubsystem),
     new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
