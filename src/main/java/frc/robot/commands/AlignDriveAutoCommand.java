@@ -16,6 +16,7 @@ public class AlignDriveAutoCommand extends CommandBase {
   private VisionSubsystem m_visionSubsystem;
   private double ball_center_x;
   private boolean m_done;
+  private double m_iter = 0;
   private final double VISION_AUTO_THRESHOLD = 0.05; //this is the vision constant for when the drive should finish. If higher than quit earlier
 
   public AlignDriveAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
@@ -44,19 +45,20 @@ public class AlignDriveAutoCommand extends CommandBase {
     if (ball_center_x >= 0 ){
       if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
 
-          m_driveSubsystem.arcadeDrive(0.0, 0.1);
+          m_driveSubsystem.arcadeDrive(0.0, 0.11);
 
         SmartDashboard.putBoolean("Align", false);
       } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
         
-          m_driveSubsystem.arcadeDrive(0.0, -0.1);
+          m_driveSubsystem.arcadeDrive(0.0, -0.11);
    
         SmartDashboard.putBoolean("Align", false);
 
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, -0.1);
+      m_driveSubsystem.arcadeDrive(0.0, -0.11);
+      
     }
    
   }
