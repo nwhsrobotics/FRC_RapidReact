@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ShooterSubsystem extends SubsystemBase {
   private boolean m_flywheelStatus = false;
   private static final double RAMP_RATE_SEC = 1.0;
-  private static final double kOFFSET_RPM = 589.0; //Based on 4in flywheel and 4mps ball speed
   private CANSparkMax m_flywheelMotor = new CANSparkMax(frc.robot.Constants.IDs.CAN.SHOOTER_FLYWHEEL, MotorType.kBrushless);
   private SparkMaxPIDController m_flywheelpidController;
   private RelativeEncoder m_flywheelencoder;
@@ -91,7 +90,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     if (m_autoMode == true) {
       m_speed_rpm = getAutoFlywheelSpeed();
-      m_offset_rpm = kOFFSET_RPM;
+      m_offset_rpm = IndexSubsystem.Constants.SHOOT_SPIN_RPM;
     } else {
       m_speed_rpm = m_manual_speed_rpm;
       m_offset_rpm = m_manual_offset_rpm;
