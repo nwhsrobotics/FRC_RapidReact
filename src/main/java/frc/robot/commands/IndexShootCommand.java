@@ -15,7 +15,7 @@ public class IndexShootCommand extends CommandBase {
   private static final double SECONDS_PER_TICK = 1.0 / 50.0;
   // indexer ball speed in meters per second
   // TODO: 
-  private static final double SHOOT_SPEED = 4.0;
+  //private static final double SHOOT_SPEED = 4.0;
   /** Creates a new IndexShootCommand. */
 
   private IndexSubsystem m_indexSubsystem;
@@ -59,7 +59,7 @@ public class IndexShootCommand extends CommandBase {
           m_endPosition_m = m_currentPosition_m + IndexSubsystem.Constants.SHOOT_ARMED_M;
           break;
       }
-      m_speed = SHOOT_SPEED;
+      m_speed = IndexSubsystem.Constants.SHOOT_SPEED_MPS;
 
       // set state
       m_indexSubsystem.setState(IndexerState.EMPTY);

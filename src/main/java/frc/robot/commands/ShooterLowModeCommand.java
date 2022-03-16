@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterLowModeCommand extends CommandBase {
@@ -29,7 +30,7 @@ public class ShooterLowModeCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Setting speed low");
-    m_shooterSubsystem.setFlywheel_rpm(1200.0, 589.0);
+    m_shooterSubsystem.setFlywheel_rpm(1200.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
     }
   
 

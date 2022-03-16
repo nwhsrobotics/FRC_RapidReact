@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterHighModeCommand extends CommandBase {
@@ -32,7 +33,7 @@ public class ShooterHighModeCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Setting speed high");
-    m_shooterSubsystem.setFlywheel_rpm(4500.0, 589.0);
+    m_shooterSubsystem.setFlywheel_rpm(4500.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
     }
   
 

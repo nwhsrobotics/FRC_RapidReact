@@ -15,6 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IndexSubsystem extends SubsystemBase {
+  private static final double METERS_PER_REV = 0.36 / 5.0;  // measured 36 cm for 5 revs
+  private static final double SPINS_PER_REV = 0.5/9; //Measured Half Spin over 9 revs
+  private static final double SPINS_PER_METER = SPINS_PER_REV/METERS_PER_REV;
+
   public final class Constants {
     // indexer ball speed in meters per second
     public static final double SPEED_FORWARD_TEST_MPS = 4.0;
@@ -26,6 +30,8 @@ public class IndexSubsystem extends SubsystemBase {
     public final static double SHOOT_EMPTY_M = SHOOT_ARMED_M + LOAD_1_M;
     public final static double UNLOAD_EMPTY_M = -1.0;
     public final static double UNLOAD_LOAD_1_M = -LOAD_1_M;
+    public final static double SHOOT_SPEED_MPS = 4.0;
+    public final static double SHOOT_SPIN_RPM = 60*(SPINS_PER_METER/SHOOT_SPEED_MPS);
 
     /*
     public final static double LOAD_2_M = 0.1;
@@ -45,7 +51,7 @@ public class IndexSubsystem extends SubsystemBase {
     ARMED;
   }
 
-  private static final double METERS_PER_REV = 0.36 / 5.0;  // measured 36 cm for 5 revs
+  
 
   private IndexerState m_state = IndexerState.EMPTY;
 

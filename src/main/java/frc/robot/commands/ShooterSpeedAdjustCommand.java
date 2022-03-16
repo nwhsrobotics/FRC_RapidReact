@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterSpeedAdjustCommand extends CommandBase {
@@ -29,7 +30,7 @@ public class ShooterSpeedAdjustCommand extends CommandBase {
   @Override
   public void execute() {
     currentSpeed = m_shooterSubsystem.getSpeed();
-    m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment, 589); 
+    m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
     //TODO: implement smart logic to change cases
   }
 

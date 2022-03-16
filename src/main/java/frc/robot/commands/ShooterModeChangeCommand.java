@@ -4,6 +4,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterModeChangeCommand extends CommandBase {
@@ -46,15 +47,15 @@ public class ShooterModeChangeCommand extends CommandBase {
             break;
         case LOW:
             System.out.println("setting speed low");
-            m_shooterSubsystem.setFlywheel_rpm(750.0, 589.0);
+            m_shooterSubsystem.setFlywheel_rpm(750.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
             break;
         case MEDIUM:
             System.out.println("setting speed medium");
-            m_shooterSubsystem.setFlywheel_rpm(1500.0, 589.0);
+            m_shooterSubsystem.setFlywheel_rpm(1500.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
             break;
         case HIGH:
             System.out.println("setting speed high");
-            m_shooterSubsystem.setFlywheel_rpm(3000.0, 589.0);
+            m_shooterSubsystem.setFlywheel_rpm(3000.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
             break;
     }
   }
