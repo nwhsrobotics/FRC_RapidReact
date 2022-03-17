@@ -33,7 +33,7 @@ public class ShooterHighModeCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Setting speed high");
-    m_shooterSubsystem.setFlywheel_rpm(4500.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
+    m_shooterSubsystem.setFlywheel_rpm(3500.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
     }
   
 
