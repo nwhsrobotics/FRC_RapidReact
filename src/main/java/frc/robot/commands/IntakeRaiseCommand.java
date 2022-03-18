@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -14,6 +15,7 @@ public class IntakeRaiseCommand extends CommandBase {
   private double m_endPosition;
   private double m_speed;
   private double m_currentPosition;
+  private int m_clock;
   /** Creates a new IntakeLowerCommand. */
   public IntakeRaiseCommand(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +28,7 @@ public class IntakeRaiseCommand extends CommandBase {
   public void initialize() {
     m_currentPosition = m_intake.getPosition_deg();
     m_endPosition = IntakeSubsystem.UP_POSITION_DEG;
-      m_speed = SPEED_DEG_PER_TICK;
+    m_speed = SPEED_DEG_PER_TICK;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,16 +39,25 @@ public class IntakeRaiseCommand extends CommandBase {
         ((m_speed > 0.0) && (m_currentPosition > m_endPosition))) {
       m_currentPosition = m_endPosition;
     }
+
     m_intake.setPosition_deg(m_currentPosition);
+    m_clock += 1;
+    SmartDashboard.putNumber("Intake Clock", m_clock);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    //need to reset the position once we are done
+    m_intake.resetArmEncoder_UP_POS();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //TODO: Implement this isFinished function to check for the motor current
+    //return (m_intake.getIntakeCurrent() > 1);
     return m_currentPosition == m_endPosition;
   }
 }

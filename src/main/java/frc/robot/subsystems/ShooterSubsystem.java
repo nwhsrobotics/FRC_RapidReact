@@ -128,7 +128,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getAutoFlywheelSpeed() {
-    //TODO: Need to calibrate this flywheel speed. 
+    //TODO: Need to calibrate this flywheel speed to use vision (auto flywheel speed) 
     double greenCenterY = m_visionSubsystem.getGreenCenterY();
     if (greenCenterY <= 0) {
       return 0;

@@ -31,7 +31,7 @@ public class ShooterSpeedAdjustCommand extends CommandBase {
   public void execute() {
     currentSpeed = m_shooterSubsystem.getSpeed();
     m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
-    //TODO: implement smart logic to change cases
+   
   }
 
   // Called once the command ends or is interrupted.

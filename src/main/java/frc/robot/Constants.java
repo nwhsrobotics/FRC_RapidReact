@@ -43,7 +43,7 @@ public final class Constants {
   public static final double kvVoltSecondsPerMeter = 0.26026;
   public static final double kaVoltSecondsSquaredPerMeter = 0.071788;
   public static final double kPDriveVel = 2.3672;
- // public static final double kTrackwidthMeters = 0.555; //TODO: add our width, was 0.555
+ // public static final double kTrackwidthMeters = 0.555; 
   public static final double kTrackwidthMeters = 0.555;
   public static final double kMaxSpeedMetersPerSecond = 1.25;
   public static final double kMaxAccelerationMetersPerSecondSquared = 0.25;

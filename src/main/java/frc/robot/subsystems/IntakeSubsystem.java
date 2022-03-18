@@ -3,17 +3,17 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import frc.robot.Constants.IDs;
+//import frc.robot.Constants.IDs;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import com.revrobotics.CANSparkMax;
+//import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -129,4 +129,15 @@ public void setPosition_deg(double position) {
   public void setBeaterForward(boolean forward) {
     m_forward = forward;
   }     
+
+  public double getIntakeCurrent(){
+    return m_intakeArmMotor.getOutputCurrent();
+  }
+  
+
+  public void resetArmEncoder_UP_POS() {
+    //TODO: Uncomment this when we are ready
+    //this.setPosition_deg(UP_POSITION_DEG);
+    //m_intakeArmEncoder.setPosition(0);
+  }
 }
