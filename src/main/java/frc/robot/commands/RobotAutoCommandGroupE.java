@@ -29,6 +29,8 @@ public class RobotAutoCommandGroupE extends SequentialCommandGroup {
       new WaitCommand(2),
       new IndexShootCommand(indexSubsystem, shooterSubsystem),
       new IntakeOnCommand(intakeSubsystem, true),
+      new WaitCommand(0.3), //this is so that the alignment right after does not interfere with the initial shot
+      new AlignDriveAutoCommand(driveSubsystem, visionSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_5).getRamseteCommand(),
       new IndexLoadCommand(indexSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_6).getRamseteCommand(),
