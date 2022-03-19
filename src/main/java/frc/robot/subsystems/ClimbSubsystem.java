@@ -19,20 +19,20 @@ import frc.robot.Constants;
 public class ClimbSubsystem extends SubsystemBase {
   private CANSparkMax m_rightarmMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_RIGHT_ARM, MotorType.kBrushless);
   private CANSparkMax m_leftarmMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_LEFT_ARM, MotorType.kBrushless);
-  private CANSparkMax m_rightshoulderMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_RIGHT_SHOULDER, MotorType.kBrushless);
-  private CANSparkMax m_leftshoulderMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_LEFT_SHOULDER, MotorType.kBrushless);
+  //private CANSparkMax m_rightshoulderMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_RIGHT_SHOULDER, MotorType.kBrushless);
+  //private CANSparkMax m_leftshoulderMotor = new CANSparkMax(Constants.IDs.CAN.CLIMB_LEFT_SHOULDER, MotorType.kBrushless);
 
 
   private RelativeEncoder m_rightarmEncoder = null;
   private RelativeEncoder m_leftarmEncoder = null;
-  private RelativeEncoder m_rightshoulderEncoder = null;
-  private RelativeEncoder m_leftshoulderEncoder = null;
+  //private RelativeEncoder m_rightshoulderEncoder = null;
+  //private RelativeEncoder m_leftshoulderEncoder = null;
 
 
   private SparkMaxPIDController m_rightarmPID = null;
   private SparkMaxPIDController m_leftarmPID = null;
-  private SparkMaxPIDController m_rightshoulderPID = null;
-  private SparkMaxPIDController m_leftshoulderPID = null;
+  //private SparkMaxPIDController m_rightshoulderPID = null;
+  //private SparkMaxPIDController m_leftshoulderPID = null;
 
   
   private static boolean m_enabled = false;
@@ -107,7 +107,7 @@ public class ClimbSubsystem extends SubsystemBase {
     m_leftarmPID.setFF(0.0);
     m_leftarmPID.setOutputRange(-1.0, 1.0); 
     m_leftarmPID.setReference(0.0, ControlType.kPosition); 
-    
+    /*
     m_rightshoulderEncoder.setPosition(0);
     m_rightshoulderMotor.setIdleMode(IdleMode.kBrake);
     m_rightshoulderPID.setP(0.5);
@@ -127,7 +127,7 @@ public class ClimbSubsystem extends SubsystemBase {
     m_leftshoulderPID.setFF(0.0);
     m_leftshoulderPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
     m_leftshoulderPID.setReference(0.0, ControlType.kPosition); 
-
+    */
   }
 
   @Override
@@ -142,8 +142,8 @@ public class ClimbSubsystem extends SubsystemBase {
     double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
     m_leftarmPID.setReference(upDown_counts, ControlType.kPosition);
     m_rightarmPID.setReference(upDown_counts, ControlType.kPosition);
-    m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
-    m_rightshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
+    //m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
+    //m_rightshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
     SmartDashboard.putNumber("Climb Arm UP DOWN Pos", (m_upDown_m*METERS_TO_INCHES));
   }
 

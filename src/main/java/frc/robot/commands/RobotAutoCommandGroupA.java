@@ -24,10 +24,11 @@ public class RobotAutoCommandGroupA extends SequentialCommandGroup {
     new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand()*/
     new IndexLoadCommand(indexSubsystem),
     new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
-    new ShooterLowModeCommand(shooterSubsystem),
+    new ShooterHighModeCommand(shooterSubsystem),
     new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem),
+    new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
     new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand()
     
     

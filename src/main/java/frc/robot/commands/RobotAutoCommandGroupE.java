@@ -34,6 +34,7 @@ public class RobotAutoCommandGroupE extends SequentialCommandGroup {
       new DriveAutoCommand(driveSubsystem, dTraj_5).getRamseteCommand(),
       new IndexLoadCommand(indexSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_6).getRamseteCommand(),
+      new AlignShooterAutoCommand(driveSubsystem, visionSubsystem),
       //new WaitCommand(0.7),
       new IndexShootCommand(indexSubsystem, shooterSubsystem),
       new IntakeOnCommand(intakeSubsystem, false),

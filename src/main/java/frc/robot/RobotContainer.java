@@ -185,6 +185,8 @@ public class RobotContainer {
     autoChooser.addOption("Auto Mode B", m_sequentialAutoCommandB);
     autoChooser.addOption("Auto Mode C", m_sequentialAutoCommandC);
     autoChooser.addOption("Auto Mode D", m_sequentialAutoCommandD);
+    autoChooser.addOption("Auto Mode E", m_sequentialAutoCommandE);
+
     
     SmartDashboard.putData("Auto Mode", autoChooser);
     m_traj_1 = traj_1;

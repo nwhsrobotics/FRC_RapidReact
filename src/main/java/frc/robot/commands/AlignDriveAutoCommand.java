@@ -13,10 +13,15 @@ public class AlignDriveAutoCommand extends CommandBase {
   /** Creates a new AlignDriveAutoCommand. */
 
   private DriveSubsystem m_driveSubsystem;
+  private static final int CLOCK_TIMEOUT = 200;
+
   private VisionSubsystem m_visionSubsystem;
   private double ball_center_x;
   private boolean m_done;
   private double m_iter = 0;
+  private int m_clock;
+
+
   private final double VISION_AUTO_THRESHOLD = 0.05; //this is the vision constant for when the drive should finish. If higher than quit earlier
 
   public AlignDriveAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
@@ -45,21 +50,23 @@ public class AlignDriveAutoCommand extends CommandBase {
     if (ball_center_x >= 0 ){
       if (ball_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
 
-          m_driveSubsystem.arcadeDrive(0.0, 0.11);
+          m_driveSubsystem.arcadeDrive(0.0, 0.15);
 
         SmartDashboard.putBoolean("Align", false);
       } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
         
-          m_driveSubsystem.arcadeDrive(0.0, -0.11);
+          m_driveSubsystem.arcadeDrive(0.0, -0.15);
    
         SmartDashboard.putBoolean("Align", false);
 
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, -0.11);
+      m_driveSubsystem.arcadeDrive(0.0, -0.15);
       
     }
+    m_clock += 1;
+
    
   }
     
@@ -76,6 +83,10 @@ public class AlignDriveAutoCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     
+    if (m_clock >= CLOCK_TIMEOUT){
+      return true;
+    }
+
     if (Math.abs(ball_center_x - 0.5) <= 0.05){
       m_driveSubsystem.arcadeDrive(0.0, 0.0);
       SmartDashboard.putBoolean("Align", true);
@@ -83,6 +94,8 @@ public class AlignDriveAutoCommand extends CommandBase {
     } else {
       return false;
     }
+
+    
 
   }
 }
