@@ -16,6 +16,7 @@ public class IntakeRaiseCommand extends CommandBase {
   private double m_speed;
   private double m_currentPosition;
   private int m_clock;
+  private static final int INTAKE_TIME_TIMOUT = 175;
   /** Creates a new IntakeLowerCommand. */
   public IntakeRaiseCommand(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,6 +37,7 @@ public class IntakeRaiseCommand extends CommandBase {
   public void execute() {
     m_currentPosition += m_speed;
     /*
+    OLD INTAKE
     if (((m_speed < 0.0) && (m_currentPosition < m_endPosition)) || 
         ((m_speed > 0.0) && (m_currentPosition > m_endPosition))) {
       m_currentPosition = m_endPosition;
@@ -59,7 +61,15 @@ public class IntakeRaiseCommand extends CommandBase {
   public boolean isFinished() {
     //TODO: Implement this isFinished function to check for the motor current
     //return (m_intake.getIntakeCurrent() > 1);
-    //return m_currentPosition == m_endPosition;
-    return !m_intake.getIntakeSwitch();
+
+    /*
+    Retaining the OLD INTAKE Code
+    return m_currentPosition == m_endPosition;
+
+    */
+    if (m_clock >= INTAKE_TIME_TIMOUT){
+      return true;
+    }
+    return !m_intake.getIntakeSwitch(); //new intake code to use the switch
   }
 }

@@ -36,10 +36,18 @@ public class ClimbSubsystem extends SubsystemBase {
 
   
   private static boolean m_enabled = false;
-  private double m_upDown_m = 0.0;
-  private double m_backForward_m = 0.0;
-  private static final double MAX_UP_DOWN_m = 20.0*0.0254; //20 inches converted to meters
+  
+  private static final double MAX_UP_DOWN_m = 16.0*0.0254; //20 inches converted to meters
+  private static final double MIN_UP_DOWN_m = -4.0 * 0.0254; 
+  private static final double INITIAL_UP_DOWN = 0.0;
+  
+  
+
+  
   private static final double MAX_BACK_FORWARD_m = 12.0*0.0254; //12 inches converted to meters
+  private static final double MIN_BACK_FORWARD = 0.0;
+  private static final double INITIAL_BACK_FORWARD = 0.0;
+
   private static final double SPEED_UP_DOWN_mps = 0.22;
   private static final double TICKS_PER_SECOND = 50;
   private static final double SPEED_BACK_FORWARD_mps = 0.11;
@@ -53,6 +61,10 @@ public class ClimbSubsystem extends SubsystemBase {
   private static final double UP_DOWN_COUNTS_PER_METER = (GEAR_RATIO_UP_DOWN/LEAD_DISTANCE_m); //TO DO LIST: FIGURE OUT REAL VALUE
   private static final double BACK_FORWARD_COUNTS_PER_METER = (GEAR_RATIO_BACK_FORWARD/LEAD_DISTANCE_m);
   private static final double METERS_TO_INCHES = 39.37;
+  
+  
+  private double m_upDown_m = INITIAL_UP_DOWN;
+  private double m_backForward_m = INITIAL_BACK_FORWARD;
 
   /** Creates a new ClimbSubsystem. 
    * @param IdleMode 
@@ -93,12 +105,12 @@ public class ClimbSubsystem extends SubsystemBase {
     m_leftarmPID.setD(0.0);
     m_leftarmPID.setIZone(0.0);
     m_leftarmPID.setFF(0.0);
-    m_leftarmPID.setOutputRange(-1.0, 1.0); //TODO - enable full power
+    m_leftarmPID.setOutputRange(-1.0, 1.0); 
     m_leftarmPID.setReference(0.0, ControlType.kPosition); 
-    /*
+    
     m_rightshoulderEncoder.setPosition(0);
     m_rightshoulderMotor.setIdleMode(IdleMode.kBrake);
-    m_rightshoulderPID.setP(0.05);
+    m_rightshoulderPID.setP(0.5);
     m_rightshoulderPID.setI(0.0);
     m_rightshoulderPID.setD(0.0);
     m_rightshoulderPID.setIZone(0.0);
@@ -108,13 +120,14 @@ public class ClimbSubsystem extends SubsystemBase {
 
     m_leftshoulderEncoder.setPosition(0);
     m_leftshoulderMotor.setIdleMode(IdleMode.kBrake);
-    m_leftshoulderPID.setP(0.05);
+    m_leftshoulderPID.setP(0.5);
     m_leftshoulderPID.setI(0.0);
     m_leftshoulderPID.setD(0.0);
     m_leftshoulderPID.setIZone(0.0);
     m_leftshoulderPID.setFF(0.0);
     m_leftshoulderPID.setOutputRange(-0.5, 0.5); //TODO - enable full power
-    m_leftshoulderPID.setReference(0.0, ControlType.kPosition); */
+    m_leftshoulderPID.setReference(0.0, ControlType.kPosition); 
+
   }
 
   @Override
@@ -129,8 +142,8 @@ public class ClimbSubsystem extends SubsystemBase {
     double backForward_counts = m_backForward_m*BACK_FORWARD_COUNTS_PER_METER;
     m_leftarmPID.setReference(upDown_counts, ControlType.kPosition);
     m_rightarmPID.setReference(upDown_counts, ControlType.kPosition);
-    //m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
-    //m_rightshoulderPID.setReference(backForward_counts, ControlType.kPosition);
+    m_leftshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
+    m_rightshoulderPID.setReference(-backForward_counts, ControlType.kPosition);
     SmartDashboard.putNumber("Climb Arm UP DOWN Pos", (m_upDown_m*METERS_TO_INCHES));
   }
 
@@ -152,15 +165,15 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void moveDown() {
     m_upDown_m -= SPEED_UP_DOWN_mps/TICKS_PER_SECOND;
-    if (m_upDown_m< 0.0){
-      m_upDown_m = 0.0;
+    if (m_upDown_m < MIN_UP_DOWN_m){
+      m_upDown_m = MIN_UP_DOWN_m;
     }
   }
 
   public void moveBack() {
     m_backForward_m -= SPEED_BACK_FORWARD_mps/TICKS_PER_SECOND;
-    if (m_backForward_m < 0.0){
-      m_backForward_m = 0.0;
+    if (m_backForward_m < MIN_BACK_FORWARD){
+      m_backForward_m = MIN_BACK_FORWARD;
     }
   }
   
