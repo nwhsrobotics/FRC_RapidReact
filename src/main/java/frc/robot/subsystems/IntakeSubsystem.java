@@ -144,7 +144,13 @@ public void setPosition_deg(double position) {
 
   public void resetArmEncoder_UP_POS() {
     //TODO: Uncomment this when we are ready
-    //this.setPosition_deg(UP_POSITION_DEG);
-    //m_intakeArmEncoder.setPosition(0);
+    this.setPosition_deg(UP_POSITION_DEG);
+    m_intakeArmEncoder.setPosition(0);
+  }
+
+  public boolean getIntakeSwitch(){
+    //returns true when the circuit is open
+    //returns false when the intake is pressed up against the intake
+    return m_intakeSwitchInput.get();
   }
 }

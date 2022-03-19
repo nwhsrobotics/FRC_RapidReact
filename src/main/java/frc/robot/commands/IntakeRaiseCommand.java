@@ -35,11 +35,12 @@ public class IntakeRaiseCommand extends CommandBase {
   @Override
   public void execute() {
     m_currentPosition += m_speed;
+    /*
     if (((m_speed < 0.0) && (m_currentPosition < m_endPosition)) || 
         ((m_speed > 0.0) && (m_currentPosition > m_endPosition))) {
       m_currentPosition = m_endPosition;
     }
-
+    */
     m_intake.setPosition_deg(m_currentPosition);
     m_clock += 1;
     SmartDashboard.putNumber("Intake Clock", m_clock);
@@ -58,6 +59,7 @@ public class IntakeRaiseCommand extends CommandBase {
   public boolean isFinished() {
     //TODO: Implement this isFinished function to check for the motor current
     //return (m_intake.getIntakeCurrent() > 1);
-    return m_currentPosition == m_endPosition;
+    //return m_currentPosition == m_endPosition;
+    return !m_intake.getIntakeSwitch();
   }
 }
