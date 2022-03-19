@@ -32,6 +32,9 @@ public class Robot extends TimedRobot {
   private Trajectory m_trajectory_confident_PT1;
   private Trajectory m_trajectory_confident_PT2; 
   private Trajectory m_trajectory_realisticPathOutOfTarmac;
+  private Trajectory m_trajectory_vision_PT1;
+  private Trajectory m_trajectory_vision_PT2;
+  private Trajectory m_trajectory_vision_PT3;
   private static boolean isTeleop = false;
 
 
@@ -42,14 +45,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    CameraServer.startAutomaticCapture(0);
-    CameraServer.startAutomaticCapture(1);
+    //CameraServer.startAutomaticCapture(0);
+    //CameraServer.startAutomaticCapture(1);
 
 
     String trajectory_confident_PT1_JSON = "paths/RR_R_PT1.wpilib.json";
     m_trajectory_confident_PT1 = new Trajectory();
     String trajectory_confident_PT2_JSON = "paths/RR_R_PT2.wpilib.json";
     m_trajectory_confident_PT2 = new Trajectory();
+    String trajectory_vision_PT1_JSON = "paths/TenPointVisionPart1.wpilib.json";
+    m_trajectory_vision_PT1 = new Trajectory();
+    String trajectory_vision_PT2_JSON = "paths/TenPointVisionPart2.wpilib.json";
+    m_trajectory_vision_PT2 = new Trajectory();
+    String trajectory_vision_PT3_JSON = "paths/TenPointVisionPart3.wpilib.json";
+    m_trajectory_vision_PT3 = new Trajectory();
+
     String trajectory_realisticPathOutOfTarmac_JSON = "paths/RealisticV3.wpilib.json";
     m_trajectory_realisticPathOutOfTarmac = new Trajectory();
 
@@ -60,12 +70,18 @@ public class Robot extends TimedRobot {
       Path trajectoryConfidentPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT1_JSON);
       Path trajectoryConfidentPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT2_JSON);
       Path trajectoryRealistic = Filesystem.getDeployDirectory().toPath().resolve(trajectory_realisticPathOutOfTarmac_JSON);
+      Path trajectoryVisionPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT1_JSON);
+      Path trajectoryVisionPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT2_JSON);
+      Path trajectoryVisionPT3 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT3_JSON);
       
 
                     // select trajectory 1 2 3 based on input - following into RobotContainer
       m_trajectory_confident_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT1);
       m_trajectory_confident_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT2);
       m_trajectory_realisticPathOutOfTarmac = TrajectoryUtil.fromPathweaverJson(trajectoryRealistic);
+      m_trajectory_vision_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT1);
+      m_trajectory_vision_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT2);
+      m_trajectory_vision_PT3 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT3);
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectory_confident_PT1_JSON, ex.getStackTrace());
     }
@@ -74,7 +90,16 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2);
+    /*Path List 
+     * Path 1 - Realistic out Of Tarmac
+     * Path 2 - Trajectory Confident PT1
+     * Path 3 - Trajectory Confident PT2
+     * Path 4 - Trajectory Vision PT1
+     * Path 5 - Trajectory Vision PT2
+     * Path 6 - Trajectory Vision PT3
+    */
+    m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2,
+                                          m_trajectory_vision_PT1, m_trajectory_vision_PT2, m_trajectory_vision_PT3);
 
     
   }

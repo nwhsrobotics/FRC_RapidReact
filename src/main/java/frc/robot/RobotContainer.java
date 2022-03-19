@@ -151,10 +151,11 @@ public class RobotContainer {
   
   private Trajectory m_traj_1;
   private Trajectory m_traj_2;
+  private Trajectory m_traj_4;
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3) {
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3, Trajectory traj_4, Trajectory traj_5, Trajectory traj_6) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
@@ -165,7 +166,7 @@ public class RobotContainer {
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
     m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
-    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem,m_visionSubsystem, m_intakeSubsystem, traj_2);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
 
     
@@ -180,6 +181,7 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Mode", autoChooser);
     m_traj_1 = traj_1;
     m_traj_2 = traj_2;
+    m_traj_4 = traj_4;
     
     
 
@@ -249,6 +251,9 @@ public class RobotContainer {
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode A");
       m_driveSubsystem.resetOdometry(m_traj_1.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandC)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode C");
+      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
     }
     
     return autoChooser.getSelected();

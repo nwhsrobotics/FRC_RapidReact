@@ -6,8 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,13 +18,25 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupC extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommandGroupC. */
-  public RobotAutoCommandGroupC(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, Trajectory dTraj_1) {
+  public RobotAutoCommandGroupC(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, Trajectory dTraj_1, Trajectory dTraj_2, Trajectory dTraj_3) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new IntakeLowerCommand(intakeSubsystem),
+    addCommands(
+      new IndexLoadCommand(indexSubsystem),
+      new IntakeLowerCommand(intakeSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_1).getRamseteCommand(),
-    new AlignDriveAutoCommand(driveSubsystem, visionSubsystem),
-    new AlignDriveAutoCommand(driveSubsystem, visionSubsystem)
+      new IntakeOnCommand(intakeSubsystem, true),
+      new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand(),
+      new DriveAutoCommand(driveSubsystem, dTraj_3).getRamseteCommand(),
+      new ShooterHighModeCommand(shooterSubsystem),
+      new WaitCommand(2),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new WaitCommand(0.7),
+      new IndexLoadCommand(indexSubsystem),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, false),
+      new ShooterOffCommand(shooterSubsystem)
+      
     );
   }
 }
