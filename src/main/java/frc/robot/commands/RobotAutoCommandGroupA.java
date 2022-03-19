@@ -17,17 +17,18 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupA extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommand. */
-  public RobotAutoCommandGroupA(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, Trajectory dTraj_1) {
+  public RobotAutoCommandGroupA(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, Trajectory dTraj_4) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(/*new DriveAutoCommand(driveSubsystem, dTraj_1).getRamseteCommand(),
     new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand()*/
     new IndexLoadCommand(indexSubsystem),
+    new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
     new ShooterLowModeCommand(shooterSubsystem),
     new WaitCommand(2),
     new IndexShootCommand(indexSubsystem, shooterSubsystem),
     new ShooterOffCommand(shooterSubsystem),
-    new DriveAutoCommand(driveSubsystem, dTraj_1).getRamseteCommand()
+    new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand()
     
     
 

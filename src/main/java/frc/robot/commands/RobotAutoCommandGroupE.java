@@ -16,9 +16,9 @@ import frc.robot.subsystems.VisionSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class RobotAutoCommandGroupC extends SequentialCommandGroup {
-  /** Creates a new RobotAutoCommandGroupC. */
-  public RobotAutoCommandGroupC(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6) {
+public class RobotAutoCommandGroupE extends SequentialCommandGroup {
+  /** Creates a new RobotAutoCommandGroupE. */
+  public RobotAutoCommandGroupE(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -36,7 +36,7 @@ public class RobotAutoCommandGroupC extends SequentialCommandGroup {
       new IndexShootCommand(indexSubsystem, shooterSubsystem),
       new IntakeOnCommand(intakeSubsystem, false),
       new ShooterOffCommand(shooterSubsystem)
-      
+
     );
   }
 }

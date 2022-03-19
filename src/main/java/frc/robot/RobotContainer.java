@@ -20,6 +20,8 @@ import frc.robot.commands.IntakeBeaterTeleopCommand;
 import frc.robot.commands.RobotAutoCommandGroupA;
 import frc.robot.commands.RobotAutoCommandGroupB;
 import frc.robot.commands.RobotAutoCommandGroupC;
+import frc.robot.commands.RobotAutoCommandGroupD;
+import frc.robot.commands.RobotAutoCommandGroupE;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardBallAutoCommand;
 import frc.robot.commands.DriveForwardCommand;
@@ -145,6 +147,8 @@ public class RobotContainer {
   private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
   private final RobotAutoCommandGroupB m_sequentialAutoCommandB;
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
+  private final RobotAutoCommandGroupD m_sequentialAutoCommandD;
+  private final RobotAutoCommandGroupE m_sequentialAutoCommandE;
   private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
 
 
@@ -152,6 +156,7 @@ public class RobotContainer {
   private Trajectory m_traj_1;
   private Trajectory m_traj_2;
   private Trajectory m_traj_4;
+  
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -164,9 +169,11 @@ public class RobotContainer {
     m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
 
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_1);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_4);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
+    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, traj_4);
+    m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
 
     
@@ -177,6 +184,7 @@ public class RobotContainer {
     
     autoChooser.addOption("Auto Mode B", m_sequentialAutoCommandB);
     autoChooser.addOption("Auto Mode C", m_sequentialAutoCommandC);
+    autoChooser.addOption("Auto Mode D", m_sequentialAutoCommandD);
     
     SmartDashboard.putData("Auto Mode", autoChooser);
     m_traj_1 = traj_1;
@@ -250,9 +258,15 @@ public class RobotContainer {
       m_driveSubsystem.resetOdometry(m_traj_2.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode A");
-      m_driveSubsystem.resetOdometry(m_traj_1.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandC)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode C");
+      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandD)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode D");
+      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandE)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode E");
       m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
     }
     
