@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -25,6 +26,7 @@ public class ToggleHighGearCommand extends CommandBase {
   public void execute() {
     boolean highGear = m_driveSubsystem.isHighGear();
     m_driveSubsystem.setHighGear(!highGear);
+    SmartDashboard.putBoolean("High Gear", !highGear);
   }
 
   // Called once the command ends or is interrupted.

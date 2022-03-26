@@ -151,8 +151,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   private static boolean m_isTeleop = false;
 
-  private static final double POWER_FACTOR = 0.8;
-  private static final double TURN_FACTOR = 0.65;
+  private static final double HIGH_POWER_FACTOR = 0.8;
+  private static final double HIGH_TURN_FACTOR = 0.65;
+  private static final double LOW_POWER_FACTOR = 0.7;
+  private static final double LOW_TURN_FACTOR = 0.5;
   private static final double VISION_AUTO_THRESHOLD = 0.1;
 
 // The gyro sensor
@@ -165,6 +167,7 @@ private double m_power;
 private double m_turn;
 private int runtime = 0;
 private boolean m_isReversed = false;
+private boolean m_highGear = false;
   public DriveSubsystem(VisionSubsystem visionSubsystem) {
     m_visionSubsystem = visionSubsystem;
     m_leftFront.setIdleMode(IdleMode.kBrake);
@@ -233,7 +236,13 @@ private boolean m_isReversed = false;
     SmartDashboard.putBoolean("Teleop", m_isTeleop);
 
     if(m_isTeleop){
-      m_robotDrive.arcadeDrive(m_power * POWER_FACTOR, m_turn * TURN_FACTOR, true);
+      //###
+      if(m_highGear){
+        m_robotDrive.arcadeDrive(m_power * HIGH_POWER_FACTOR, m_turn * HIGH_TURN_FACTOR, true);
+      } else {
+        m_robotDrive.arcadeDrive(m_power * LOW_POWER_FACTOR, m_turn * LOW_TURN_FACTOR, true);
+      }
+
     }
   }  
   /**
@@ -269,10 +278,10 @@ private boolean m_isReversed = false;
   }
   public boolean isHighGear() {
     //TODO:
-    return true;
+    return m_highGear;
   }
   public void setHighGear(boolean highGear) {
-    //TODO:
+    m_highGear = highGear;
   }
 
   /**

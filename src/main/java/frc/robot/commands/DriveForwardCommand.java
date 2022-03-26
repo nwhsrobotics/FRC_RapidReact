@@ -31,7 +31,7 @@ public class DriveForwardCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_DriveSubsystem.isReversed()){
+    if(m_DriveSubsystem.isReversed()) {
       m_DriveSubsystem.setDrivePower(m_joy.getRawAxis(DRIVE_THROTTLE_AXIS), m_joy.getRawAxis(DRIVE_TURN_AXIS));
     } else{
       m_DriveSubsystem.setDrivePower(-m_joy.getRawAxis(DRIVE_THROTTLE_AXIS), m_joy.getRawAxis(DRIVE_TURN_AXIS));
