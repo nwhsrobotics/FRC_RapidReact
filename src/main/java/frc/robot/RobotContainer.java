@@ -36,6 +36,7 @@ import frc.robot.commands.ShooterLowModeCommand;
 import frc.robot.commands.ShooterOffCommand;
 import frc.robot.commands.ShooterSetAutoCommand;
 import frc.robot.commands.ShooterSpeedAdjustCommand;
+import frc.robot.commands.ToggleHighGearCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -107,9 +108,10 @@ public class RobotContainer {
 
   private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
   private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
-  private final JoystickButton m_joy0_LeftBumper = new JoystickButton(m_joy0, 5);
-  private final JoystickButton m_joy0_RightBumper = new JoystickButton(m_joy0, 6);
+  private final JoystickButton m_joy0_leftBumper = new JoystickButton(m_joy0, 5);
+  private final JoystickButton m_joy0_rightBumper = new JoystickButton(m_joy0, 6);
   private final JoystickButton m_joy0_menu = new JoystickButton(m_joy0, 8);
+  private final JoystickButton m_joy0_rightJoyButton = new JoystickButton(m_joy0, 10);
 
   private final POVButton m_joy0_pov0 = new POVButton(m_joy0, 0);
   private final POVButton m_joy0_pov45 = new POVButton(m_joy0, 45);
@@ -137,9 +139,12 @@ public class RobotContainer {
   private final POVButton m_joy1_pov270 = new POVButton(m_joy1, 270);
 
   
+  private final ToggleHighGearCommand m_toggleHighGear = new ToggleHighGearCommand(m_driveSubsystem);
+  private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem, m_joy0);
+  private final IntakeBeaterTeleopCommand m_intakeBeaterOn = new IntakeBeaterTeleopCommand(m_intakeSubsystem, true, true);
+  private final IntakeBeaterTeleopCommand m_intakeBeaterOff = new IntakeBeaterTeleopCommand(m_intakeSubsystem, false, true);
+  private final IntakeBeaterTeleopCommand m_intakeBeaterReverse = new IntakeBeaterTeleopCommand(m_intakeSubsystem, true, false);
 
-  private final DriveForwardCommand m_driveForwardCommand = new DriveForwardCommand(m_driveSubsystem,m_joy0);
-  private final IntakeBeaterTeleopCommand m_intakeBeaterTeleopCommand = new IntakeBeaterTeleopCommand(m_intakeSubsystem, m_joy1);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
@@ -166,10 +171,9 @@ public class RobotContainer {
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
     //this is where all of the Drive Commands are created and set
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
-    m_intakeSubsystem.setDefaultCommand(m_intakeBeaterTeleopCommand);
 
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_4);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_4, traj_5);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
     m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, traj_4);
@@ -223,8 +227,14 @@ public class RobotContainer {
     m_joy1_pov0.whenPressed(m_shooterSpeedIncreaseCommand);
     m_joy1_pov180.whenPressed(m_shooterSpeedDecreaseCommand);
 
-    m_joy0_LeftBumper.whenPressed(m_intakeLowerCommand);
-    m_joy0_RightBumper.whenPressed(m_intakeRaiseCommand);
+    m_joy0_a.whenPressed(m_intakeLowerCommand);
+    m_joy0_y.whenPressed(m_intakeRaiseCommand);
+    m_joy0_rightBumper.whenPressed(m_intakeBeaterOn);
+    m_joy0_rightBumper.whenReleased(m_intakeBeaterOff);
+
+    m_joy0_leftBumper.whenPressed(m_intakeBeaterReverse);
+    m_joy0_leftBumper.whenReleased(m_intakeBeaterOff);
+    m_joy0_rightJoyButton.whenPressed(m_toggleHighGear);
 
     m_joy0_pov0.whileHeld(m_climbCommand0);
     m_joy0_pov45.whileHeld(m_climbCommand45);

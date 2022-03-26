@@ -4,24 +4,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
-public class IntakeBeaterTeleopCommand extends CommandBase {
-  /** Creates a new IntakeBeaterTeleopCommand. */
-  private IntakeSubsystem m_intakeSubsystem;
-  private boolean m_on;
-  private boolean m_forward;
+public class ToggleHighGearCommand extends CommandBase {
+  DriveSubsystem m_driveSubsystem;
 
-  public IntakeBeaterTeleopCommand(IntakeSubsystem intakeSubsystem, boolean on, boolean forward) {
+  /** Creates a new ToggleHighGearCommand. */
+  public ToggleHighGearCommand(DriveSubsystem driveSubsystem) {
+    m_driveSubsystem = driveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
-    m_intakeSubsystem = intakeSubsystem;
-    m_on = on;
-    m_forward = forward;
-    
   }
 
   // Called when the command is initially scheduled.
@@ -31,9 +23,8 @@ public class IntakeBeaterTeleopCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.setBeaterOn(m_on);
-    System.out.println("Setting the beater to: " + m_on);
-    m_intakeSubsystem.setBeaterForward(m_forward);
+    boolean highGear = m_driveSubsystem.isHighGear();
+    m_driveSubsystem.setHighGear(!highGear);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +34,6 @@ public class IntakeBeaterTeleopCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

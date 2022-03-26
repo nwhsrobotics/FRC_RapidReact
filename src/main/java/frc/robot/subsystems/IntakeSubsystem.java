@@ -88,6 +88,7 @@ public class IntakeSubsystem extends SubsystemBase {
     if (m_beaterOn){
       if (m_forward){
         m_beaterMotor.set(-BEATER_ON_SPEED);
+        System.out.println("Running the Intake Beaters");
       } else {
         m_beaterMotor.set(BEATER_ON_SPEED);
       }

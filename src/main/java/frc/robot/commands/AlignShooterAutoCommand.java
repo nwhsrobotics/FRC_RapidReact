@@ -11,10 +11,13 @@ import frc.robot.subsystems.VisionSubsystem;
 
 public class AlignShooterAutoCommand extends CommandBase {
   private static final double VISION_AUTO_THRESHOLD = 0.05;
+  private static final int CLOCK_TIMEOUT = 100;
   /** Creates a new AlignShooterAutoCommand. */
   private DriveSubsystem m_driveSubsystem;
   private VisionSubsystem m_visionSubsystem;
   private double target_center_x;
+  private int m_clock;
+  
   
   public AlignShooterAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -55,7 +58,7 @@ public class AlignShooterAutoCommand extends CommandBase {
       m_driveSubsystem.arcadeDrive(0.0, -0.11);
       
     }
-   
+    m_clock += 1;
   }
 
   // Called once the command ends or is interrupted.
@@ -65,6 +68,10 @@ public class AlignShooterAutoCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+
+    if (m_clock >= CLOCK_TIMEOUT){
+      return true;
+    }
     if (Math.abs(target_center_x - 0.5) <= VISION_AUTO_THRESHOLD){
       m_driveSubsystem.arcadeDrive(0.0, 0.0);
       SmartDashboard.putBoolean("Shooter Align", true);

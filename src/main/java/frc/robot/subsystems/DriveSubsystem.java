@@ -267,6 +267,13 @@ private boolean m_isReversed = false;
     resetEncoders();
     m_odometry.resetPosition(pose, m_gyro.getRotation2d());
   }
+  public boolean isHighGear() {
+    //TODO:
+    return true;
+  }
+  public void setHighGear(boolean highGear) {
+    //TODO:
+  }
 
   /**
    * Drives the robot using arcade controls.
