@@ -29,9 +29,17 @@ public class ShooterSpeedAdjustCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    currentSpeed = m_shooterSubsystem.getSpeed();
-    m_shooterSubsystem.setFlywheel_rpm(currentSpeed+m_speedAdjustment, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
-   
+    //currentSpeed = m_shooterSubsystem.getSpeed();
+    
+    if (m_shooterSubsystem.getIsEditingHigh()) {
+      m_shooterSubsystem.setHighSpeed(m_shooterSubsystem.getHighSpeed()+m_speedAdjustment);
+      m_shooterSubsystem.setFlywheel_rpm(m_shooterSubsystem.getHighSpeed()+m_speedAdjustment, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
+    }
+    else {
+      m_shooterSubsystem.setLowSpeed(m_shooterSubsystem.getLowSpeed()+m_speedAdjustment);
+      m_shooterSubsystem.setFlywheel_rpm(m_shooterSubsystem.getLowSpeed()+m_speedAdjustment, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
+    }
+
   }
 
   // Called once the command ends or is interrupted.

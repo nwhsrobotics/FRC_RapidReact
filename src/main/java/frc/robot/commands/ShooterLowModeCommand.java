@@ -30,8 +30,9 @@ public class ShooterLowModeCommand extends CommandBase {
   @Override
   public void execute() {
     System.out.println("Setting speed low");
-    m_shooterSubsystem.setFlywheel_rpm(1500.0, IndexSubsystem.Constants.SHOOT_SPIN_RPM);
-    }
+    m_shooterSubsystem.setFlywheel_rpm(m_shooterSubsystem.getLowSpeed(), IndexSubsystem.Constants.SHOOT_SPIN_RPM);
+    m_shooterSubsystem.setIsHighEditing(false);
+  }
   
 
   // Called once the command ends or is interrupted.
