@@ -179,26 +179,19 @@ public class RobotContainer {
     m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, traj_4);
     m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
-
-    
     
     autoChooser = new SendableChooser<SequentialCommandGroup>();
-    
-    autoChooser.setDefaultOption("Auto Mode A", m_sequentialAutoCommandA);
-    
+    autoChooser.setDefaultOption("Auto Mode A", m_sequentialAutoCommandA);    
     autoChooser.addOption("Auto Mode B", m_sequentialAutoCommandB);
     autoChooser.addOption("Auto Mode C", m_sequentialAutoCommandC);
     autoChooser.addOption("Auto Mode D", m_sequentialAutoCommandD);
     autoChooser.addOption("Auto Mode E", m_sequentialAutoCommandE);
-
     
     SmartDashboard.putData("Auto Mode", autoChooser);
     m_traj_1 = traj_1;
     m_traj_2 = traj_2;
     m_traj_4 = traj_4;
     
-    
-
     // Configure the button btindings
     configureButtonBindings();
   }
@@ -246,7 +239,6 @@ public class RobotContainer {
     m_joy0_pov315.whileHeld(m_climbCommand315);
     
     m_joy0_menu.whenPressed(m_DriveSwitchCommand);
-
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

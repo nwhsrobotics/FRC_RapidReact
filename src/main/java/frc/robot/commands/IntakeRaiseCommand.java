@@ -21,24 +21,29 @@ public class IntakeRaiseCommand extends CommandBase {
   public IntakeRaiseCommand(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_intake = intake;
-    addRequirements(m_intake);
+    //addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    /*
     m_currentPosition = m_intake.getPosition_deg();
     m_endPosition = IntakeSubsystem.UP_POSITION_DEG;
     m_speed = SPEED_DEG_PER_TICK;
+    */
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_currentPosition += m_speed;
+
+    m_intake.setTargetPosition_deg(IntakeSubsystem.UP_POSITION_DEG);
     /*
-    OLD INTAKE
-    */
+    m_currentPosition += m_speed;
+    
+    //OLD INTAKE
+    
     if (((m_speed < 0.0) && (m_currentPosition < m_endPosition)) || 
         ((m_speed > 0.0) && (m_currentPosition > m_endPosition))) {
       m_currentPosition = m_endPosition;
@@ -47,7 +52,7 @@ public class IntakeRaiseCommand extends CommandBase {
     m_intake.setPosition_deg(m_currentPosition);
     m_clock += 1;
     //SmartDashboard.putNumber("Intake Clock", m_clock);
-    
+    */
   }
 
   // Called once the command ends or is interrupted.
@@ -65,7 +70,8 @@ public class IntakeRaiseCommand extends CommandBase {
 
     
     //Retaining the OLD INTAKE Code
-    return m_currentPosition == m_endPosition;
+    //return m_currentPosition == m_endPosition;
+    return true;
 
     /*
     if (m_clock >= INTAKE_TIME_TIMOUT){

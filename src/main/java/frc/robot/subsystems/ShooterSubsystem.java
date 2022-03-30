@@ -27,6 +27,9 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_offset_rpm = 0.0;
   private boolean m_autoMode = false;
   private double m_manual_speed_rpm = 0.0;
+  private double m_manual_speed_rpm_high = 3500.0;
+  private double m_manual_speed_rpm_low = 1500.0;
+  private boolean m_is_editing_high = false;
   private VisionSubsystem m_visionSubsystem;
   
   private final double m_flywheelAutoSpeedMultiplier = 5;
@@ -76,8 +79,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     m_flywheelpidController.setReference(0.0, ControlType.kVelocity);
     m_flywheel2pidController.setReference(0.0, ControlType.kVelocity);
-    
-    
   }
 
   @Override
@@ -110,7 +111,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public boolean getFlywheelStatus(){
     return m_flywheelStatus;
-
   } 
 
   public void setFlywheel_rpm(double speed_rpm, double offset_rpm) {
@@ -123,7 +123,6 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("flywheelSpeed (rpm)", speed_rpm);
     m_manual_offset_rpm = offset_rpm;
     SmartDashboard.putNumber("flywheeloffset (rpm)", offset_rpm);
-
     //TODO: Implement the setReference method here to move the motor to the desired speed
   }
 
@@ -149,6 +148,30 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public double getSpeed() {
     return m_speed_rpm;
+  }
+
+  public double getHighSpeed() {
+    return m_manual_speed_rpm_high;
+  }
+
+  public void setHighSpeed(double new_speed) {
+    m_manual_speed_rpm_high = new_speed;
+  }
+
+  public double getLowSpeed() {
+    return m_manual_speed_rpm_low;
+  }
+
+  public void setLowSpeed(double new_speed) {
+    m_manual_speed_rpm_low = new_speed;
+  }
+
+  public boolean getIsEditingHigh() {
+    return m_is_editing_high;
+  }
+
+  public void setIsHighEditing(boolean new_state) {
+    m_is_editing_high = new_state;
   }
   
   /*
