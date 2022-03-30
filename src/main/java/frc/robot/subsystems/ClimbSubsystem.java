@@ -48,8 +48,8 @@ public class ClimbSubsystem extends SubsystemBase {
   private static final double MIN_BACK_FORWARD = 0.0;
   private static final double INITIAL_BACK_FORWARD = 0.0;
 
-  private static final double SPEED_UP_DOWN_mps = 0.22;
-  private static final double TICKS_PER_SECOND = 50;
+  public static final double SPEED_UP_DOWN_mps = 0.22;
+  public static final double TICKS_PER_SECOND = 50;
   private static final double SPEED_BACK_FORWARD_mps = 3.5 * 0.0254; //3.5 inches per second
   private static final double GEAR_RATIO_UP_DOWN = -5.0;
   private static final double LEAD_DISTANCE_m = (0.5 * 0.0254); // (inches * m/in) half an inch to meters
@@ -192,6 +192,15 @@ public class ClimbSubsystem extends SubsystemBase {
     }
     enforceLimits();
   }
+
+public double getHeight_m() {
+    return m_upDown_m;
+}
+
+public void setHeight_m(double currentHeight_m) {
+  m_upDown_m = currentHeight_m;
+  enforceLimits();
+}
   
 
 
