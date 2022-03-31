@@ -66,8 +66,8 @@ public final class Constants {
             public static final int SHOOTER_FLYWHEEL2 = 13;
             public static final int CLIMB_RIGHT_ARM = 5; //was 20
             public static final int CLIMB_LEFT_ARM = 17;
-            public static final int CLIMB_RIGHT_SHOULDER = 22;
-            public static final int CLIMB_LEFT_SHOULDER = 23;
+            public static final int CLIMB_RIGHT_SHOULDER = 32;
+            public static final int CLIMB_LEFT_SHOULDER = 31;
             public static final int INTAKE_BEATER = 16; //was 12
             public static final int INTAKE_MOTOR_ARM = 7; //was 4
         }
