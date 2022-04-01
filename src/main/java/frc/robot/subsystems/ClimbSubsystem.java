@@ -37,14 +37,14 @@ public class ClimbSubsystem extends SubsystemBase {
   
   private static boolean m_enabled = false;
   
-  private static final double MAX_UP_DOWN_m = 21.5 * 0.0254; //21 inches converted to meters
+  private static final double MAX_UP_DOWN_m = 25.0 * 0.0254; //21 inches converted to meters
   private static final double MIN_UP_DOWN_m = 0.0 * 0.0254; 
   private static final double INITIAL_UP_DOWN = 0.0;
   
   
 
   
-  private static final double MAX_BACK_FORWARD_m = 7.0 * 0.0254; //7 inches converted to meters
+  private static final double MAX_BACK_FORWARD_m = 6.0 * 0.0254; //7 inches converted to meters
   private static final double MIN_BACK_FORWARD = 0.0;
   private static final double INITIAL_BACK_FORWARD = 0.0;
 
@@ -61,8 +61,8 @@ public class ClimbSubsystem extends SubsystemBase {
   private static final double UP_DOWN_COUNTS_PER_METER = (GEAR_RATIO_UP_DOWN/LEAD_DISTANCE_m); //TO DO LIST: FIGURE OUT REAL VALUE
   private static final double BACK_FORWARD_COUNTS_PER_METER = (GEAR_RATIO_BACK_FORWARD/LEAD_DISTANCE_m);
   private static final double METERS_TO_INCHES = 39.37;
-  private static final double HEIGHT_1_m = 3.0 * 0.0254; //3 inches to meters : less than 3 inches sets to 0
-  private static final double HEIGHT_2_m = 10.0 * 0.0254;
+  private static final double HEIGHT_1_m = 6.0 * 0.0254; //3 inches to meters : less than 3 inches sets to 0
+  private static final double HEIGHT_2_m = 12.0 * 0.0254;
   
   
   private double m_upDown_m = INITIAL_UP_DOWN;
