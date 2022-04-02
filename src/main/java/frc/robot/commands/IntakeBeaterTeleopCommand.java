@@ -34,7 +34,6 @@ public class IntakeBeaterTeleopCommand extends CommandBase {
   @Override
   public void execute() {
     m_intakeSubsystem.setBeaterOn(m_on);
-    System.out.println("Setting the beater to: " + m_on);
     m_intakeSubsystem.setBeaterForward(m_forward);
   }
 

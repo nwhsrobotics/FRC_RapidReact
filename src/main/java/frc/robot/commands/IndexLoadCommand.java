@@ -29,7 +29,6 @@ public class IndexLoadCommand extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putString("Auto Command", "Index Load Command");
-    System.out.println("load command");
     m_done = false;
 
     IndexerState state = m_indexSubsystem.getState();

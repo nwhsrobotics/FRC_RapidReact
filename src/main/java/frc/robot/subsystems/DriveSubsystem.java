@@ -178,7 +178,6 @@ private boolean m_highGear = false;
     m_leftBack.setInverted(false);
     m_rightFront.setInverted(true);
     m_rightBack.setInverted(true);
-    SmartDashboard.putBoolean("gyro connection", m_gyro.isConnected());
     m_left  = new MotorControllerGroup(m_leftFront, m_leftBack);
     m_right = new MotorControllerGroup(m_rightFront, m_rightBack);
     m_robotDrive = new DifferentialDrive(m_left, m_right);
@@ -220,30 +219,34 @@ private boolean m_highGear = false;
   @Override
   public void periodic() {
     //System.out.println("left side velocity " + getLeftEncoderSpeed() + " right side velocity " + getRightEncoderSpeed());
-    SmartDashboard.putNumber("right velocity", getRightEncoderSpeed());
-    SmartDashboard.putNumber("left velocity", getLeftEncoderSpeed());
+    
      // Update the odometry in the periodic block
      m_odometry.update(
       m_gyro.getRotation2d(), getLeftEncoderDistance(), getRightEncoderDistance());
       
+    /*
+    These are the debugging prints
     SmartDashboard.putNumber("right encoder distance", getRightEncoderDistance());
     SmartDashboard.putNumber("left encoder distance", getLeftEncoderDistance());
-    
+    SmartDashboard.putNumber("right velocity", getRightEncoderSpeed());
+    SmartDashboard.putNumber("left velocity", getLeftEncoderSpeed());
     SmartDashboard.putNumber("Odometry X: ", m_odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Odometry Y: ", m_odometry.getPoseMeters().getY());
     SmartDashboard.putNumber("Odometry Degrees: ", m_odometry.getPoseMeters().getRotation().getDegrees());
-
     SmartDashboard.putBoolean("Teleop", m_isTeleop);
+    */
 
-    if(m_isTeleop){
+    
+
+    
       //###
-      if(m_highGear){
-        m_robotDrive.arcadeDrive(m_power * HIGH_POWER_FACTOR, m_turn * HIGH_TURN_FACTOR, true);
-      } else {
-        m_robotDrive.arcadeDrive(m_power * LOW_POWER_FACTOR, m_turn * LOW_TURN_FACTOR, true);
-      }
-
+    if(m_highGear){
+      m_robotDrive.arcadeDrive(m_power * HIGH_POWER_FACTOR, m_turn * HIGH_TURN_FACTOR, true);
+    } else {
+      m_robotDrive.arcadeDrive(m_power * LOW_POWER_FACTOR, m_turn * LOW_TURN_FACTOR, true);
     }
+
+    
   }  
   /**
    * Returns the currently-estimated pose of the robot.

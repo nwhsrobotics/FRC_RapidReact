@@ -27,6 +27,7 @@ import frc.robot.commands.DriveForwardBallAutoCommand;
 import frc.robot.commands.DriveForwardCommand;
 import frc.robot.commands.DriveSwitchCommand;
 import frc.robot.commands.ToggleIntakeCommand;
+import frc.robot.commands.ToggleShooterAlignCommand;
 import frc.robot.commands.IntakeRaiseCommand;
 import frc.robot.commands.IntakeLowerCommand;
 import frc.robot.commands.IntakeOnCommand;
@@ -78,7 +79,9 @@ public class RobotContainer {
   private final IndexUnloadCommand m_indexUnloadCommand = new IndexUnloadCommand(m_indexSubsystem);
   private final ToggleIntakeCommand m_toggleIntakeCommand = new ToggleIntakeCommand(m_intakeSubsystem);
 
+  private final ToggleShooterAlignCommand m_toggleShooterAlignCommand = new ToggleShooterAlignCommand(m_driveSubsystem, m_visionSubsystem);
   
+
   private final IntakeRaiseCommand m_intakeRaiseCommand = new IntakeRaiseCommand(m_intakeSubsystem);
   private final IntakeLowerCommand m_intakeLowerCommand = new IntakeLowerCommand(m_intakeSubsystem);
   private final ShooterModeChangeCommand m_shooterModeChangeCommand = new ShooterModeChangeCommand(m_shooterSubsystem);
@@ -107,6 +110,7 @@ public class RobotContainer {
   private final XboxController m_joy1 = new XboxController(1);
 
   private final JoystickButton m_joy0_a = new JoystickButton(m_joy0, 1);
+  private final JoystickButton m_joy0_b = new JoystickButton(m_joy0, 2);
   private final JoystickButton m_joy0_y = new JoystickButton(m_joy0, 4);
   private final JoystickButton m_joy0_leftBumper = new JoystickButton(m_joy0, 5);
   private final JoystickButton m_joy0_rightBumper = new JoystickButton(m_joy0, 6);
@@ -224,6 +228,7 @@ public class RobotContainer {
     m_joy0_y.whenPressed(m_intakeRaiseCommand);
     m_joy0_rightBumper.whenPressed(m_intakeBeaterOn);
     m_joy0_rightBumper.whenReleased(m_intakeBeaterOff);
+    m_joy0_b.whileHeld(m_toggleShooterAlignCommand);
 
     m_joy0_leftBumper.whenPressed(m_intakeBeaterReverse);
     m_joy0_leftBumper.whenReleased(m_intakeBeaterOff);

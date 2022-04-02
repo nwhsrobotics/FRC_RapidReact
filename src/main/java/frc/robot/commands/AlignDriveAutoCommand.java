@@ -30,7 +30,7 @@ public class AlignDriveAutoCommand extends CommandBase {
     m_driveSubsystem = driveSubsystem;
     m_visionSubsystem = visionSubsystem;
 
-    SmartDashboard.putBoolean("Align", false);
+    SmartDashboard.putBoolean("Ball Align", false);
   }
 
   // Called when the command is initially scheduled.
@@ -52,12 +52,12 @@ public class AlignDriveAutoCommand extends CommandBase {
 
           m_driveSubsystem.arcadeDrive(0.0, 0.15);
 
-        SmartDashboard.putBoolean("Align", false);
+        SmartDashboard.putBoolean("Ball Align", false);
       } else if (ball_center_x <= (0.5 - VISION_AUTO_THRESHOLD)){
         
           m_driveSubsystem.arcadeDrive(0.0, -0.15);
    
-        SmartDashboard.putBoolean("Align", false);
+        SmartDashboard.putBoolean("Ball Align", false);
 
       } 
     } else {
@@ -89,7 +89,7 @@ public class AlignDriveAutoCommand extends CommandBase {
 
     if (Math.abs(ball_center_x - 0.5) <= 0.05){
       m_driveSubsystem.arcadeDrive(0.0, 0.0);
-      SmartDashboard.putBoolean("Align", true);
+      SmartDashboard.putBoolean("Ball Align", true);
       return true;
     } else {
       return false;
