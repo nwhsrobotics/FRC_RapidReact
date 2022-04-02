@@ -42,16 +42,16 @@ public class IntakeSubsystem extends SubsystemBase {
   
 
   // beater motor
-  private static final double BEATER_ON_SPEED = 0.5; // was 0.5
+  private static final double BEATER_ON_SPEED = 0.7; // was 0.5
   private static final double BEATER_OFF_SPEED = 0.0;
   private boolean m_beaterOn = false;
   private CANSparkMax m_beaterMotor = new CANSparkMax(Constants.IDs.CAN.INTAKE_BEATER, MotorType.kBrushless);
   private boolean m_forward;
   private DigitalInput m_intakeSwitchInput = new DigitalInput(0);
   private int m_bumpIndex = 0;
-  private static final double[] BUMP_SHAPE = {0.0, 2.0, 4.0, 6.0, 8.0, 
-                                            10.0, 10.0, 10.0, 10.0, 10.0,
-                                            8.0, 6.0, 4.0, 2.0};
+  private static final double[] BUMP_SHAPE = {0.0, 4.0, 8.0, 12.0, 16.0, 
+                                            20.0, 20.0, 20.0, 20.0, 20.0,
+                                            16.0, 12.0, 8.0, 4.0};
 
 
   private static boolean m_enabled = false;
