@@ -23,7 +23,7 @@ public class RobotAutoCommandGroupD extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
+      /*new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
       new IndexLoadCommand(indexSubsystem),
       new IntakeLowerCommand(intakeSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
@@ -47,7 +47,8 @@ public class RobotAutoCommandGroupD extends SequentialCommandGroup {
       new WaitCommand(0.7),
       new IndexShootCommand(indexSubsystem, shooterSubsystem),
       new IntakeOnCommand(intakeSubsystem, false),
-      new ShooterOffCommand(shooterSubsystem)
+      new ShooterOffCommand(shooterSubsystem)*/
+      new DriveAutoCommand(driveSubsystem, dTraj_7)
 
       
     );

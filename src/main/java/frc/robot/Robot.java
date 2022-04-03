@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     m_trajectory_vision_PT3 = new Trajectory();
 
     //Top Secret Paths
-    String trajectory_top_secret_PT1_JSON = "paths/TopSecret_PT1.wpilib.json";
+    String trajectory_top_secret_PT1_JSON = "paths/JustTurn.wpilib.json";
     m_trajectory_TS_PT1 = new Trajectory();
     String trajectory_top_secret_PT2_JSON = "paths/TopSecret_PT2.wpilib.json";
     m_trajectory_TS_PT2 = new Trajectory();
