@@ -40,6 +40,8 @@ public class ClimbSubsystem extends SubsystemBase {
   private static final double MAX_UP_DOWN_m = 25.0 * 0.0254; //21 inches converted to meters
   private static final double MIN_UP_DOWN_m = 0.0 * 0.0254; 
   private static final double INITIAL_UP_DOWN = 0.0;
+
+  public static final double AUTO_CLIMB_RAISE_m = 0.1524;
   
   
 

@@ -177,11 +177,11 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
 
     m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,  traj_4, traj_5);
-    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, traj_2, traj_3);
-    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
-    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, traj_4);
-    m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, traj_4, traj_5, traj_6);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,m_climbSubsystem,  traj_4, traj_5);
+    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_2, traj_3);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_4, traj_5, traj_6);
+    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem,m_visionSubsystem, m_climbSubsystem,  traj_4);
+    m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_4, traj_5, traj_6);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
     
     autoChooser = new SendableChooser<SequentialCommandGroup>();

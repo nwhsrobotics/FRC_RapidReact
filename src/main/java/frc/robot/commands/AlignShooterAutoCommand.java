@@ -10,7 +10,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 public class AlignShooterAutoCommand extends CommandBase {
-  private static final double VISION_AUTO_THRESHOLD = 0.05;
+  private static final double VISION_AUTO_THRESHOLD = 0.07;
   private static final int CLOCK_TIMEOUT = 100;
   /** Creates a new AlignShooterAutoCommand. */
   private DriveSubsystem m_driveSubsystem;
@@ -43,19 +43,19 @@ public class AlignShooterAutoCommand extends CommandBase {
     if (target_center_x >= 0 ){
       if (target_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
 
-          m_driveSubsystem.arcadeDrive(0.0, 0.11);
+          m_driveSubsystem.arcadeDrive(0.0, 0.15);
 
         SmartDashboard.putBoolean("Shooter Align", false);
       } else if (target_center_x   <= (0.5 - VISION_AUTO_THRESHOLD)){
         
-          m_driveSubsystem.arcadeDrive(0.0, -0.11);
+          m_driveSubsystem.arcadeDrive(0.0, -0.15);
    
         SmartDashboard.putBoolean("Shooter Align", false);
 
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, -0.11);
+      m_driveSubsystem.arcadeDrive(0.0, 0.15);
       
     }
     m_clock += 1;

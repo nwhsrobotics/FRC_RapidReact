@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -18,10 +19,11 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupC extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommandGroupC. */
-  public RobotAutoCommandGroupC(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6) {
+  public RobotAutoCommandGroupC(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
       new IndexLoadCommand(indexSubsystem),
       new IntakeLowerCommand(intakeSubsystem),
       new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),

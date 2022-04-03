@@ -27,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_offset_rpm = 0.0;
   private boolean m_autoMode = false;
   private double m_manual_speed_rpm = 0.0;
-  private double m_manual_speed_rpm_high = 3500.0;
+  private double m_manual_speed_rpm_high = 3650.0;
   private double m_manual_speed_rpm_low = 1500.0;
   private boolean m_is_editing_high = false;
   private VisionSubsystem m_visionSubsystem;
@@ -55,9 +55,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_flywheelencoder.setPosition(0);
     m_flywheelMotor.setIdleMode(IdleMode.kBrake);
 
-    m_flywheelpidController.setP(0.0002);
+    m_flywheelpidController.setP(0.0004);
     m_flywheelpidController.setI(0.0);
-    m_flywheelpidController.setD(0);
+    m_flywheelpidController.setD(0.0);
     m_flywheelpidController.setIZone(0);
     m_flywheelpidController.setFF(0.000178);
     m_flywheelpidController.setOutputRange(-1.0, 1.0);
@@ -69,9 +69,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_flywheel2encoder.setPosition(0);
     m_flywheel2Motor.setIdleMode(IdleMode.kBrake);
 
-    m_flywheel2pidController.setP(0.0002);
+    m_flywheel2pidController.setP(0.0004);
     m_flywheel2pidController.setI(0.0);
-    m_flywheel2pidController.setD(0);
+    m_flywheel2pidController.setD(0.0);
     m_flywheel2pidController.setIZone(0);
     m_flywheel2pidController.setFF(0.000178);
     m_flywheel2pidController.setOutputRange(-1.0, 1.0);

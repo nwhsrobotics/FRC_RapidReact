@@ -49,9 +49,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean m_forward;
   private DigitalInput m_intakeSwitchInput = new DigitalInput(0);
   private int m_bumpIndex = 0;
-  private static final double[] BUMP_SHAPE = {0.0, 4.0, 8.0, 12.0, 16.0, 
-                                            20.0, 20.0, 20.0, 20.0, 20.0,
-                                            16.0, 12.0, 8.0, 4.0};
+  private static final double[] BUMP_SHAPE = {0.0};
 
 
   private static boolean m_enabled = false;

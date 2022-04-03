@@ -22,7 +22,7 @@ public class AlignDriveAutoCommand extends CommandBase {
   private int m_clock;
 
 
-  private final double VISION_AUTO_THRESHOLD = 0.05; //this is the vision constant for when the drive should finish. If higher than quit earlier
+  private final double VISION_AUTO_THRESHOLD = 0.04; //this is the vision constant for when the drive should finish. If higher than quit earlier
 
   public AlignDriveAutoCommand(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -62,7 +62,7 @@ public class AlignDriveAutoCommand extends CommandBase {
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, -0.15);
+      m_driveSubsystem.arcadeDrive(0.0, 0.15);
       
     }
     m_clock += 1;
