@@ -169,7 +169,7 @@ public class RobotContainer {
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3, Trajectory traj_4, Trajectory traj_5, Trajectory traj_6) {
+  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3, Trajectory traj_4, Trajectory traj_5, Trajectory traj_6, Trajectory traj_7, Trajectory traj_8, Trajectory traj_9) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
@@ -180,7 +180,7 @@ public class RobotContainer {
     m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,m_climbSubsystem,  traj_4, traj_5);
     m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_2, traj_3);
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_4, traj_5, traj_6);
-    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem,m_visionSubsystem, m_climbSubsystem,  traj_4);
+    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_4, traj_5, traj_6, traj_7, traj_8, traj_9);
     m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_4, traj_5, traj_6);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
     

@@ -123,7 +123,8 @@ public class Robot extends TimedRobot {
      * ND --> Path 9 - Trajectory Top Secret PT3 (FROM THE FAR LEFT OF FIELD GET ANOTHER BALL)
     */
     m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2,
-                                          m_trajectory_vision_PT1, m_trajectory_vision_PT2, m_trajectory_vision_PT3);
+                                          m_trajectory_vision_PT1, m_trajectory_vision_PT2, m_trajectory_vision_PT3,
+                                          m_trajectory_TS_PT1, m_trajectory_TS_PT2, m_trajectory_TS_PT3);
 
     
   }

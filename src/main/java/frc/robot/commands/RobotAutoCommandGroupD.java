@@ -6,8 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IndexSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,15 +19,37 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupD extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommandGroupD. */
-  public RobotAutoCommandGroupD(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_4) {
+  public RobotAutoCommandGroupD(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6, Trajectory dTraj_7, Trajectory dTraj_8, Trajectory dTraj_9 ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m) //0.102 meters is 4 inches raise the climb during startup
-      /*new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
-      new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand()
-    */
-      //new AlignDriveAutoCommand(driveSubsystem, visionSubsystem)
+      new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
+      new IndexLoadCommand(indexSubsystem),
+      new IntakeLowerCommand(intakeSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
+      new ShooterHighModeCommand(shooterSubsystem),
+      new WaitCommand(0.7),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, true),
+      new DriveAutoCommand(driveSubsystem, dTraj_5).getRamseteCommand(),
+      new IndexLoadCommand(indexSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_6).getRamseteCommand(),
+      //new WaitCommand(0.7),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, false),
+      new ShooterOffCommand(shooterSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_7).getRamseteCommand(),
+      new IntakeOnCommand(intakeSubsystem, true),
+      new DriveAutoCommand(driveSubsystem, dTraj_8).getRamseteCommand(),
+      new IndexLoadCommand(indexSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_9).getRamseteCommand(),
+      new ShooterHighModeCommand(shooterSubsystem),
+      new WaitCommand(0.7),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, false),
+      new ShooterOffCommand(shooterSubsystem)
+
+      
     );
   }
 }
