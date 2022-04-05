@@ -30,7 +30,7 @@ public final class Constants {
     public static final int kRightMotor1Port = 15;
     public static final int kRightMotor2Port = 11;
     
-    public static final double kTicksPerMeter = 14.62;  //14.62 //(1/3544.85)*0.02.
+    public static final double kTicksPerMeter = 14.5;  //14.62 //(1/3544.85)*0.02.
     public static final double kEncoderDistancePerPulse = 1.0 / kTicksPerMeter; //((1/20)*0.1524*Math.PI)/4096.0
     //public static final double kEncoderDistancePerPulse = 20;
     
@@ -39,14 +39,14 @@ public final class Constants {
     public static final boolean kLeftEncoderReversed = true;
     public static final boolean kRightEncoderReversed = false;
 
-    public static final double ksVolts = 0.12763;
-  public static final double kvVoltSecondsPerMeter = 0.26026;
-  public static final double kaVoltSecondsSquaredPerMeter = 0.071788;
-  public static final double kPDriveVel = 2.3672;
+    public static final double ksVolts = 0.20585; //0.12763
+  public static final double kvVoltSecondsPerMeter = 1.8317; //0.26026
+  public static final double kaVoltSecondsSquaredPerMeter = 0.52505; //0.071788
+  public static final double kPDriveVel = 2.635; //2.3672
  // public static final double kTrackwidthMeters = 0.555; 
-  public static final double kTrackwidthMeters = 0.555;
-  public static final double kMaxSpeedMetersPerSecond = 1.25;
-  public static final double kMaxAccelerationMetersPerSecondSquared = 0.25;
+  public static final double kTrackwidthMeters = 0.58214; //0.555
+  public static final double kMaxSpeedMetersPerSecond = 4; //1.25
+  public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
   public static final double kRamseteB = 1.0;
   public static final double kRamseteZeta = 0.4;
   public static final DifferentialDriveKinematics kDriveKinematics =

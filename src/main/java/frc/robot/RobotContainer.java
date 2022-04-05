@@ -165,6 +165,7 @@ public class RobotContainer {
   private Trajectory m_traj_1;
   private Trajectory m_traj_2;
   private Trajectory m_traj_4;
+  private Trajectory m_traj_7;
   
   
 
@@ -195,6 +196,7 @@ public class RobotContainer {
     m_traj_1 = traj_1;
     m_traj_2 = traj_2;
     m_traj_4 = traj_4;
+    m_traj_7 = traj_7;
     
     // Configure the button btindings
     configureButtonBindings();
@@ -273,7 +275,7 @@ public class RobotContainer {
       m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandD)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode D");
-      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_7.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandE)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode E");
       m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());

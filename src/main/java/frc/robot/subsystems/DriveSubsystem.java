@@ -224,17 +224,19 @@ private boolean m_highGear = false;
      m_odometry.update(
       m_gyro.getRotation2d(), getLeftEncoderDistance(), getRightEncoderDistance());
       
-    /*
-    These are the debugging prints
+    
+    //These are the debugging prints
     SmartDashboard.putNumber("right encoder distance", getRightEncoderDistance());
     SmartDashboard.putNumber("left encoder distance", getLeftEncoderDistance());
-    SmartDashboard.putNumber("right velocity", getRightEncoderSpeed());
-    SmartDashboard.putNumber("left velocity", getLeftEncoderSpeed());
+    //SmartDashboard.putNumber("right velocity", getRightEncoderSpeed());
+    //SmartDashboard.putNumber("left velocity", getLeftEncoderSpeed());
+    
+    SmartDashboard.putNumber("Right Back Encoder", m_rightBackEncoder.getPosition());
     SmartDashboard.putNumber("Odometry X: ", m_odometry.getPoseMeters().getX());
     SmartDashboard.putNumber("Odometry Y: ", m_odometry.getPoseMeters().getY());
     SmartDashboard.putNumber("Odometry Degrees: ", m_odometry.getPoseMeters().getRotation().getDegrees());
-    SmartDashboard.putBoolean("Teleop", m_isTeleop);
-    */
+    //SmartDashboard.putBoolean("Teleop", m_isTeleop);
+    
 
     
 
