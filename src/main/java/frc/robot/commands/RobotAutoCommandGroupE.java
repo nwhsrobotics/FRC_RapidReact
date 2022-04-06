@@ -19,23 +19,23 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupE extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommandGroupE. */
-  public RobotAutoCommandGroupE(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_4, Trajectory dTraj_5, Trajectory dTraj_6) {
+  public RobotAutoCommandGroupE(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, VisionSubsystem visionSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_PA_PT1, Trajectory dTraj_PA_PT2, Trajectory dTraj_PA_PT3) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
       new IndexLoadCommand(indexSubsystem),
       new IntakeLowerCommand(intakeSubsystem),
-      new DriveAutoCommand(driveSubsystem, dTraj_4).getRamseteCommand(),
+      new DriveAutoCommand(driveSubsystem, dTraj_PA_PT1).getRamseteCommand(),
       new ShooterHighModeCommand(shooterSubsystem),
       new WaitCommand(2),
       new IndexShootCommand(indexSubsystem, shooterSubsystem),
       new IntakeOnCommand(intakeSubsystem, true),
       new WaitCommand(0.3), //this is so that the alignment right after does not interfere with the initial shot
       new AlignDriveAutoCommand(driveSubsystem, visionSubsystem),
-      new DriveAutoCommand(driveSubsystem, dTraj_5).getRamseteCommand(),
+      new DriveAutoCommand(driveSubsystem, dTraj_PA_PT2).getRamseteCommand(),
       new IndexLoadCommand(indexSubsystem),
-      new DriveAutoCommand(driveSubsystem, dTraj_6).getRamseteCommand(),
+      new DriveAutoCommand(driveSubsystem, dTraj_PA_PT3).getRamseteCommand(),
       new AlignShooterAutoCommand(driveSubsystem, visionSubsystem),
       //new WaitCommand(0.7),
       new IndexShootCommand(indexSubsystem, shooterSubsystem),

@@ -28,16 +28,26 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Trajectory m_trajectory;
-  private Trajectory m_trajectory_confident_PT1;
-  private Trajectory m_trajectory_confident_PT2; 
-  private Trajectory m_trajectory_realisticPathOutOfTarmac;
-  private Trajectory m_trajectory_vision_PT1;
-  private Trajectory m_trajectory_vision_PT2;
-  private Trajectory m_trajectory_vision_PT3;
-  private Trajectory m_trajectory_TS_PT1;
-  private Trajectory m_trajectory_TS_PT2;
-  private Trajectory m_trajectory_TS_PT3;
+  private Trajectory m_traj_PA_PT1;
+  private Trajectory m_traj_PA_PT2;
+  private Trajectory m_traj_PA_PT3;
+  private Trajectory m_traj_PA_PT4;
+
+  private Trajectory m_traj_PB_PT1;
+  private Trajectory m_traj_PB_PT2;
+  private Trajectory m_traj_PB_PT3;
+  private Trajectory m_traj_PB_PT4;
+  private Trajectory m_traj_PB_PT5;
+  private Trajectory m_traj_PB_PT6;
+
+  private Trajectory m_traj_PC_PT1;
+  private Trajectory m_traj_PC_PT2;
+  private Trajectory m_traj_PC_PT3;
+  private Trajectory m_traj_PC_PT4;
+
+  private Trajectory m_traj_JustDrive;
+
+
   private static boolean isTeleop = false;
 
 
@@ -51,60 +61,103 @@ public class Robot extends TimedRobot {
     //CameraServer.startAutomaticCapture(0);
     //CameraServer.startAutomaticCapture(1);
 
+    //Starting Point A
+    String str_PA_PT1_JSON = "paths/PathA_PT1.wpilib.json";
+    String str_PA_PT2_JSON = "paths/PathA_PT2.wpilib.json";
+    String str_PA_PT3_JSON = "paths/PathA_PT3.wpilib.json";
+    String str_PA_PT4_JSON = "paths/PathA_PT4.wpilib.json";
 
-    String trajectory_confident_PT1_JSON = "paths/RR_R_PT1.wpilib.json";
-    m_trajectory_confident_PT1 = new Trajectory();
-    String trajectory_confident_PT2_JSON = "paths/RR_R_PT2.wpilib.json";
-    m_trajectory_confident_PT2 = new Trajectory();
-    String trajectory_vision_PT1_JSON = "paths/TenPointVisionPart1.wpilib.json";
-    m_trajectory_vision_PT1 = new Trajectory();
-    String trajectory_vision_PT2_JSON = "paths/TenPointVisionPart2.wpilib.json";
-    m_trajectory_vision_PT2 = new Trajectory();
-    String trajectory_vision_PT3_JSON = "paths/TenPointVisionPart3.wpilib.json";
-    m_trajectory_vision_PT3 = new Trajectory();
-
-    //Top Secret Paths
-    String trajectory_top_secret_PT1_JSON = "paths/JustTurn.wpilib.json";
-    m_trajectory_TS_PT1 = new Trajectory();
-    String trajectory_top_secret_PT2_JSON = "paths/TopSecret_PT2.wpilib.json";
-    m_trajectory_TS_PT2 = new Trajectory();
-    String trajectory_top_secret_PT3_JSON = "paths/TopSecret_PT3.wpilib.json";
-    m_trajectory_TS_PT3 = new Trajectory();
+    //Starting Point B
+    String str_PB_PT1_JSON = "paths/PathB_PT1.wpilib.json";
+    String str_PB_PT2_JSON = "paths/PathB_PT2.wpilib.json";
+    String str_PB_PT3_JSON = "paths/PathB_PT3.wpilib.json";
+    String str_PB_PT4_JSON = "paths/PathB_PT4.wpilib.json";
+    String str_PB_PT5_JSON = "paths/PathB_PT5.wpilib.json";
+    String str_PB_PT6_JSON = "paths/PathB_PT6.wpilib.json";
 
 
-    String trajectory_realisticPathOutOfTarmac_JSON = "paths/RealisticV3.wpilib.json";
-    m_trajectory_realisticPathOutOfTarmac = new Trajectory();
+    //Starting Point C
+    String str_PC_PT1_JSON = "paths/PathC_PT1.wpilib.json";
+    String str_PC_PT2_JSON = "paths/PathC_PT2.wpilib.json";
+    String str_PC_PT3_JSON = "paths/PathC_PT3.wpilib.json";
+    String str_PC_PT4_JSON = "paths/PathC_PT4.wpilib.json";
 
+
+    //Just Drive Path
+    String str_JustDrive_JSON = "paths/JustDrive.wpilib.json";
+   
+
+    //creating our trajectory objects
+    m_traj_PA_PT1 = new Trajectory();
+    m_traj_PA_PT2 = new Trajectory();
+    m_traj_PA_PT3 = new Trajectory();
+    m_traj_PA_PT4 = new Trajectory();
+
+    m_traj_PB_PT1 = new Trajectory();
+    m_traj_PB_PT2 = new Trajectory();
+    m_traj_PB_PT3 = new Trajectory();
+    m_traj_PB_PT4 = new Trajectory();
+    m_traj_PB_PT5 = new Trajectory();
+    m_traj_PB_PT6 = new Trajectory();
+
+    m_traj_PC_PT1 = new Trajectory();
+    m_traj_PC_PT2 = new Trajectory();
+    m_traj_PC_PT3 = new Trajectory();
+    m_traj_PC_PT4 = new Trajectory();
+
+    m_traj_JustDrive = new Trajectory();
+    
 
     
     try {
+      //creating paths
+      Path path_PA_PT1 = Filesystem.getDeployDirectory().toPath().resolve(str_PA_PT1_JSON);
+      Path path_PA_PT2 = Filesystem.getDeployDirectory().toPath().resolve(str_PA_PT2_JSON);
+      Path path_PA_PT3 = Filesystem.getDeployDirectory().toPath().resolve(str_PA_PT3_JSON);
+      Path path_PA_PT4 = Filesystem.getDeployDirectory().toPath().resolve(str_PA_PT4_JSON);
 
-      Path trajectoryConfidentPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT1_JSON);
-      Path trajectoryConfidentPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_confident_PT2_JSON);
-      Path trajectoryRealistic = Filesystem.getDeployDirectory().toPath().resolve(trajectory_realisticPathOutOfTarmac_JSON);
-      Path trajectoryVisionPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT1_JSON);
-      Path trajectoryVisionPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT2_JSON);
-      Path trajectoryVisionPT3 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_vision_PT3_JSON);
+      Path path_PB_PT1 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT1_JSON);
+      Path path_PB_PT2 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT2_JSON);
+      Path path_PB_PT3 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT3_JSON);
+      Path path_PB_PT4 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT4_JSON);
+      Path path_PB_PT5 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT5_JSON);
+      Path path_PB_PT6 = Filesystem.getDeployDirectory().toPath().resolve(str_PB_PT6_JSON);
 
-      //top secret paths
-      Path trajectoryTSPT1 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_top_secret_PT1_JSON);
-      Path trajectoryTSPT2 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_top_secret_PT2_JSON);
-      Path trajectoryTSPT3 = Filesystem.getDeployDirectory().toPath().resolve(trajectory_top_secret_PT3_JSON);
+      Path path_PC_PT1 = Filesystem.getDeployDirectory().toPath().resolve(str_PC_PT1_JSON);
+      Path path_PC_PT2 = Filesystem.getDeployDirectory().toPath().resolve(str_PC_PT2_JSON);
+      Path path_PC_PT3 = Filesystem.getDeployDirectory().toPath().resolve(str_PC_PT3_JSON);
+      Path path_PC_PT4 = Filesystem.getDeployDirectory().toPath().resolve(str_PC_PT4_JSON);
+
+      Path path_JustDrive = Filesystem.getDeployDirectory().toPath().resolve(str_JustDrive_JSON);
+
+
       
 
-      // select trajectory 1 2 3 based on input - following into RobotContainer
-      m_trajectory_confident_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT1);
-      m_trajectory_confident_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryConfidentPT2);
-      m_trajectory_realisticPathOutOfTarmac = TrajectoryUtil.fromPathweaverJson(trajectoryRealistic);
-      m_trajectory_vision_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT1);
-      m_trajectory_vision_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT2);
-      m_trajectory_vision_PT3 = TrajectoryUtil.fromPathweaverJson(trajectoryVisionPT3);
 
-      m_trajectory_TS_PT1 = TrajectoryUtil.fromPathweaverJson(trajectoryTSPT1);
-      m_trajectory_TS_PT2 = TrajectoryUtil.fromPathweaverJson(trajectoryTSPT2);
-      m_trajectory_TS_PT3 = TrajectoryUtil.fromPathweaverJson(trajectoryTSPT3);
+      // creating out trajectory objects
+      m_traj_PA_PT1 = TrajectoryUtil.fromPathweaverJson(path_PA_PT1);
+      m_traj_PA_PT2 = TrajectoryUtil.fromPathweaverJson(path_PA_PT2);
+      m_traj_PA_PT3 = TrajectoryUtil.fromPathweaverJson(path_PA_PT3);
+      m_traj_PA_PT4 = TrajectoryUtil.fromPathweaverJson(path_PA_PT4);
+
+      m_traj_PB_PT1 = TrajectoryUtil.fromPathweaverJson(path_PB_PT1);
+      m_traj_PB_PT2 = TrajectoryUtil.fromPathweaverJson(path_PB_PT2);
+      m_traj_PB_PT3 = TrajectoryUtil.fromPathweaverJson(path_PB_PT3);
+      m_traj_PB_PT4 = TrajectoryUtil.fromPathweaverJson(path_PB_PT4);
+      m_traj_PB_PT5 = TrajectoryUtil.fromPathweaverJson(path_PB_PT5);
+      m_traj_PB_PT6 = TrajectoryUtil.fromPathweaverJson(path_PB_PT6);
+
+      m_traj_PC_PT1 = TrajectoryUtil.fromPathweaverJson(path_PC_PT1);
+      m_traj_PC_PT2 = TrajectoryUtil.fromPathweaverJson(path_PC_PT2);
+      m_traj_PC_PT3 = TrajectoryUtil.fromPathweaverJson(path_PC_PT3);
+      m_traj_PC_PT4 = TrajectoryUtil.fromPathweaverJson(path_PC_PT4);
+
+      m_traj_JustDrive = TrajectoryUtil.fromPathweaverJson(path_JustDrive);
+
+
+    
     } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectory_confident_PT1_JSON, ex.getStackTrace());
+      DriverStation.reportError("Unable to open trajectory: " + str_PA_PT1_JSON, ex.getStackTrace());
     }
 
     // TODO:: do we need some failure logic if the trajectory fails to open before creating the robotContainer??
@@ -112,19 +165,28 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     /*Path List 
-     * Path 1 - Realistic out Of Tarmac
-     * Path 2 - Trajectory Confident PT1
-     * Path 3 - Trajectory Confident PT2
-     * Path 4 - Trajectory Vision PT1
-     * Path 5 - Trajectory Vision PT2
-     * Path 6 - Trajectory Vision PT3
-     * ND --> Path 7 - Trajectory Top Secret PT1 (FROM THE FAR LEFT OF FIELD GET ANOTHER BALL)
-     * ND --> Path 8 - Trajectory Top Secret PT2 (FROM THE FAR LEFT OF FIELD GET ANOTHER BALL)
-     * ND --> Path 9 - Trajectory Top Secret PT3 (FROM THE FAR LEFT OF FIELD GET ANOTHER BALL)
+     * Path A - Part 1
+     * Path A - Part 2
+     * Path A - Part 3
+     * Path A - Part 4
+     * 
+     * Path B - Part 1
+     * Path B - Part 2
+     * Path B - Part 3
+     * Path B - Part 4
+     * Path B - Part 5
+     * Path B - Part 6
+     * 
+     * Path C - Part 1
+     * Path C - Part 2
+     * Path C - Part 3
+     * 
+     * Path Just Drive
     */
-    m_robotContainer = new RobotContainer( m_trajectory_realisticPathOutOfTarmac, m_trajectory_confident_PT1, m_trajectory_confident_PT2,
-                                          m_trajectory_vision_PT1, m_trajectory_vision_PT2, m_trajectory_vision_PT3,
-                                          m_trajectory_TS_PT1, m_trajectory_TS_PT2, m_trajectory_TS_PT3);
+    m_robotContainer = new RobotContainer(m_traj_PA_PT1, m_traj_PA_PT2, m_traj_PA_PT3, m_traj_PA_PT4, 
+                                        m_traj_PB_PT1, m_traj_PB_PT2, m_traj_PB_PT3, m_traj_PB_PT4, m_traj_PB_PT5, m_traj_PB_PT6, 
+                                        m_traj_PC_PT1, m_traj_PC_PT2, m_traj_PC_PT3, m_traj_PC_PT4,
+                                        m_traj_JustDrive);
 
     
   }

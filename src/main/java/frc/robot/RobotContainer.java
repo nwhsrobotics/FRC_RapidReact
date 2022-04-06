@@ -22,6 +22,7 @@ import frc.robot.commands.RobotAutoCommandGroupB;
 import frc.robot.commands.RobotAutoCommandGroupC;
 import frc.robot.commands.RobotAutoCommandGroupD;
 import frc.robot.commands.RobotAutoCommandGroupE;
+import frc.robot.commands.RobotAutoCommandGroupF;
 import frc.robot.commands.DriveBackwardCommand;
 import frc.robot.commands.DriveForwardBallAutoCommand;
 import frc.robot.commands.DriveForwardCommand;
@@ -152,51 +153,75 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
 
-  private final DriveAutoCommand m_driveAutoCommand;
   private final RobotAutoCommandGroupA m_sequentialAutoCommandA;
   private final RobotAutoCommandGroupB m_sequentialAutoCommandB;
   private final RobotAutoCommandGroupC m_sequentialAutoCommandC;
   private final RobotAutoCommandGroupD m_sequentialAutoCommandD;
   private final RobotAutoCommandGroupE m_sequentialAutoCommandE;
+  private final RobotAutoCommandGroupF m_sequentialAutoCommandF;
   private final DriveForwardBallAutoCommand m_driveForwardBallAutoCommand;
 
 
   
-  private Trajectory m_traj_1;
-  private Trajectory m_traj_2;
-  private Trajectory m_traj_4;
-  private Trajectory m_traj_7;
+  private Trajectory m_traj_PA_PT1;
+  private Trajectory m_traj_PB_PT1;
+  private Trajectory m_traj_PC_PT1;
+  private Trajectory m_traj_JustDrive;
+  
   
   
 
+   /*Path List 
+     * Path A - Part 1
+     * Path A - Part 2
+     * Path A - Part 3
+     * Path A - Part 4
+     * 
+     * Path B - Part 1
+     * Path B - Part 2
+     * Path B - Part 3
+     * Path B - Part 4
+     * Path B - Part 5
+     * Path B - Part 6
+     * 
+     * Path C - Part 1
+     * Path C - Part 2
+     * Path C - Part 3
+     * 
+     * Path Just Drive
+    */
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer(Trajectory traj_1, Trajectory traj_2, Trajectory traj_3, Trajectory traj_4, Trajectory traj_5, Trajectory traj_6, Trajectory traj_7, Trajectory traj_8, Trajectory traj_9) {
+  public RobotContainer(Trajectory traj_PA_PT1, Trajectory traj_PA_PT2, Trajectory traj_PA_PT3, Trajectory traj_PA_PT4, 
+                        Trajectory traj_PB_PT1, Trajectory traj_PB_PT2, Trajectory traj_PB_PT3, Trajectory traj_PB_PT4, Trajectory traj_PB_PT5, Trajectory traj_PB_PT6,
+                        Trajectory traj_PC_PT1, Trajectory traj_PC_PT2, Trajectory traj_PC_PT3, Trajectory traj_PC_PT4,
+                        Trajectory traj_JustDrive) {
     
     
     //autoChooser.addDefault("Auto Mode A", m_autoCommand);
     //this is where all of the Drive Commands are created and set
-    m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);                     // Pass in trajectory 1 2 3 based on input
+    m_driveSubsystem.setDefaultCommand(m_driveForwardCommand);      // Pass in trajectory 1 2 3 based on input
 
-    m_driveAutoCommand = new DriveAutoCommand(m_driveSubsystem, traj_1);           // TODO errors need to be fixed cannot build code
-    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem,m_climbSubsystem,  traj_4, traj_5);
-    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem,m_visionSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_2, traj_3);
-    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_4, traj_5, traj_6);
-    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_4, traj_5, traj_6, traj_7, traj_8, traj_9);
-    m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_4, traj_5, traj_6);
+    m_sequentialAutoCommandA = new RobotAutoCommandGroupA(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem,m_intakeSubsystem, m_climbSubsystem,  traj_PA_PT1, traj_PA_PT2, traj_PA_PT3, traj_PA_PT4);
+    m_sequentialAutoCommandB = new RobotAutoCommandGroupB(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PB_PT1, traj_PB_PT2, traj_PB_PT3);
+    m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PB_PT1, traj_PB_PT2, traj_PB_PT3, traj_PB_PT4, traj_PB_PT5, traj_PB_PT6);
+    m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_PC_PT1, traj_PC_PT2, traj_PC_PT3, traj_PC_PT4);
+    m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PA_PT1, traj_PA_PT2, traj_PA_PT3);
+    m_sequentialAutoCommandF = new RobotAutoCommandGroupF(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_JustDrive);
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
     
     autoChooser = new SendableChooser<SequentialCommandGroup>();
-    autoChooser.setDefaultOption("Auto Mode A", m_sequentialAutoCommandA);    
-    autoChooser.addOption("Auto Mode B", m_sequentialAutoCommandB);
-    autoChooser.addOption("Auto Mode C", m_sequentialAutoCommandC);
-    autoChooser.addOption("Auto Mode D", m_sequentialAutoCommandD);
-    autoChooser.addOption("Auto Mode E", m_sequentialAutoCommandE);
+    autoChooser.setDefaultOption("A - Far Left", m_sequentialAutoCommandA);    
+    autoChooser.addOption("B - Middle", m_sequentialAutoCommandB);
+    autoChooser.addOption("B+ - Middle+", m_sequentialAutoCommandC);
+    autoChooser.addOption("C - Far Right", m_sequentialAutoCommandD);
+    autoChooser.addOption("E - Vision", m_sequentialAutoCommandE);
+    autoChooser.addOption("F - Just Drive", m_sequentialAutoCommandF);
     
     SmartDashboard.putData("Auto Mode", autoChooser);
-    m_traj_1 = traj_1;
-    m_traj_2 = traj_2;
-    m_traj_4 = traj_4;
-    m_traj_7 = traj_7;
+    m_traj_PA_PT1 = traj_PA_PT1;
+    m_traj_PB_PT1 = traj_PB_PT1;
+    m_traj_PC_PT1 = traj_PC_PT1;
+    m_traj_JustDrive = traj_JustDrive;
     
     // Configure the button btindings
     configureButtonBindings();
@@ -264,21 +289,24 @@ public class RobotContainer {
       return m_autoChooser;
       */
     // An ExampleCommand will run in autonomous
-    if (autoChooser.getSelected().equals(m_sequentialAutoCommandB)){
-      SmartDashboard.putString("Current Command Selected", "Auto Mode B");
-      m_driveSubsystem.resetOdometry(m_traj_2.getInitialPose());
-    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
+     if (autoChooser.getSelected().equals(m_sequentialAutoCommandA)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode A");
-      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
-    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandC)){
+      m_driveSubsystem.resetOdometry(m_traj_PA_PT1.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandB)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode B");
+      m_driveSubsystem.resetOdometry(m_traj_PB_PT1.getInitialPose());
+    }  else if (autoChooser.getSelected().equals(m_sequentialAutoCommandC)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode C");
-      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_PB_PT1.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandD)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode D");
-      m_driveSubsystem.resetOdometry(m_traj_7.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_PC_PT1.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandE)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode E");
-      m_driveSubsystem.resetOdometry(m_traj_4.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_PA_PT1.getInitialPose());
+    } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandF)){
+      SmartDashboard.putString("Current Command Selected", "Auto Mode F");
+      m_driveSubsystem.resetOdometry(m_traj_JustDrive.getInitialPose());
     }
     
     return autoChooser.getSelected();

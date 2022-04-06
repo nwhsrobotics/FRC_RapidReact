@@ -19,27 +19,24 @@ import frc.robot.subsystems.VisionSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RobotAutoCommandGroupB extends SequentialCommandGroup {
   /** Creates a new RobotAutoCommandGroupB. */
-  public RobotAutoCommandGroupB(DriveSubsystem driveSubsystem, VisionSubsystem visionSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_2, Trajectory dTraj_3) {
+  public RobotAutoCommandGroupB(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem, IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem, ClimbSubsystem climbSubsystem, Trajectory dTraj_PB_PT1, Trajectory dTraj_PB_PT2, Trajectory dTraj_PB_PT3) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
-    new IndexLoadCommand(indexSubsystem),
-    new ShooterLowModeCommand(shooterSubsystem),
-    new WaitCommand(2),
-    new IndexShootCommand(indexSubsystem, shooterSubsystem),
-    new ShooterOffCommand(shooterSubsystem),
-    new IntakeLowerCommand(intakeSubsystem),
-    new IntakeOnCommand(intakeSubsystem, true),
-    new DriveAutoCommand(driveSubsystem, dTraj_2).getRamseteCommand(),
-    new IntakeOnCommand(intakeSubsystem, false),
-    new IndexLoadCommand(indexSubsystem),
-    new DriveAutoCommand(driveSubsystem, dTraj_3).getRamseteCommand(),
-    new ShooterLowModeCommand(shooterSubsystem),
-    new WaitCommand(2),
-    new IndexShootCommand(indexSubsystem, shooterSubsystem),
-    new ShooterOffCommand(shooterSubsystem)
-    // end of Ideal Path
+      new SetClimbHeightCommand(climbSubsystem, ClimbSubsystem.AUTO_CLIMB_RAISE_m), //0.102 meters is 4 inches raise the climb during startup
+      new IndexLoadCommand(indexSubsystem),
+      new IntakeLowerCommand(intakeSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_PB_PT1).getRamseteCommand(),
+      new ShooterHighModeCommand(shooterSubsystem),
+      new WaitCommand(1.0),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, true),
+      new DriveAutoCommand(driveSubsystem, dTraj_PB_PT2).getRamseteCommand(),
+      new IndexLoadCommand(indexSubsystem),
+      new DriveAutoCommand(driveSubsystem, dTraj_PB_PT3).getRamseteCommand(),
+      new IndexShootCommand(indexSubsystem, shooterSubsystem),
+      new IntakeOnCommand(intakeSubsystem, false),
+      new ShooterOffCommand(shooterSubsystem)
     );
   }
 }
