@@ -27,8 +27,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private double m_offset_rpm = 0.0;
   private boolean m_autoMode = false;
   private double m_manual_speed_rpm = 0.0;
-  private double m_manual_speed_rpm_high = 3650.0;
-  private double m_manual_speed_rpm_low = 1500.0;
+  private double m_manual_speed_rpm_high = 3500.0;
+  private double m_manual_speed_rpm_low = 1200.0;
   private boolean m_is_editing_high = false;
   private VisionSubsystem m_visionSubsystem;
   

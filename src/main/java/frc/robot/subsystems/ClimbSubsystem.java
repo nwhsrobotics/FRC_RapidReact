@@ -63,8 +63,8 @@ public class ClimbSubsystem extends SubsystemBase {
   private static final double UP_DOWN_COUNTS_PER_METER = (GEAR_RATIO_UP_DOWN/LEAD_DISTANCE_m); //TO DO LIST: FIGURE OUT REAL VALUE
   private static final double BACK_FORWARD_COUNTS_PER_METER = (GEAR_RATIO_BACK_FORWARD/LEAD_DISTANCE_m);
   private static final double METERS_TO_INCHES = 39.37;
-  private static final double HEIGHT_1_m = 6.0 * 0.0254; //3 inches to meters : less than 3 inches sets to 0
-  private static final double HEIGHT_2_m = 12.0 * 0.0254;
+  private static final double HEIGHT_1_m = 8.0 * 0.0254; //3 inches to meters : less than 3 inches sets to 0
+  private static final double HEIGHT_2_m = 16.0 * 0.0254;
   
   
   private double m_upDown_m = INITIAL_UP_DOWN;

@@ -43,19 +43,19 @@ public class AlignShooterAutoCommand extends CommandBase {
     if (target_center_x >= 0 ){
       if (target_center_x >= (0.5 + VISION_AUTO_THRESHOLD)){
 
-          m_driveSubsystem.arcadeDrive(0.0, 0.15);
+          m_driveSubsystem.arcadeDrive(0.0, 0.12);
 
         SmartDashboard.putBoolean("Shooter Align", false);
       } else if (target_center_x   <= (0.5 - VISION_AUTO_THRESHOLD)){
         
-          m_driveSubsystem.arcadeDrive(0.0, -0.15);
+          m_driveSubsystem.arcadeDrive(0.0, -0.12);
    
         SmartDashboard.putBoolean("Shooter Align", false);
 
       } 
     } else {
       
-      m_driveSubsystem.arcadeDrive(0.0, 0.15);
+      m_driveSubsystem.arcadeDrive(0.0, 0.12);
       
     }
     m_clock += 1;

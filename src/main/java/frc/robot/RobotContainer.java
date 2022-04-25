@@ -206,7 +206,7 @@ public class RobotContainer {
     m_sequentialAutoCommandC = new RobotAutoCommandGroupC(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PB_PT1, traj_PB_PT2, traj_PB_PT3, traj_PB_PT4, traj_PB_PT5, traj_PB_PT6);
     m_sequentialAutoCommandD = new RobotAutoCommandGroupD(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem,  traj_PC_PT1, traj_PC_PT2, traj_PC_PT3, traj_PC_PT4);
     m_sequentialAutoCommandE = new RobotAutoCommandGroupE(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_visionSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PA_PT1, traj_PA_PT2, traj_PA_PT3);
-    m_sequentialAutoCommandF = new RobotAutoCommandGroupF(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_JustDrive);
+    m_sequentialAutoCommandF = new RobotAutoCommandGroupF(m_driveSubsystem, m_shooterSubsystem ,m_indexSubsystem, m_intakeSubsystem, m_climbSubsystem, traj_PA_PT1, traj_PA_PT2); //this is normally supposed to be JustDrive
     m_driveForwardBallAutoCommand = new DriveForwardBallAutoCommand(m_driveSubsystem, m_visionSubsystem);
     
     autoChooser = new SendableChooser<SequentialCommandGroup>();
@@ -306,7 +306,7 @@ public class RobotContainer {
       m_driveSubsystem.resetOdometry(m_traj_PA_PT1.getInitialPose());
     } else if (autoChooser.getSelected().equals(m_sequentialAutoCommandF)){
       SmartDashboard.putString("Current Command Selected", "Auto Mode F");
-      m_driveSubsystem.resetOdometry(m_traj_JustDrive.getInitialPose());
+      m_driveSubsystem.resetOdometry(m_traj_PA_PT1.getInitialPose()); //used to be just drive
     }
     
     return autoChooser.getSelected();

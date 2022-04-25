@@ -151,8 +151,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   private static boolean m_isTeleop = false;
 
-  private static final double HIGH_POWER_FACTOR = 0.8;
-  private static final double HIGH_TURN_FACTOR = 0.65;
+  private static final double HIGH_POWER_FACTOR = 0.9;
+  private static final double HIGH_TURN_FACTOR = 0.68;
   private static final double LOW_POWER_FACTOR = 0.7;
   private static final double LOW_TURN_FACTOR = 0.5;
   private static final double VISION_AUTO_THRESHOLD = 0.1;
